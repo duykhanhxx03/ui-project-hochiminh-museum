@@ -1,4 +1,9 @@
-import 'p';
-class QuizHome extends StatelessWidget{
+import 'package:flutter/material.dart';
 
+class QuizHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
 }
