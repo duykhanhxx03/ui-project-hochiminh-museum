@@ -1,4 +1,3 @@
 import 'p';
-class QuizHome extends StatelessWidget{
 
-}
+class QuizHome extends StatelessWidget {}
