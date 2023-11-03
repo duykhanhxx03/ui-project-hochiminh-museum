@@ -1,17 +1,37 @@
+// ignore_for_file: library_private_types_in_public_api, must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:ui_project_hochiminh_museum/data/comment_data.dart';
+import 'package:ui_project_hochiminh_museum/models/comment_info.dart';
+import 'package:ui_project_hochiminh_museum/widgets/comment.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({super.key});
-
   @override
-  State<ReviewScreen> createState() {
-    return _ReviewScreen();
-  }
+  _ReviewScreen createState() => _ReviewScreen();
 }
 
 class _ReviewScreen extends State<ReviewScreen> {
-  Color _iconColor = const Color.fromARGB(255, 124, 118, 118);
+  TextEditingController commentController = TextEditingController();
+
+  void addComment() {
+    String myComment = commentController.text;
+    if (myComment.isNotEmpty) {
+      setState(() {
+        CommentInfo newComment = CommentInfo(
+          userId: '3',
+          content: myComment,
+          userLiked: [],
+          date: DateTime.now(),
+        );
+        commentList.add(newComment);
+        commentController.clear();
+        FocusScope.of(context).unfocus();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,77 +42,44 @@ class _ReviewScreen extends State<ReviewScreen> {
             leading: const BackButton(
               color: Color.fromARGB(255, 255, 255, 255),
             ),
-            title: const Text('Comments'),
+            title: const Text(
+              'Comments',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             centerTitle: true),
         body: Column(
           children: [
+            const SizedBox(height: 30),
             Expanded(
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: commentList.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: const CircleAvatar(
-                      //Avatar
-                      backgroundColor: Colors.blueGrey,
-                    ),
-                    title: const Text('Name user'),
-                    subtitle: Column(
-                      children: [
-                        const Text(
-                          'cmt: asndjnjifbnjerbngfndfbgib',
-                          textAlign: TextAlign.left,
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  _iconColor =
-                                      const Color.fromARGB(255, 233, 4, 4);
-                                });
-                              },
-                              icon: Icon(Icons.favorite, color: _iconColor),
-                            ),
-                            const Text('num'), // so luot tha tim
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                alignment: Alignment.bottomRight,
-                                textStyle: const TextStyle(fontSize: 14),
-                              ),
-                              onPressed: () {},
-                              child: const Text('Reply'),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
+                  return Comment(commentInfo: commentList[index]);
                 },
               ),
             ),
             const Divider(
-              height: 20,
               thickness: 1,
-              indent: 20,
-              endIndent: 20,
               color: Color.fromARGB(255, 167, 165, 165),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: commentController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
                         hintText: 'Type your comment...',
                       ),
                     ),
                   ),
                   IconButton(
                     icon: const Icon(Icons.send),
-                    onPressed: () {
-                      // Xử lý khi người dùng gửi bình luận
-                    },
+                    onPressed: addComment,
                   ),
                 ],
               ),
