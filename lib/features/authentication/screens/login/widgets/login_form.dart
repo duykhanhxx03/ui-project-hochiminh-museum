@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/signup.dart';
+import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -67,8 +68,7 @@ class TLoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
-                // onPressed: () => Get.to(() => const NavigationMenu()),
+                onPressed: () => Get.to(() => const NavigationMenu()),
                 child: const Text(TTexts.signIn),
               ),
             ),
