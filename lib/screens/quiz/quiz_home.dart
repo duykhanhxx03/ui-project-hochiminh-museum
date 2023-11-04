@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
+import 'p';
+class QuizHome extends StatelessWidget{
 
-class QuizHome extends StatelessWidget {
-  const QuizHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    throw UnimplementedError();
-  }
 }
