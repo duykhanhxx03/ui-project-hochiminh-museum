@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/screens/login/login_screen.dart';
 
 class OnBoardingController extends GetxController {
   static OnBoardingController get instance => Get.find();
@@ -18,7 +19,7 @@ class OnBoardingController extends GetxController {
 
   void nextPage() {
     if (currentPageIndex.value == 3 - 1) {
-      // Get.offAll(const LoginScreen());
+      Get.offAll(const LoginScreen());
     } else {
       int page = currentPageIndex.value + 1;
       pageController.animateToPage(page,
@@ -27,11 +28,10 @@ class OnBoardingController extends GetxController {
   }
 
   void skipPage() {
-    // Get.offAll(
-    //   const LoginScreen(),
-    //   duration: const Duration(milliseconds: 500),
-    //   curve: Curves.ease,
-    // );
-    pageController.jumpToPage(3 - 1);
+    Get.offAll(
+      const LoginScreen(),
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
   }
 }
