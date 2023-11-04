@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:ui_project_hochiminh_museum/screens/quiz/quiz_home.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/theme/theme.dart';
 
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       darkTheme: TAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       // initialBinding: GeneralBindings(),
-      home: const QuizHome(),
+      home: const OnBoardingScreen(),
     );
   }
 }
