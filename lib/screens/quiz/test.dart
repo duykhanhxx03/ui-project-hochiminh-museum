@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/data/test_exam_data.dart';
+
+import '../../models/test_exam_question.dart';
 
 class TestExamScreen extends StatefulWidget {
-  const TestExamScreen({super.key});
+  const TestExamScreen({super.key, required this.questions});
+
+  final List<TestExamQuestion> questions;
 
   @override
   State<TestExamScreen> createState() => _TestExamScreenState();
@@ -21,10 +24,10 @@ class _TestExamScreenState extends State<TestExamScreen> {
   @override
   void initState() {
     super.initState();
-    questions = TestExamData.questions_list;
+    questions = widget.questions;
     selectedAnswers = List.generate(questions.length, (index) => -1);
 
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       if (totalTimeInSeconds > 0) {
         setState(() {
           totalTimeInSeconds--;
@@ -37,19 +40,20 @@ class _TestExamScreenState extends State<TestExamScreen> {
   }
 
   void checkSubmit() {
-    if(selectedAnswers.contains(-1)) {
+    if (selectedAnswers.contains(-1)) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Lỗi'),
-            content: Text('Vui lòng trả lời hết các câu hỏi trước khi nộp bài.'),
+            title: const Text('Lỗi'),
+            content: const Text(
+                'Vui lòng trả lời hết các câu hỏi trước khi nộp bài.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Đóng'),
+                child: const Text('Đóng'),
               ),
             ],
           );
@@ -74,14 +78,14 @@ class _TestExamScreenState extends State<TestExamScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Kết quả'),
+          title: const Text('Kết quả'),
           content: Text('Điểm của bạn: $score/${questions.length}'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Đóng'),
+              child: const Text('Đóng'),
             ),
           ],
         );
@@ -94,11 +98,12 @@ class _TestExamScreenState extends State<TestExamScreen> {
     int hours = totalTimeInSeconds ~/ 3600;
     int minutes = (totalTimeInSeconds % 3600) ~/ 60;
     int seconds = totalTimeInSeconds % 60;
-    String formattedTime = '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    String formattedTime =
+        '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Đề Thi',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -113,12 +118,13 @@ class _TestExamScreenState extends State<TestExamScreen> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           alignment: AlignmentDirectional.topStart,
           children: [
-            Container( // Display the timer in the top-right corner
+            Container(
+              // Display the timer in the top-right corner
               alignment: Alignment.topRight,
               child: Text(
                 // 'Time: ${Duration(seconds: totalTimeInSeconds).toString()}',
                 'Time: $formattedTime',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -132,12 +138,13 @@ class _TestExamScreenState extends State<TestExamScreen> {
                   children: [
                     Text(
                       'Câu ${index + 1}: ${questions[index].question}',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Column(
                       children: List.generate(
                         questions[index].options.length,
-                            (optionIndex) {
+                        (optionIndex) {
                           return RadioListTile(
                             title: Text(questions[index].options[optionIndex]),
                             value: optionIndex,
