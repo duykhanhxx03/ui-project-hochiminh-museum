@@ -20,7 +20,7 @@ class _ReviewScreen extends State<ReviewScreen> {
     if (myComment.isNotEmpty) {
       setState(() {
         CommentInfo newComment = CommentInfo(
-          userId: '3',
+          userId: '2',
           content: myComment,
           userLiked: [],
           date: DateTime.now(),

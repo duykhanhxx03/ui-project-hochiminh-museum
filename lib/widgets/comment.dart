@@ -54,7 +54,7 @@ class _CommentState extends State<Comment> {
 
   @override
   Widget build(BuildContext context) {
-    final isLiked = widget.commentInfo.isContain('3');
+    final isLiked = widget.commentInfo.isContain('2');
     UserInfo? user = userList.firstWhere(
       (e) => e.id.toString() == widget.commentInfo.userId,
     );
@@ -65,14 +65,27 @@ class _CommentState extends State<Comment> {
       ),
       title: Padding(
         padding: const EdgeInsets.all(4.0),
-        child: Text(
-          // ignore: unnecessary_string_interpolations
-          '${user.fullName}',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              // ignore: unnecessary_string_interpolations
+              '${user.fullName}',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+            ),
+
+            //Thời gian cmt
+            Text(
+              widget.commentInfo.FormattedDate,
+              style: const TextStyle(
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
         ),
       ),
       subtitle: Column(
@@ -88,7 +101,6 @@ class _CommentState extends State<Comment> {
               ),
             ),
           ),
-          Text(widget.commentInfo.FormattedDate),
           Row(
             children: [
               IconButton(
@@ -98,7 +110,7 @@ class _CommentState extends State<Comment> {
                   ),
                   onPressed: () {
                     setState(() {
-                      widget.commentInfo.toggleLike('3');
+                      widget.commentInfo.toggleLike('2');
                     });
                   }),
               Text(widget.commentInfo.userLiked.length
@@ -152,16 +164,25 @@ class _CommentState extends State<Comment> {
                 leading: const CircleAvatar(
                   backgroundColor: Colors.blueGrey,
                 ),
-                title: const Padding(
-                  padding: EdgeInsets.all(4.0),
-                  child: Text(
-                    // ignore: unnecessary_string_interpolations
-                    //'${user.fullName}',
-                    'Nguyễn Nhật Lê', // Để tạm ntn  :)))
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                    ),
+                title: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        // ignore: unnecessary_string_interpolations
+                        //'${user.fullName}',
+                        'Nguyễn Nhật Lê', // Để tạm ntn  :)))
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                      ),
+                      //Thời gian cmt
+                      Text(
+                        widget.commentInfo.FormattedDate,
+                      ),
+                    ],
                   ),
                 ),
                 subtitle: Column(
@@ -176,7 +197,6 @@ class _CommentState extends State<Comment> {
                         ),
                       ),
                     ),
-                    Text(widget.commentInfo.FormattedDate),
                     Row(
                       children: [
                         IconButton(
@@ -186,7 +206,7 @@ class _CommentState extends State<Comment> {
                             ),
                             onPressed: () {
                               setState(() {
-                                widget.commentInfo.toggleLike('3');
+                                widget.commentInfo.toggleLike('2');
                               });
                             }),
                         Text(widget.commentInfo.userLiked.length
@@ -237,7 +257,7 @@ class _CommentState extends State<Comment> {
           const Divider(
             thickness: 1,
             indent: 0,
-            endIndent: 20,
+            endIndent: 10,
             color: Color.fromARGB(255, 167, 165, 165),
           ),
         ],
