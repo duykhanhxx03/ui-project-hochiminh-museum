@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/screens/password_configuration/forget_password.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/signup.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -52,8 +55,7 @@ class TLoginForm extends StatelessWidget {
 
                 //Forget the password
                 TextButton(
-                  onPressed: () {},
-                  // onPressed: () => Get.to(() => const ForgetPassword()),
+                  onPressed: () => Get.to(() => const ForgetPassword()),
                   child: const Text(TTexts.forgetPassword),
                 ),
               ],
@@ -77,8 +79,7 @@ class TLoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
-                onPressed: () {},
-                // onPressed: () => Get.to(() => const SignUpScreen()),
+                onPressed: () => Get.to(() => const SignUpScreen()),
                 child: const Text(TTexts.createAccount),
               ),
             ),
