@@ -1,4 +1,4 @@
-import 'package:ui_project_hochiminh_museum/models/comment_info.dart';
+import 'package:ui_project_hochiminh_museum/common/models/comment_info.dart';
 
 List<CommentInfo> commentList = [
   CommentInfo(

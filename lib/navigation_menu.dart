@@ -1,4 +1,5 @@
-import 'package:ui_project_hochiminh_museum/features/main/screens/home.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/home/home.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/quiz_home.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class NavigationController extends GetxController {
   final screens = [
     const HomeScreen(),
     Container(color: Colors.purple),
-    Container(color: Colors.orange),
+    const QuizHome(),
     Container(color: Colors.blue)
   ];
 }

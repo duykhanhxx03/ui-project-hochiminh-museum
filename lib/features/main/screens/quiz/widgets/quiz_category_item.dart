@@ -20,7 +20,10 @@ class QuizCategoryItem extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             title,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(color: TColors.textWhite),
           ),
         ),
       ),

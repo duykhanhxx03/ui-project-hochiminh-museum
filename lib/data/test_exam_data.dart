@@ -1,4 +1,4 @@
-import '../models/test_exam_question.dart';
+import '../features/main/screens/quiz/models/test_exam_question.dart';
 
 class TestExamData {
   // ignore: non_constant_identifier_names

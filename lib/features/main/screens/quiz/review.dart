@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:ui_project_hochiminh_museum/data/comment_data.dart';
-import 'package:ui_project_hochiminh_museum/models/comment_info.dart';
-import 'package:ui_project_hochiminh_museum/widgets/comment.dart';
+import 'package:ui_project_hochiminh_museum/common/models/comment_info.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/widgets/comment.dart';
 
 class ReviewScreen extends StatefulWidget {
   const ReviewScreen({super.key});

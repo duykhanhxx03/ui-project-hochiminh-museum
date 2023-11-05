@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/data/user_data.dart';
-import 'package:ui_project_hochiminh_museum/models/comment_info.dart';
-import 'package:ui_project_hochiminh_museum/models/user_info.dart';
+import 'package:ui_project_hochiminh_museum/common/models/comment_info.dart';
+import 'package:ui_project_hochiminh_museum/common/models/user_info.dart';
 
 class Comment extends StatefulWidget {
   Comment({
