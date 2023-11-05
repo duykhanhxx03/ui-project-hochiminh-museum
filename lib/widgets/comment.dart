@@ -35,7 +35,7 @@ class _CommentState extends State<Comment> {
 
   void replyComment(String parentId, String content) {
     ReplyComment newComment = ReplyComment(
-      id: 3.toString(),
+      id: 2.toString(),
       content: content,
       parentId: parentId,
     );
@@ -122,33 +122,38 @@ class _CommentState extends State<Comment> {
                 ),
                 onPressed: () {
                   // Mở hộp thoại để trả lời bình luận
-                  showDialog(
+                  showModalBottomSheet<void>(
                     context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text('Reply'),
-                        content: TextField(
-                          controller: replyController,
-                          decoration: const InputDecoration(
-                            hintText: 'Type your comment',
+                    builder: (BuildContext context) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 380,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                child: TextField(
+                                  autofocus: true,
+                                  controller: replyController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Type your comment...',
+                                  ),
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.send),
+                                onPressed: () {
+                                  replyComment(widget.commentInfo.userId,
+                                      replyController.text);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              replyComment(widget.commentInfo.userId,
-                                  replyController.text);
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Send'),
-                          ),
-                        ],
                       );
                     },
                   );
@@ -218,29 +223,35 @@ class _CommentState extends State<Comment> {
                           ),
                           onPressed: () {
                             // Mở hộp thoại để trả lời bình luận
-                            showDialog(
+                            showModalBottomSheet<void>(
                               context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text('Reply'),
-                                  content: TextField(
-                                    controller: replyController,
-                                    decoration: const InputDecoration(
-                                      hintText: 'Type your comment ',
+                              builder: (BuildContext context) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    height: 380,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: TextField(
+                                            autofocus: true,
+                                            controller: replyController,
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Type your comment...',
+                                            ),
+                                          ),
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(Icons.send),
+                                          onPressed: () {},
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Cancel'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: const Text('Send'),
-                                    ),
-                                  ],
                                 );
                               },
                             );
