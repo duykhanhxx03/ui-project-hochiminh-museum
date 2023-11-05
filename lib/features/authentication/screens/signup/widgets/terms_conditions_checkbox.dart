@@ -11,6 +11,8 @@ class TTermsAndConditionsCheckbox extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
     return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
           height: 24,
@@ -18,7 +20,7 @@ class TTermsAndConditionsCheckbox extends StatelessWidget {
           child: Checkbox(value: true, onChanged: (value) {}),
         ),
         const SizedBox(
-          width: TSizes.spaceBtwItems,
+          width: TSizes.xs,
         ),
         Text.rich(
           TextSpan(
@@ -49,7 +51,7 @@ class TTermsAndConditionsCheckbox extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

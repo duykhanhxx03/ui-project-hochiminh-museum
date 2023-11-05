@@ -7,6 +7,7 @@ import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -14,6 +15,7 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(OnBoardingController());
+    final isDark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -21,21 +23,21 @@ class OnBoardingScreen extends StatelessWidget {
           PageView(
             controller: controller.pageController,
             onPageChanged: controller.updatePageIndicator,
-            children: const [
+            children: [
               OnBoardingPage(
                 title: TTexts.onBoardingTitle1,
                 subTitle: TTexts.onBoardingSubTitle1,
-                image: TImages.onBoardingImage1,
+                image: isDark ? TImages.lightAppLogo : TImages.darkAppLogo,
               ),
               OnBoardingPage(
                 title: TTexts.onBoardingTitle2,
                 subTitle: TTexts.onBoardingSubTitle2,
-                image: TImages.onBoardingImage2,
+                image: isDark ? TImages.lightAppLogo : TImages.darkAppLogo,
               ),
               OnBoardingPage(
                 title: TTexts.onBoardingTitle3,
                 subTitle: TTexts.onBoardingSubTitle3,
-                image: TImages.onBoardingImage3,
+                image: isDark ? TImages.lightAppLogo : TImages.darkAppLogo,
               ),
             ],
           ),
