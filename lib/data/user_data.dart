@@ -1,4 +1,4 @@
-import 'package:ui_project_hochiminh_museum/models/user_info.dart';
+import 'package:ui_project_hochiminh_museum/common/models/user_info.dart';
 
 const userList = [
   UserInfo(id: 1, userName: 'duykhanhxx03', fullName: "Trần Duy Khánh"),
