@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  webview_flutter: ^4.4.2
 
   #Icons
   iconsax: ^0.0.8
@@ -82,6 +83,7 @@ flutter:
     - assets/logos/
     - assets/icons/brands/
     - assets/images/animations/
+    - assets/images/illustrations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
