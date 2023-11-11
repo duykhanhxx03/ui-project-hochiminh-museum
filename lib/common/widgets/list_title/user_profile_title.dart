@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/images/t_circular_image.dart';
+import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/profile.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 
@@ -31,7 +34,7 @@ class TUserProfileTitle extends StatelessWidget {
             ),
       ),
       trailing: IconButton(
-        onPressed: () {},
+        onPressed: () => Get.to(const ProfileScreen()),
         icon: const Icon(
           Iconsax.edit,
           color: TColors.white,
