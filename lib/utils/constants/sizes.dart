@@ -1,4 +1,3 @@
-
 class TSizes {
   // Padding and margin sizes
   static const double xs = 4.0;
@@ -34,6 +33,7 @@ class TSizes {
   static const double defaultSpace = 24.0;
   static const double spaceBtwItems = 16.0;
   static const double spaceBtwSections = 32.0;
+  static const double spaceBtwElements = 8;
 
   // Border radius
   static const double borderRadiusSm = 4.0;
@@ -67,7 +67,10 @@ class TSizes {
 
   // Grid view spacing
   static const double gridViewSpacing = 16.0;
+
+  // Image big news height
+  static const double imageNewsHeightLg = 200.0;
+  static const double imageNewsWidthLg = 350.0;
+  static const double imageNewsHeightSm = 200.0;
+  static const double imageNewsWidthSm = 350.0;
 }
-
-
-

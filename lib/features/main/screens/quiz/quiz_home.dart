@@ -40,18 +40,18 @@ class QuizHome extends StatelessWidget {
               ),
             ],
           ),
-          const QuizCategoryItem(
+          QuizCategoryItem(
             title: 'Ôn tập',
             child: [
               QuizCategoryItemChild(
                 route: RevisionScreen(
-                  questions: [],
+                  questions: TestExamData.questionsList1,
                 ),
                 title: 'Bộ câu hỏi 1',
               ),
               QuizCategoryItemChild(
                 route: RevisionScreen(
-                  questions: [],
+                  questions: TestExamData.questionsList2,
                 ),
                 title: 'Bộ câu hỏi 2',
               ),

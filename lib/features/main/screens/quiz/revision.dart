@@ -16,16 +16,8 @@ class RevisionScreen extends StatefulWidget {
 class _RevisionScreenState extends State<RevisionScreen> {
   late List<TestExamQuestion> questions;
   late List<int> selectedAnswers;
-  late TestExamQuestion testQuestion = TestExamQuestion(
-    question: 'Flutter là gì?',
-    options: [
-      'Framework phát triển ứng dụng di động',
-      'Ngôn ngữ lập trình',
-      'Thư viện quản lý trạng thái'
-    ],
-    correctAnswerIndex: 0,
-  );
-
+  late TestExamQuestion selectedQuestion;
+  late int indexQuestion;
   late int numCorrect;
   late int numIncorrect;
 
@@ -33,7 +25,8 @@ class _RevisionScreenState extends State<RevisionScreen> {
   void initState() {
     super.initState();
     questions = widget.questions;
-    selectedAnswers = List.generate(questions.length, (index) => -1);
+    indexQuestion = 3;
+    selectedQuestion = questions[0];
     numCorrect = 0;
     numIncorrect = 0;
   }
@@ -65,18 +58,15 @@ class _RevisionScreenState extends State<RevisionScreen> {
                     const SizedBox(
                       height: 100.0,
                     ),
-                    Text(testQuestion.question,
+                    Text(selectedQuestion.question,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 28)),
                     const SizedBox(
                       height: 20,
                     ),
-                    for (int i = 0; i < testQuestion.options.length; i++)
-                      Card(
-                        child: ListTile(
-                          title: Text(testQuestion.options[i]),
-                        ),
-                      ),
+                    // for (int i = 0; i < selectedQuestion.options.length; i++)
+
+                    //   ,
                     const SizedBox(
                       height: 100,
                     ),
