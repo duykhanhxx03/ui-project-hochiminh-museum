@@ -1,3 +1,5 @@
+import 'package:ui_project_hochiminh_museum/common/models/imageWithDes_model.dart';
+
 class News {
   final String title;
   final String time;
@@ -5,6 +7,8 @@ class News {
   final int views;
   final String content;
   final int group;
+  final String recap;
+  final List<imageWithDescription> listImage;
 
   const News(
       {required this.title,
@@ -12,5 +16,7 @@ class News {
       required this.date,
       required this.views,
       required this.content,
-      required this.group});
+      required this.group,
+      required this.recap,
+      required this.listImage});
 }

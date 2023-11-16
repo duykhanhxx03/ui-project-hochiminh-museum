@@ -55,7 +55,7 @@ class ProminentNews extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   Text(
-                    date,
+                    " " + date,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],
@@ -68,7 +68,7 @@ class ProminentNews extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   Text(
-                    '$view lượt',
+                    ' $view lượt',
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],

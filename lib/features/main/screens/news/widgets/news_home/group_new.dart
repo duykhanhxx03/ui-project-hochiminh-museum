@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/common/models/news.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_full_title.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/innotice_news.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/notice_news.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/innotice_news.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/notice_news.dart';
+
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
