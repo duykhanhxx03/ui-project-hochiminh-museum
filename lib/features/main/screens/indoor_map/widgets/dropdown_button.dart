@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
 
-const List<String> list = <String>['Tầng 1', 'Tầng 2', 'Tầng 3'];
+const List<String> floors = <String>['Tầng 1', 'Tầng 2', 'Tầng 3'];
 
-class OKDropdownMenu extends StatefulWidget {
-  const OKDropdownMenu({super.key});
+class IndoorMapDropdownMenu extends StatefulWidget {
+  const IndoorMapDropdownMenu({super.key, required this.changeFloor});
+
+  final void Function(int) changeFloor;
 
   @override
-  State<OKDropdownMenu> createState() => _OKDropdownMenuState();
+  State<IndoorMapDropdownMenu> createState() => _IndoorMapDropdownMenuState();
 }
 
-class _OKDropdownMenuState extends State<OKDropdownMenu> {
-  String dropdownValue = list.first;
+class _IndoorMapDropdownMenuState extends State<IndoorMapDropdownMenu> {
+  String dropdownValue = floors.first;
 
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<String>(
-      initialSelection: list.first,
+      initialSelection: floors.first,
       onSelected: (String? value) {
         // This is called when the user selects an item.
         setState(() {
           dropdownValue = value!;
         });
+        widget.changeFloor(floors.indexOf(value!));
       },
-      dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+      dropdownMenuEntries:
+          floors.map<DropdownMenuEntry<String>>((String value) {
         return DropdownMenuEntry<String>(
           value: value,
           label: value,
