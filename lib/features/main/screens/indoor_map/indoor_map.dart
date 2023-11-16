@@ -21,6 +21,8 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
   double screenWidth = 0;
   double screenHeight = 0;
 
+  bool preventDuplicateOnPageChange = false;
+
   final indoorMapController = Get.put(IndoorMapController());
 
   Animation<Matrix4>? _animationMap;
@@ -30,6 +32,28 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
 
   void _changeFloor(int value) {
     indoorMapController.changeFloor(value);
+  }
+
+  Matrix4 _getEndPostionMatrix4(double x, double y) {
+    Matrix4 end = Matrix4(
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -(x - screenWidth / 2),
+      -(y + 100 - screenHeight / 2),
+      0,
+      1,
+    );
+    return end;
   }
 
   void onAnimateReset() {
@@ -50,22 +74,6 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
     _animationMap!.addListener(onAnimateReset);
     _controllerMap.forward();
   }
-
-// Stop a running reset to home transform animation.
-  // void _animateResetStop() {
-  //   _controllerMap.stop();
-  //   _animationMap?.removeListener(_onAnimateReset);
-  //   _animationMap = null;
-  //   _controllerMap.reset();
-  // }
-
-  // void _onInteractionStart(ScaleStartDetails details) {
-  //   // If the user tries to cause a transformation while the reset animation is
-  //   // running, cancel the reset animation.
-  //   if (_controllerMap.status == AnimationStatus.forward) {
-  //     _animateResetStop();
-  //   }
-  // }
 
   @override
   void initState() {
@@ -104,29 +112,14 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                 var tappedAt = transformationController.toScene(
                   details.localPosition,
                 );
-                Matrix4 end = Matrix4(
-                  1,
-                  0,
-                  0,
-                  0,
-                  0,
-                  1,
-                  0,
-                  0,
-                  0,
-                  0,
-                  1,
-                  0,
-                  -(tappedAt.dx - screenWidth / 2),
-                  -(tappedAt.dy + 100 - screenHeight / 2),
-                  0,
-                  1,
-                );
+                Matrix4 end = _getEndPostionMatrix4(tappedAt.dx, tappedAt.dy);
 
                 animateMap(transformationController.value, end);
 
                 carouselController.animateToPage(
-                    await indoorMapController.findRoomByPoint(tappedAt) - 1);
+                  await indoorMapController.findRoomByPoint(tappedAt) - 1,
+                );
+                preventDuplicateOnPageChange = true;
               },
               child: InteractiveViewer(
                   constrained: false,
@@ -135,24 +128,10 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                   boundaryMargin: EdgeInsets.symmetric(
                       horizontal: screenWidth / 2, vertical: screenHeight / 2),
                   transformationController: transformationController,
-                  onInteractionStart: (ScaleStartDetails scaleStartDetails) {
-                    // print(
-                    //     'Interaction Start - Focal point: ${scaleStartDetails.focalPoint}'
-                    //     ', Local focal point: ${scaleStartDetails.localFocalPoint}');
-                  },
-                  onInteractionEnd: (ScaleEndDetails scaleEndDetails) {
-                    // print(
-                    //     'Interaction End - Velocity: ${scaleEndDetails.velocity}');
-                  },
-                  onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails) {
-                    // print(
-                    //     'Interaction Update - Focal point: ${scaleUpdateDetails.focalPoint}'
-                    //     ', Local focal point: ${scaleUpdateDetails.localFocalPoint}'
-                    //     ', Scale: ${scaleUpdateDetails.scale}'
-                    //     ', Horizontal scale: ${scaleUpdateDetails.horizontalScale}'
-                    //     ', Vertical scale: ${scaleUpdateDetails.verticalScale}'
-                    //     ', Rotation: ${scaleUpdateDetails.rotation}');
-                  },
+                  onInteractionStart: (ScaleStartDetails scaleStartDetails) {},
+                  onInteractionEnd: (ScaleEndDetails scaleEndDetails) {},
+                  onInteractionUpdate:
+                      (ScaleUpdateDetails scaleUpdateDetails) {},
                   child: Stack(
                     alignment: AlignmentDirectional.topStart,
                     children: [
@@ -178,101 +157,99 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
               ),
             ),
             FutureBuilder(
-                future: indoorMapController.loadAsset(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  }
-                  if (snapshot.hasData) {
-                    final jsonData = jsonDecode(snapshot.data!);
-                    return CarouselSlider(
-                      carouselController: carouselController,
-                      items: [
-                        ...jsonData['Datas']
-                            .map(
-                              (element) => Container(
-                                height: 200,
-                                width: 200,
-                                padding: const EdgeInsets.all(4),
-                                margin: const EdgeInsets.only(bottom: 4),
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8)),
-                                  color: Color.fromARGB(255, 109, 139, 146),
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    var xy = element['coords'].split(',');
+              future: indoorMapController.loadAsset(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                }
+                if (snapshot.hasData) {
+                  final jsonData = jsonDecode(snapshot.data!);
+                  return CarouselSlider(
+                    carouselController: carouselController,
+                    items: [
+                      ...jsonData['Datas']
+                          .map(
+                            (element) => Container(
+                              height: 200,
+                              width: 200,
+                              padding: const EdgeInsets.all(4),
+                              margin: const EdgeInsets.only(bottom: 4),
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                                color: Color.fromARGB(255, 109, 139, 146),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  var xy = element['coords'].split(',');
 
-                                    double x =
-                                        (int.parse(xy[0]) + int.parse(xy[2])) *
-                                            0.5;
-                                    double y =
-                                        (int.parse(xy[1]) + int.parse(xy[3])) *
-                                            0.5;
+                                  double x =
+                                      (int.parse(xy[0]) + int.parse(xy[2])) *
+                                          0.5;
+                                  double y =
+                                      (int.parse(xy[1]) + int.parse(xy[3])) *
+                                          0.5;
 
-                                    Matrix4 end = Matrix4(
-                                      1,
-                                      0,
-                                      0,
-                                      0,
-                                      0,
-                                      1,
-                                      0,
-                                      0,
-                                      0,
-                                      0,
-                                      1,
-                                      0,
-                                      -(x - screenWidth / 2),
-                                      -(y + 100 - screenHeight / 2),
-                                      0,
-                                      1,
-                                    );
+                                  Matrix4 end = _getEndPostionMatrix4(x, y);
 
-                                    animateMap(
-                                        transformationController.value, end);
-                                    carouselController.animateToPage(
-                                      int.parse(element['href'].split('_')[1]) -
-                                          1,
-                                    );
-                                  },
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          element['Room'],
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
-                                        const Divider(
-                                          height: 1.0,
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
-                                        ),
-                                      ],
-                                    ),
+                                  animateMap(
+                                      transformationController.value, end);
+                                  carouselController.animateToPage(
+                                    int.parse(element['href'].split('_')[1]) -
+                                        1,
+                                  );
+                                  preventDuplicateOnPageChange = true;
+                                },
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        element['Room'],
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                      const Divider(
+                                        height: 1.0,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            )
-                            .toList(),
-                      ],
-                      options: CarouselOptions(
-                        autoPlay: false,
-                        enlargeCenterPage: true,
-                        enlargeFactor: 0.4,
-                        viewportFraction: 0.5,
-                        aspectRatio: 2.0,
-                        initialPage: 0,
-                        onPageChanged: (index, reason) {
-                          // print('index =  ${index}');
-                        },
-                      ),
-                      disableGesture: false,
-                    );
-                  }
-                  return const SizedBox();
-                }),
+                            ),
+                          )
+                          .toList(),
+                    ],
+                    options: CarouselOptions(
+                      autoPlay: false,
+                      enlargeCenterPage: true,
+                      enlargeFactor: 0.4,
+                      viewportFraction: 0.5,
+                      aspectRatio: 2.5,
+                      initialPage: 0,
+                      onPageChanged: (index, reason) {
+                        if (!preventDuplicateOnPageChange) {
+                          var xy =
+                              jsonData['Datas'][index]['coords'].split(',');
+
+                          double x =
+                              (int.parse(xy[0]) + int.parse(xy[2])) * 0.5;
+                          double y =
+                              (int.parse(xy[1]) + int.parse(xy[3])) * 0.5;
+
+                          Matrix4 end = _getEndPostionMatrix4(x, y);
+
+                          animateMap(transformationController.value, end);
+                        }
+                        preventDuplicateOnPageChange = false;
+                      },
+                    ),
+                    disableGesture: false,
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
             Positioned(
               top: 10,
               right: 10,
