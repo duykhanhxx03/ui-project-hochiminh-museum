@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/models/get_type.dart';
 
 class TextEditorController extends GetxController {
   static TextEditorController get instance => Get.find();
@@ -7,10 +8,15 @@ class TextEditorController extends GetxController {
   RxList edits = [].obs;
 
   int getCurrentIndex(String uuid) {
-    print('----index---');
-    print(element.indexOf(uuid));
-    print('----index---');
-
     return element.indexOf(uuid);
+  }
+
+  List getInfo() {
+    var res = [];
+    for (var i in edits) {
+      var element = i as GetType;
+      res.addIf(element.getType()['type'] != 'ignore', element.getType());
+    }
+    return res;
   }
 }
