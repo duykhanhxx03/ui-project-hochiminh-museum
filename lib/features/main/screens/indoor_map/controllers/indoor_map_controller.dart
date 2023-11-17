@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 var mapJson = [
-  'lib/features/main/screens/indoor_map/rooms1.json',
-  'lib/features/main/screens/indoor_map/rooms2.json',
-  'lib/features/main/screens/indoor_map/rooms3.json',
+  'assets/json/indoor_map/rooms1.json',
+  'assets/json/indoor_map/rooms2.json',
+  'assets/json/indoor_map/rooms3.json',
 ];
 var mapUrl = [
-  'assets/images/indoor_map/map1.png',
-  'assets/images/indoor_map/map2.png',
-  'assets/images/indoor_map/map3.png',
+  'assets/images/indoor_map/floor_1.png',
+  'assets/images/indoor_map/floor_2.png',
+  'assets/images/indoor_map/floor_3.png',
 ];
 
 class IndoorMapController extends GetxController {

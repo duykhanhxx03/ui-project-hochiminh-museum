@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/controllers/indoor_map_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/widgets/dropdown_button.dart';
+import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
 
 class IndoorMapScreen extends StatefulWidget {
   const IndoorMapScreen({super.key});
@@ -94,6 +95,7 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
+
     debugPrint('build');
     return Scaffold(
       appBar: TAppBar(
@@ -109,6 +111,7 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
           children: [
             GestureDetector(
               onTapUp: (TapUpDetails details) async {
+                print('tap');
                 var tappedAt = transformationController.toScene(
                   details.localPosition,
                 );
@@ -120,10 +123,14 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                   await indoorMapController.findRoomByPoint(tappedAt) - 1,
                 );
                 preventDuplicateOnPageChange = true;
+                print('----tap---');
+                print(preventDuplicateOnPageChange);
+                print('-----tap--');
               },
               child: InteractiveViewer(
                   constrained: false,
                   scaleEnabled: true,
+                  maxScale: 0.8,
                   minScale: 0.3,
                   boundaryMargin: EdgeInsets.symmetric(
                       horizontal: screenWidth / 2, vertical: screenHeight / 2),
@@ -149,7 +156,11 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                   )),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: screenHeight / 2 + 10),
+              padding: EdgeInsets.only(
+                  bottom: (screenHeight -
+                          TDeviceUtils.getAppBarHeight() -
+                          TDeviceUtils.getBottomNavigationBarHeight()) /
+                      2),
               child: Container(
                 width: 20,
                 height: 20,
@@ -164,6 +175,15 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                 }
                 if (snapshot.hasData) {
                   final jsonData = jsonDecode(snapshot.data!);
+                  var xy = jsonData['Datas'][0]['coords'].split(',');
+
+                  double x = (int.parse(xy[0]) + int.parse(xy[2])) * 0.5;
+                  double y = (int.parse(xy[1]) + int.parse(xy[3])) * 0.5;
+
+                  Matrix4 end = _getEndPostionMatrix4(x, y);
+
+                  animateMap(transformationController.value, end);
+
                   return CarouselSlider(
                     carouselController: carouselController,
                     items: [
@@ -227,22 +247,7 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                       viewportFraction: 0.5,
                       aspectRatio: 2.5,
                       initialPage: 0,
-                      onPageChanged: (index, reason) {
-                        if (!preventDuplicateOnPageChange) {
-                          var xy =
-                              jsonData['Datas'][index]['coords'].split(',');
-
-                          double x =
-                              (int.parse(xy[0]) + int.parse(xy[2])) * 0.5;
-                          double y =
-                              (int.parse(xy[1]) + int.parse(xy[3])) * 0.5;
-
-                          Matrix4 end = _getEndPostionMatrix4(x, y);
-
-                          animateMap(transformationController.value, end);
-                        }
-                        preventDuplicateOnPageChange = false;
-                      },
+                      onPageChanged: (index, reason) {},
                     ),
                     disableGesture: false,
                   );
@@ -253,7 +258,9 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
             Positioned(
               top: 10,
               right: 10,
-              child: IndoorMapDropdownMenu(changeFloor: _changeFloor),
+              child: IndoorMapDropdownMenu(
+                changeFloor: _changeFloor,
+              ),
             ),
           ],
         ),
