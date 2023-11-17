@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/image_scr.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/image_lib_main.dart';
 
 void main() {
   runApp(const MyApp());

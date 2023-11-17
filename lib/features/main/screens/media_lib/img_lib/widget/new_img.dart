@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/list_img.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/widget/img_gallery_scr.dart';
 
 class NewsImg extends StatelessWidget {
   final ListImage imageData;
 
   const NewsImg({super.key, required this.imageData});
+
+  void _navigateToImageGallery(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ImageGalleryScreen(
+          imageData: imageData,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,7 @@ class NewsImg extends StatelessWidget {
           GestureDetector(
             onTap: () {
               // Xử lý sự kiện khi click vào ảnh
-              print('Click vào ảnh');
+              _navigateToImageGallery(context);
             },
             child: Container(
               width: double.infinity,
