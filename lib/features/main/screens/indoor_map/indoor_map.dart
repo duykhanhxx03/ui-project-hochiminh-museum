@@ -7,6 +7,8 @@ import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/controllers/indoor_map_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/widgets/dropdown_button.dart';
 import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class IndoorMapScreen extends StatefulWidget {
   const IndoorMapScreen({super.key});
@@ -99,10 +101,7 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
     debugPrint('build');
     return Scaffold(
       appBar: TAppBar(
-        title: Text(
-          'Khám phá bảo tàng',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
+        title: IndoorMapDropdownMenu(changeFloor: _changeFloor),
         leadingIcon: Iconsax.map,
       ),
       body: Obx(
@@ -111,7 +110,6 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
           children: [
             GestureDetector(
               onTapUp: (TapUpDetails details) async {
-                print('tap');
                 var tappedAt = transformationController.toScene(
                   details.localPosition,
                 );
@@ -123,9 +121,6 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                   await indoorMapController.findRoomByPoint(tappedAt) - 1,
                 );
                 preventDuplicateOnPageChange = true;
-                print('----tap---');
-                print(preventDuplicateOnPageChange);
-                print('-----tap--');
               },
               child: InteractiveViewer(
                   constrained: false,
@@ -194,10 +189,12 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                               width: 200,
                               padding: const EdgeInsets.all(4),
                               margin: const EdgeInsets.only(bottom: 4),
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                                color: Color.fromARGB(255, 109, 139, 146),
+                              decoration: BoxDecoration(
+                                color: TColors.lightContainer,
+                                border: Border.all(
+                                  width: 5,
+                                  color: Colors.black,
+                                ),
                               ),
                               child: InkWell(
                                 onTap: () {
@@ -225,7 +222,12 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                                     children: [
                                       Text(
                                         element['Room'],
-                                        style: const TextStyle(fontSize: 12),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge!
+                                            .copyWith(
+                                              color: TColors.darkerGrey,
+                                            ),
                                       ),
                                       const Divider(
                                         height: 1.0,
@@ -254,13 +256,6 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                 }
                 return const SizedBox();
               },
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: IndoorMapDropdownMenu(
-                changeFloor: _changeFloor,
-              ),
             ),
           ],
         ),
