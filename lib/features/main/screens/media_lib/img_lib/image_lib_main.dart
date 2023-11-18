@@ -30,14 +30,14 @@ class _ImageLibScreen extends State<ImageLibScreen> {
               ),
             ),
             centerTitle: true),
-        body: const NewsList(),
+        body: const NewsListImg(),
       ),
     );
   }
 }
 
-class NewsList extends StatelessWidget {
-  const NewsList({super.key});
+class NewsListImg extends StatelessWidget {
+  const NewsListImg({super.key});
 
   @override
   Widget build(BuildContext context) {
