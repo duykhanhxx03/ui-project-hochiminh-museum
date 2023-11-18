@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
+import "package:ui_project_hochiminh_museum/utils/constants/sizes.dart";
 
 const List<String> floors = <String>['Tầng 1', 'Tầng 2', 'Tầng 3'];
 

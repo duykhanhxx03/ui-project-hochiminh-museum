@@ -8,7 +8,6 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/con
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/widgets/dropdown_button.dart';
 import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
-import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class IndoorMapScreen extends StatefulWidget {
   const IndoorMapScreen({super.key});
