@@ -57,9 +57,7 @@ class FullNewsDescription extends StatelessWidget {
               ),
               Row(
                 children: [
-                  stampText(content: "Cỡ chữ "),
-                  TextButton(onPressed: () {}, child: Text("-")),
-                  TextButton(onPressed: () {}, child: Text("+")),
+                  stampText(content: "Cỡ chữ + -"),
                 ],
               ),
             ],
@@ -73,7 +71,7 @@ class FullNewsDescription extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         ImageWithDesWidget(image: news.listImage[0]),
-        Text(news.content),
+        Text(news.content, textAlign: TextAlign.justify),
       ],
     );
   }
