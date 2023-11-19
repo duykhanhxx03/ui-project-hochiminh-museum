@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/images/t_rounded_image.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_title_home.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class ProminentNews extends StatelessWidget {
@@ -55,7 +54,7 @@ class ProminentNews extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   Text(
-                    " " + date,
+                    " $date",
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],
@@ -76,7 +75,7 @@ class ProminentNews extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: TSizes.spaceBtwElements,
         ),
         Text(

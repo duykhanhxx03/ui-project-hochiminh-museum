@@ -1,4 +1,4 @@
-import 'package:ui_project_hochiminh_museum/common/models/imageWithDes_model.dart';
+import 'package:ui_project_hochiminh_museum/common/models/image_withdes_model.dart';
 
 class News {
   final String title;
@@ -8,7 +8,7 @@ class News {
   final String content;
   final int group;
   final String recap;
-  final List<imageWithDescription> listImage;
+  final List<ImageWithDescription> listImage;
 
   const News(
       {required this.title,

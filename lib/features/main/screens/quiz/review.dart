@@ -39,8 +39,11 @@ class _ReviewScreen extends State<ReviewScreen> {
       child: Scaffold(
         appBar: AppBar(
             backgroundColor: const Color.fromARGB(255, 173, 7, 7),
-            leading: const BackButton(
-              color: Color.fromARGB(255, 255, 255, 255),
+            leading: BackButton(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              onPressed: () {
+                //Back
+              },
             ),
             title: const Text(
               'Comments',

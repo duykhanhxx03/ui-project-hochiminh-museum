@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:ui_project_hochiminh_museum/common/models/imageWithDes_model.dart';
+import 'package:ui_project_hochiminh_museum/common/models/image_withdes_model.dart';
 import 'package:ui_project_hochiminh_museum/common/models/news.dart';
-import 'package:ui_project_hochiminh_museum/common/widgets/images/t_rounded_image.dart';
-import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_full_title.dart';
-import 'package:ui_project_hochiminh_museum/common/widgets/texts/stamp_text.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_description/full_news_description.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
-class newsDescription extends StatelessWidget {
-  const newsDescription(
+class NewsDescription extends StatelessWidget {
+  const NewsDescription(
       {super.key,
-      this.news_selected = const News(
+      this.newsSelected = const News(
           title:
               "Đoàn Cơ sở Bảo tàng Hồ Chí Minh triển khai Chương trình “Đưa đoàn viên đến với các địa điểm văn hóa”",
           time: "08:00",
@@ -24,12 +20,12 @@ class newsDescription extends StatelessWidget {
           recap:
               "Sáng 02/11, tại Hà Nội, Bảo tàng Hồ Chí Minh và Bộ Tư lệnh Cảnh vệ tổ chức Hội nghị giao ban công tác phối hợp. TS. Vũ Mạnh Hà, Giám đốc Bảo tàng Hồ Chí Minh và Đại tá Đỗ Xuân Tiệp, Phó Tư lệnh Bộ Tư lệnh Cảnh vệ đồng chủ trì hội nghị.",
           listImage: [
-            imageWithDescription(
+            ImageWithDescription(
                 imageUrl: TImages.thumbnail1, description: "Hình ảnh buổi họp")
           ])});
 
   // ignore: non_constant_identifier_names
-  final News news_selected;
+  final News newsSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +38,7 @@ class newsDescription extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FullNewsDescription(
-                news: news_selected,
+                news: newsSelected,
               ),
               const Divider(
                 thickness: 0.7,
@@ -56,6 +52,5 @@ class newsDescription extends StatelessWidget {
         )),
       ),
     );
-    ;
   }
 }

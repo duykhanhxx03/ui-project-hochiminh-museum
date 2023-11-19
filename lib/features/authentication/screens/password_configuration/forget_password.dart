@@ -29,7 +29,7 @@ class ForgetPassword extends StatelessWidget {
                 TTexts.forgetPasswordSubTitle,
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections * 2),
+              const SizedBox(height: TSizes.spaceBtwSections),
 
               //Text field
               TextFormField(

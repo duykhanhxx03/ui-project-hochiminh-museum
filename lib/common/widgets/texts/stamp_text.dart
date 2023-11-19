@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class stampText extends StatelessWidget {
-  const stampText({
+class StampText extends StatelessWidget {
+  const StampText({
     super.key,
     required this.content,
   });
@@ -11,7 +11,7 @@ class stampText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      " " + content,
+      " $content",
       style: const TextStyle(color: Colors.grey, fontSize: 12),
     );
   }

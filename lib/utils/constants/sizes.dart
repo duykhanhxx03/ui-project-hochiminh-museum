@@ -39,6 +39,7 @@ class TSizes {
   static const double borderRadiusSm = 4.0;
   static const double borderRadiusMd = 8.0;
   static const double borderRadiusLg = 12.0;
+  static const double borderRadiusLLg = 20.0;
 
   // Divider height
   static const double dividerHeight = 1.0;
@@ -73,4 +74,6 @@ class TSizes {
   static const double imageNewsWidthLg = 350.0;
   static const double imageNewsHeightSm = 200.0;
   static const double imageNewsWidthSm = 350.0;
+  // Squared button size
+  static const double squaredButton = 72;
 }

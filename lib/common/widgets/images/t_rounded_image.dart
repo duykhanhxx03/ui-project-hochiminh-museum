@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class TRoundedImage extends StatelessWidget {
@@ -12,7 +11,7 @@ class TRoundedImage extends StatelessWidget {
     this.padding,
     this.borderRadius = TSizes.md,
     this.applyImageRadius = true,
-    this.backgroundColor = TColors.light,
+    this.backgroundColor,
     this.fit = BoxFit.contain,
     this.isNetworkImage = false,
     required this.imageUrl,
@@ -24,7 +23,7 @@ class TRoundedImage extends StatelessWidget {
   final double borderRadius;
   final bool applyImageRadius;
   final BoxBorder? border;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final BoxFit? fit;
   final bool isNetworkImage;
   final String imageUrl;
@@ -46,10 +45,11 @@ class TRoundedImage extends StatelessWidget {
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
           child: Image(
-              fit: fit,
-              image: isNetworkImage
-                  ? NetworkImage(imageUrl)
-                  : AssetImage(imageUrl) as ImageProvider),
+            image: isNetworkImage
+                ? NetworkImage(imageUrl)
+                : AssetImage(imageUrl) as ImageProvider,
+            fit: fit,
+          ),
         ),
       ),
     );

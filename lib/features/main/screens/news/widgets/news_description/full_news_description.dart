@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:ui_project_hochiminh_museum/common/models/imageWithDes_model.dart';
 import 'package:ui_project_hochiminh_museum/common/models/news.dart';
-import 'package:ui_project_hochiminh_museum/common/widgets/images/t_rounded_image.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_full_title.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/stamp_text.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/controllers/news_description_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_description/ImageWithDescription.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class FullNewsDescription extends StatelessWidget {
@@ -42,7 +39,7 @@ class FullNewsDescription extends StatelessWidget {
                     size: 14,
                     color: Colors.grey,
                   ),
-                  stampText(content: "${news.time} ${news.date}"),
+                  StampText(content: "${news.time} ${news.date}"),
                   const SizedBox(
                     width: 20,
                   ),
@@ -52,12 +49,12 @@ class FullNewsDescription extends StatelessWidget {
                     size: 10,
                     color: Colors.grey,
                   ),
-                  stampText(content: news.views.toString()),
+                  StampText(content: news.views.toString()),
                 ],
               ),
-              Row(
+              const Row(
                 children: [
-                  stampText(content: "Cỡ chữ + -"),
+                  StampText(content: "Cỡ chữ + -"),
                 ],
               ),
             ],

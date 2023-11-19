@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class NewsTitle extends StatelessWidget {
   const NewsTitle({
@@ -19,8 +17,8 @@ class NewsTitle extends StatelessWidget {
         title,
         maxLines: isNotice ? null : 2,
         style: isNotice
-            ? TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
-            : TextStyle(
+            ? const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+            : const TextStyle(
                 overflow: TextOverflow.ellipsis,
                 fontSize: 12,
               ),

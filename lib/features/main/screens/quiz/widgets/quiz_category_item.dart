@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class QuizCategoryItem extends StatelessWidget {
   const QuizCategoryItem({
@@ -15,9 +16,10 @@ class QuizCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: Card(
-        color: TColors.primary,
+        elevation: 0,
+        color: TColors.accent,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(TSizes.cardRadiusMd),
           child: Text(
             title,
             style: Theme.of(context)

@@ -15,10 +15,13 @@ class TLoginHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image(
-          height: 100,
-          image: AssetImage(
-            isDark ? TImages.lightAppLogo : TImages.darkAppLogo,
+        Hero(
+          tag: 'app-logo',
+          child: Image(
+            height: 100,
+            image: AssetImage(
+              isDark ? TImages.lightAppLogo : TImages.darkAppLogo,
+            ),
           ),
         ),
         Text(
