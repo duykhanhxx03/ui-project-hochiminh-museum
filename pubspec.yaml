@@ -54,6 +54,7 @@ dependencies:
   keyboard_dismisser: ^3.0.0
   intl: ^0.18.1
   uuid: ^4.2.1
+  firebase_core: ^2.22.0
 
 dev_dependencies:
   flutter_test:

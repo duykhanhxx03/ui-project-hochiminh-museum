@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "847473515931",
+    "project_id": "hochiminh-museum-uet-project",
+    "storage_bucket": "hochiminh-museum-uet-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847473515931:android:41c0c532bbabfc90d1153e",
+        "android_client_info": {
+          "package_name": "com.example.ui_project_hochiminh_museum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuHCS8svh8L1my_RnXCx_5YYTL-epB4a8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
