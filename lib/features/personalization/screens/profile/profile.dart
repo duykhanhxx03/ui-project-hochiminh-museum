@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/images/t_circular_image.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/section_heading.dart';
@@ -15,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const TAppBar(
-        title: Text('Profiles'),
+        title: Text('Hồ sơ'),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -36,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {},
-                      child: const Text('Change Profile Picture'),
+                      child: const Text('Đổi ảnh đại diện'),
                     ),
                   ],
                 ),
@@ -47,36 +46,25 @@ class ProfileScreen extends StatelessWidget {
               const Divider(),
               const SizedBox(height: TSizes.spaceBtwItems),
               const TSectionHeading(
-                title: 'Profile Infomation',
+                title: 'Thông tin hồ sơ',
                 showActionButton: false,
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
 
               TProfileMenu(
                 onPressed: () {},
-                title: 'Name',
+                title: 'Tên đầy đủ',
                 value: 'Tran Duy Khanh',
-              ),
-              TProfileMenu(
-                onPressed: () {},
-                title: 'Username',
-                value: 'duykhanhxx03',
               ),
 
               const SizedBox(height: TSizes.spaceBtwItems / 2),
               const Divider(),
               const SizedBox(height: TSizes.spaceBtwItems),
               const TSectionHeading(
-                title: 'Personal Infomation',
+                title: 'Thông tin cá nhân',
                 showActionButton: false,
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
-              TProfileMenu(
-                onPressed: () {},
-                title: 'User ID',
-                value: '29052003',
-                icon: Iconsax.copy,
-              ),
               TProfileMenu(
                 onPressed: () {},
                 title: 'Email',
@@ -84,18 +72,18 @@ class ProfileScreen extends StatelessWidget {
               ),
               TProfileMenu(
                 onPressed: () {},
-                title: 'Phone number',
+                title: 'Số điện thoại',
                 value: '0912345678',
               ),
               TProfileMenu(
                 onPressed: () {},
-                title: 'Gender',
-                value: 'Male',
+                title: 'Giới tính',
+                value: 'None',
               ),
               TProfileMenu(
                 onPressed: () {},
-                title: 'Date of birth',
-                value: '29 May, 2003',
+                title: 'Ngày sinh',
+                value: '01/01/1970',
               ),
               const Divider(),
               const SizedBox(height: TSizes.spaceBtwItems),
@@ -104,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
                 child: TextButton(
                   onPressed: () {},
                   child: const Text(
-                    'Close account',
+                    'Đóng tài khoản',
                     style: TextStyle(color: Colors.red),
                   ),
                 ),

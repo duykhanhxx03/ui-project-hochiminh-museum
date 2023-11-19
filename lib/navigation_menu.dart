@@ -50,6 +50,6 @@ class NavigationController extends GetxController {
     const HomeScreen(),
     const IndoorMapScreen(),
     const QuizHome(),
-    const SettingsScreen()
+    SettingsScreen()
   ];
 }
