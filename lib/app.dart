@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/home/museum_three_dimension.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/theme/theme.dart';
 
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // initialBinding: GeneralBindings(),
       home: const OnBoardingScreen(),
+      // home: const MuseumThreeDimensionScreen(),
     );
   }
 }

@@ -31,6 +31,7 @@ dependencies:
 
   flutter:
     sdk: flutter
+  webview_flutter: ^4.4.2
 
   #Icons
   iconsax: ^0.0.8
@@ -62,6 +63,8 @@ dependencies:
   flick_video_player: ^0.5.0
   youtube_player_flutter: ^8.1.2
   auto_orientation: ^2.3.1
+  uuid: ^4.2.1
+  firebase_core: ^2.22.0
 
 dev_dependencies:
   flutter_test:
@@ -91,6 +94,12 @@ flutter:
     - assets/logos/
     - assets/icons/brands/
     - assets/images/animations/
+    - assets/images/illustrations/
+    - assets/images/banners/
+    - assets/images/products/
+    - assets/images/content/
+    - assets/images/indoor_map/
+    - assets/json/indoor_map/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
