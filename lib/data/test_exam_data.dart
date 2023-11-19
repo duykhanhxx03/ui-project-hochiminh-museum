@@ -23,7 +23,7 @@ class TestExamData {
       correctAnswerIndex: 2,
     ),
     TestExamQuestion(
-      question: 'Flutter gì?',
+      question: 'Flutter là gì?',
       options: [
         'Framework phát triển ứng dụng di động',
         'Ngôn ngữ lập trình',
