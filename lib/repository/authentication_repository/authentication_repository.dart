@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/login/login_screen.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/onboarding/onboarding.dart';
-import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/signup.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/home/home.dart';
 import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
 import 'package:ui_project_hochiminh_museum/repository/exception/signup_email_password_failure.dart';
 

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/controllers/signin/signin_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/signup.dart';
+// ignore: unused_import
 import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
@@ -9,13 +10,14 @@ import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+// ignore: must_be_immutable
 class TLoginForm extends StatelessWidget {
   TLoginForm({
     super.key,
   });
 
   var controller = Get.put(SignInController());
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

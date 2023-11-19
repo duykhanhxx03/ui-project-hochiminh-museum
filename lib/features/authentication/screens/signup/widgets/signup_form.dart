@@ -1,6 +1,5 @@
 import 'package:ui_project_hochiminh_museum/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
-import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/verify_email.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/widgets/terms_conditions_checkbox.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
