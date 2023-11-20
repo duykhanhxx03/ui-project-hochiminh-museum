@@ -20,11 +20,11 @@ class CategoriesList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: TSizes.spaceBtwItems),
       child: GridView(
-        physics: const ClampingScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
-          childAspectRatio: 3 / 5,
+          childAspectRatio: 6 / 8,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
         ),

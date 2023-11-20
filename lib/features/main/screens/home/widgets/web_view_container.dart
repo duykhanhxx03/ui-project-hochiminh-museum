@@ -19,7 +19,9 @@ class _WebViewContainerState extends State<WebViewContainer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bảo tàng 3D"),
+        title: const Text(
+          "Bảo tàng 3D",
+        ),
         backgroundColor: Colors.red,
       ),
       body: WebViewWidget(

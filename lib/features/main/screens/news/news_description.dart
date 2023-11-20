@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/common/models/image_withdes_model.dart';
 import 'package:ui_project_hochiminh_museum/common/models/news.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_description/full_news_description.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
-class NewsDescription extends StatelessWidget {
-  const NewsDescription(
+class NewsDescriptionScreen extends StatelessWidget {
+  const NewsDescriptionScreen(
       {super.key,
       this.newsSelected = const News(
           title:
@@ -31,6 +32,9 @@ class NewsDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: const TAppBar(
+          showBackArrow: true,
+        ),
         body: SingleChildScrollView(
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
