@@ -23,7 +23,13 @@ class _WebViewContainerState extends State<WebViewContainer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
         title: Text("Bảo tàng 3D"),
+=======
+        title: const Text(
+          "Bảo tàng 3D",
+        ),
+>>>>>>> 7e5a152 (add opensans font, change the newlist and connect some screens with each other)
         backgroundColor: Colors.red,
       ),
       body: WebViewWidget(

@@ -1,41 +1,7 @@
-// import 'package:flutter/material.dart';
-// import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
-// import 'package:ui_project_hochiminh_museum/common/widgets/custom_shape/containers/primary_header_container.dart';
-
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SingleChildScrollView(
-//         child: Column(
-//           children: [
-//             TPrimaryHeaderContainer(
-//               child: Container(
-//                 child: Column(
-//                   children: [
-//                     TAppBar(
-//                       showBackArrow: false,
-//                       title: Text(
-//                         'Trang chủ',
-//                         style: Theme.of(context).textTheme.headlineMedium,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/custom_shape/containers/primary_header_container.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/home/widgets/categories_list.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/group_new.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
@@ -48,11 +14,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TPrimaryHeaderContainer(
+            const TPrimaryHeaderContainer(
               child: Column(
                 children: [
                   HomeAppBar(),
@@ -68,8 +34,8 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            CategoriesList(),
-            NewsList()
+            const CategoriesList(),
+            const NewsList(),
           ],
         ),
       ),

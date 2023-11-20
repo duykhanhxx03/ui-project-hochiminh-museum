@@ -3,8 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  screen_brightness_windows
   firebase_core
+  screen_brightness_windows
   url_launcher_windows
 )
 

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
 
 import 'models/test_exam_question.dart';
 
@@ -227,6 +229,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
                 );
               },
             ),
+<<<<<<< HEAD
             if(isSubmit)
             Container(
               alignment: Alignment.bottomRight,
@@ -237,6 +240,21 @@ class _TestExamScreenState extends State<TestExamScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
+=======
+            if (isSubmit)
+              Container(
+                alignment: Alignment.bottomRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(const ReviewScreen());
+                  },
+                  child: const Text(
+                    ' Xem bình luận ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+>>>>>>> 7e5a152 (add opensans font, change the newlist and connect some screens with each other)
                   ),
                 ),
               ),
