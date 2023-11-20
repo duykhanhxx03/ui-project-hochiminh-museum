@@ -29,7 +29,7 @@ class SquaredButton extends StatelessWidget {
             //Hover decoration setup later
             onTap: onTap,
             child: Card(
-              elevation: 2.0,
+              elevation: 0,
               color: backgroundColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(TSizes.borderRadiusLLg),
@@ -46,9 +46,7 @@ class SquaredButton extends StatelessWidget {
             maxLines: 3,
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         )
       ],

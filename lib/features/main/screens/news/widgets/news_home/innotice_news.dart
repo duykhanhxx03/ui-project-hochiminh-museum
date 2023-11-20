@@ -9,31 +9,36 @@ class InnoticeNews extends StatelessWidget {
     required this.imageUrl,
     required this.title,
     super.key,
+    required this.onPressed,
   });
 
   final String imageUrl;
   final String title;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 15),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          TRoundedImage(
-            imageUrl: imageUrl,
-            applyImageRadius: false,
-            width: 120,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: SizedBox(
-              width: 200,
-              child: NewsTitle(title: title, isNotice: false),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.only(top: 15),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TRoundedImage(
+              imageUrl: imageUrl,
+              applyImageRadius: false,
+              width: 120,
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: SizedBox(
+                width: 200,
+                child: NewsTitle(title: title, isNotice: false),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

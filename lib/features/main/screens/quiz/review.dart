@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:ui_project_hochiminh_museum/data/comment_data.dart';
 import 'package:ui_project_hochiminh_museum/common/models/comment_info.dart';
@@ -42,7 +43,7 @@ class _ReviewScreen extends State<ReviewScreen> {
             leading: BackButton(
               color: const Color.fromARGB(255, 255, 255, 255),
               onPressed: () {
-                //Back
+                Get.back();
               },
             ),
             title: const Text(
