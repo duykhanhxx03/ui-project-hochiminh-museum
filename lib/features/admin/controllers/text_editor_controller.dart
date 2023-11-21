@@ -7,7 +7,7 @@ class TextEditorController extends GetxController {
   RxList<dynamic> element = [].obs;
   RxList edits = [].obs;
 
-  List getInfo() {
+  List getNewsContent() {
     var res = [];
     for (var i in edits) {
       var element = i as GetType;

@@ -36,7 +36,7 @@ class NewsFullTitle extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           /// -- Time and view
 
           child: Row(
@@ -44,17 +44,17 @@ class NewsFullTitle extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     // -- Time
                     Iconsax.calendar_1,
                     size: 14,
                     color: Colors.grey,
                   ),
                   StampText(content: "8:00AM 29/05/2003"),
-                  const SizedBox(
+                  SizedBox(
                     width: 20,
                   ),
-                  const Icon(
+                  Icon(
                     // --Views
                     Iconsax.eye,
                     size: 10,
@@ -63,7 +63,7 @@ class NewsFullTitle extends StatelessWidget {
                   StampText(content: '137'),
                 ],
               ),
-              const Row(
+              Row(
                 children: [
                   StampText(content: "Cỡ chữ + -"),
                 ],

@@ -11,7 +11,9 @@ import 'package:ui_project_hochiminh_museum/features/admin/controllers/text_edit
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/image_editor.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/new_line_button.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/text_field.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/models/news_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_description.dart';
+import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:uuid/uuid.dart';
 
@@ -320,18 +322,20 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              // if (kDebugMode) {
-              //   print(textEditorController.getInfo());
-              // }
-
               Get.to(NewsDescriptionScreen(
-                newsInfo: textEditorController.getInfo(),
+                newsInfo: textEditorController.getNewsContent(),
               ));
             },
             icon: const Icon(Iconsax.eye),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              // var crl = Get.put(NewsRepository());
+              // NewsModel model = NewsModel(
+              //     newsContent: textEditorController.getNewsContent(),
+              //     date: '29/05/2003');
+              // crl.createNews(model, 'TinTucSuKien', 'HDBaoTang');
+            },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: TSizes.lg),
               child: Text('Đăng bài'),

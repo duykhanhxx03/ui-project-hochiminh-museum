@@ -41,7 +41,7 @@ class NewsDescriptionScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FullNewsDescription(newsInfo: newsInfo),
+              FullNewsDescription(newsContent: newsInfo),
               const Divider(
                 thickness: 0.7,
               ),

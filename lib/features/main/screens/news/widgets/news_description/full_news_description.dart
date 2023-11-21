@@ -6,16 +6,17 @@ import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_full_title
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/controllers/news_description_controller.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
+// ignore: must_be_immutable
 class FullNewsDescription extends StatelessWidget {
-  FullNewsDescription({super.key, this.newsInfo});
+  FullNewsDescription({super.key, this.newsContent});
 
-  List<dynamic>? newsInfo;
+  List<dynamic>? newsContent;
   final DescriptionController c = Get.put(DescriptionController());
   List<Widget> ui = [];
 
   @override
   Widget build(BuildContext context) {
-    for (dynamic item in newsInfo!) {
+    for (dynamic item in newsContent!) {
       switch (item['type']) {
         case 'title':
           ui.add(NewsFullTitle(title: item['content']));

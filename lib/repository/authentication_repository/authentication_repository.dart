@@ -39,9 +39,6 @@ class AuthenticationRepository extends GetxController {
         email: email,
         password: password,
       );
-      print('-----------------');
-      print(firebaseUser.value);
-      print('-----------------');
       firebaseUser.value != null
           ? Get.offAll(const NavigationMenu())
           : Get.offAll(const LoginScreen());
@@ -64,11 +61,15 @@ class AuthenticationRepository extends GetxController {
           : Get.offAll(const LoginScreen());
     } on FirebaseAuthException catch (e) {
       final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
-      print('FIREBASE AUTH EXCEPTION: -${ex.message}');
+      if (kDebugMode) {
+        print('FIREBASE AUTH EXCEPTION: -${ex.message}');
+      }
       throw ex;
     } catch (_) {
       const ex = SignUpWithEmailAndPasswordFailure();
-      print('FIREBASE AUTH EXCEPTION: -${ex.message}');
+      if (kDebugMode) {
+        print('FIREBASE AUTH EXCEPTION: -${ex.message}');
+      }
       throw ex;
     }
   }

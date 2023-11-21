@@ -6,21 +6,21 @@ import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class NoticeNews extends StatelessWidget {
   const NoticeNews({
-    required this.imageUrl,
+    required this.thumbnailUrl,
     required this.title,
     required this.date,
     required this.view,
-    required this.content,
+    required this.description,
     required this.isNotice,
     super.key,
     required this.onPressed,
   });
 
-  final String imageUrl;
+  final String thumbnailUrl;
   final String title;
   final String date;
   final int view;
-  final String content;
+  final String description;
   final bool isNotice;
   final void Function() onPressed;
 
@@ -33,7 +33,7 @@ class NoticeNews extends StatelessWidget {
         children: [
           TRoundedImage(
             onPressed: onPressed,
-            imageUrl: imageUrl,
+            imageUrl: thumbnailUrl,
             applyImageRadius: false,
             fit: BoxFit.fitWidth,
           ),
@@ -83,7 +83,7 @@ class NoticeNews extends StatelessWidget {
             height: TSizes.spaceBtwElements,
           ),
           Text(
-            content,
+            description,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
             textAlign: TextAlign.justify,
