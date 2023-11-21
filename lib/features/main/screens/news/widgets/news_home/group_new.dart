@@ -31,7 +31,7 @@ class GroupNews extends StatelessWidget {
       const SizedBox(
         height: TSizes.spaceBtwItems,
       ),
-      ProminentNews(
+      NoticeNews(
         onPressed: () {
           Get.to(const NewsDescriptionScreen());
         },

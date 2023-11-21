@@ -15,10 +15,10 @@ class TSignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignUpController());
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Form(
-      key: _formKey,
+      key: formKey,
       child: Column(
         children: [
           //FirstName and LastName
@@ -102,7 +102,7 @@ class TSignupForm extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (formKey.currentState!.validate()) {
                   UserModel userModel = UserModel(
                     firstName: controller.firstName.text,
                     lastName: controller.lastName.text,

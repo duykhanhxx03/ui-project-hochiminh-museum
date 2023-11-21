@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/custom_shape/containers/primary_header_container.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/home/widgets/categories_list.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/group_new.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
@@ -14,11 +13,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const TPrimaryHeaderContainer(
+            TPrimaryHeaderContainer(
               child: Column(
                 children: [
                   HomeAppBar(),
@@ -34,8 +33,8 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const CategoriesList(),
-            const NewsList(),
+            CategoriesList(),
+            NewsList(),
           ],
         ),
       ),

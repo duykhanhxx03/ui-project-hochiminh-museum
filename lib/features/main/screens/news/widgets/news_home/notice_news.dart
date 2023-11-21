@@ -4,8 +4,8 @@ import 'package:ui_project_hochiminh_museum/common/widgets/images/t_rounded_imag
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_title_home.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
-class ProminentNews extends StatelessWidget {
-  const ProminentNews({
+class NoticeNews extends StatelessWidget {
+  const NoticeNews({
     required this.imageUrl,
     required this.title,
     required this.date,

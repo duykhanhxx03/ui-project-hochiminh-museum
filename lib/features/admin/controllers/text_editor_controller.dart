@@ -7,10 +7,6 @@ class TextEditorController extends GetxController {
   RxList<dynamic> element = [].obs;
   RxList edits = [].obs;
 
-  int getCurrentIndex(String uuid) {
-    return element.indexOf(uuid);
-  }
-
   List getInfo() {
     var res = [];
     for (var i in edits) {

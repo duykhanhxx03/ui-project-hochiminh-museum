@@ -1,12 +1,17 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/controllers/text_editor_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/image_editor.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/new_line_button.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/text_field.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_description.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:uuid/uuid.dart';
 
@@ -21,6 +26,10 @@ class TextEditorScreen extends StatefulWidget {
 class _TextEditorScreenState extends State<TextEditorScreen> {
   var textEditorController = Get.put(TextEditorController());
 
+  String? url;
+
+  String? cloud_image_url;
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +40,12 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
       ),
     );
     textEditorController.element.add(uuid);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    textEditorController.edits.removeLast();
   }
 
   void removeLine(int index) {
@@ -49,8 +64,8 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
     {'value': "Tác giả", 'icon': Iconsax.user},
   ];
 
-  void showBottomModal(BuildContext context, List<Map<String, dynamic>> items,
-      Function onItemTap) {
+  void showAddMenuBottomModal(BuildContext context,
+      List<Map<String, dynamic>> items, Function onItemTap) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -64,7 +79,7 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
                 title: Text(items[index]['value']),
                 onTap: () {
                   onItemTap(index);
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 },
               );
             },
@@ -74,9 +89,98 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
     );
   }
 
-  void addNewLine(int editsIndex) {
+  void upLoadImageToStorage(
+      {required int editsIndex,
+      required String uuid,
+      required String type}) async {
+    {
+      ImagePicker imagePicker = ImagePicker();
+
+      XFile? imageFile;
+
+      if (type == 'camera') {
+        imageFile = await imagePicker.pickImage(
+          source: ImageSource.camera,
+        );
+      } else {
+        imageFile = await imagePicker.pickImage(
+          source: ImageSource.gallery,
+        );
+      }
+
+      if (imageFile != null) {
+        String uniqueFileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+        Reference referenceRoot = FirebaseStorage.instance.ref();
+        Reference referenceDirImages = referenceRoot.child('images');
+
+        Reference referenceImageToUpload =
+            referenceDirImages.child(uniqueFileName);
+
+        try {
+          await referenceImageToUpload.putFile(File(imageFile.path));
+          cloud_image_url = await referenceImageToUpload.getDownloadURL();
+          if (kDebugMode) {
+            print(cloud_image_url);
+          }
+
+          textEditorController.edits.insert(
+            editsIndex,
+            ImageEditor(
+              key: ValueKey(DateTime.now()),
+              removeLine: removeLine,
+              imageUrl: cloud_image_url!,
+            ),
+          );
+          textEditorController.edits.insert(
+            editsIndex,
+            NewLineEditingButton(
+              key: ValueKey(uuid),
+              addNewLine: addNewLine,
+            ),
+          );
+        } catch (error) {
+          if (kDebugMode) {
+            print(error);
+          }
+        }
+      }
+    }
+  }
+
+  void showChooseImageSourceBottomModal(
+      BuildContext context, int editsIndex, String uuid) async {
+    await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+            padding: const EdgeInsets.all(TSizes.defaultSpace),
+            child: ListView(
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    upLoadImageToStorage(
+                        editsIndex: editsIndex, uuid: uuid, type: 'camera');
+                  },
+                  child: const Text('Camera'),
+                ),
+                const SizedBox(height: TSizes.spaceBtwItems),
+                ElevatedButton(
+                  onPressed: () {
+                    upLoadImageToStorage(
+                        editsIndex: editsIndex, uuid: uuid, type: 'gallery');
+                  },
+                  child: const Text('Libary'),
+                ),
+              ],
+            ));
+      },
+    );
+  }
+
+  void addNewLine(int editsIndex) async {
     setState(() {
-      showBottomModal(context, items, (index) {
+      showAddMenuBottomModal(context, items, (index) {
         String uuid = const Uuid().v4();
         textEditorController.element.add(uuid);
 
@@ -106,6 +210,7 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
                     addNewLine: addNewLine,
                   ),
                 );
+                Navigator.pop(context);
               },
             );
             break;
@@ -132,6 +237,7 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
                     addNewLine: addNewLine,
                   ),
                 );
+                Navigator.pop(context);
               },
             );
             break;
@@ -158,28 +264,16 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
                     addNewLine: addNewLine,
                   ),
                 );
+                Navigator.pop(context);
               },
             );
             break;
 
           case 3:
             setState(
-              () {
-                textEditorController.edits.insert(
-                  editsIndex,
-                  ImageEditor(
-                    key: ValueKey(DateTime.now()),
-                    removeLine: removeLine,
-                    imageUrl: TImages.acerlogo,
-                  ),
-                );
-                textEditorController.edits.insert(
-                  editsIndex,
-                  NewLineEditingButton(
-                    key: ValueKey(uuid),
-                    addNewLine: addNewLine,
-                  ),
-                );
+              () async {
+                Navigator.pop(context);
+                showChooseImageSourceBottomModal(context, editsIndex, uuid);
               },
             );
             break;
@@ -206,6 +300,7 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
                     addNewLine: addNewLine,
                   ),
                 );
+                Navigator.pop(context);
               },
             );
             break;
@@ -225,10 +320,23 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              print(textEditorController.getInfo());
+              // if (kDebugMode) {
+              //   print(textEditorController.getInfo());
+              // }
+
+              Get.to(NewsDescriptionScreen(
+                newsInfo: textEditorController.getInfo(),
+              ));
             },
-            icon: const Icon(Iconsax.add),
+            icon: const Icon(Iconsax.eye),
           ),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: TSizes.lg),
+              child: Text('Đăng bài'),
+            ),
+          )
         ],
       ),
       body: Obx(

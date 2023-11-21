@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/login/login_screen.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/onboarding/onboarding.dart';
@@ -44,7 +45,11 @@ class AuthenticationRepository extends GetxController {
       firebaseUser.value != null
           ? Get.offAll(const NavigationMenu())
           : Get.offAll(const LoginScreen());
-    } on FirebaseAuthException catch (e) {}
+    } on FirebaseAuthException catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
   }
 
   Future<void> loginUserWithEmailAndPassword(
