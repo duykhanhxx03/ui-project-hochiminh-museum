@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
 
 import 'models/test_exam_question.dart';
 
@@ -238,7 +240,9 @@ class _TestExamScreenState extends State<TestExamScreen> {
               Container(
                 alignment: Alignment.bottomRight,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(const ReviewScreen());
+                  },
                   child: const Text(
                     ' Xem bình luận ',
                     style: TextStyle(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_description.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/innotice_news.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/notice_news.dart';
 
@@ -17,7 +19,7 @@ class GroupNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Padding(
-        padding: EdgeInsets.only(top: TSizes.defaultSpace),
+        padding: EdgeInsets.only(top: TSizes.spaceBtwSections),
         child: Text(
           "MUSUEM ACTIVITIES",
           style: TextStyle(
@@ -29,7 +31,10 @@ class GroupNews extends StatelessWidget {
       const SizedBox(
         height: TSizes.spaceBtwItems,
       ),
-      const ProminentNews(
+      ProminentNews(
+        onPressed: () {
+          Get.to(const NewsDescriptionScreen());
+        },
         title: "Bảo tàng Hồ Chí Minh và bộ Tư Lệnh Cảnh vệ tổ quốc",
         isNotice: true,
         imageUrl: TImages.thumbnail1,
@@ -42,7 +47,8 @@ class GroupNews extends StatelessWidget {
           itemCount: 4,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (_, index) => const InnoticeNews(
+          itemBuilder: (_, index) => InnoticeNews(
+                onPressed: () => Get.to(const NewsDescriptionScreen()),
                 imageUrl: TImages.thumbnail2,
                 title:
                     "Đoàn Cơ sở Bảo tàng Hồ Chí Minh triển khai Chương trình “Đưa đoàn viên đến với các địa điểm văn hóa”",
