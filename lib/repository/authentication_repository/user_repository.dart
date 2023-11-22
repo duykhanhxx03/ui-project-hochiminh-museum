@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -53,7 +54,9 @@ class UserRepository extends GetxController {
             backgroundColor: Colors.redAccent.withOpacity(0.1),
             colorText: Colors.red,
           );
-      print(error.toString());
+      if (kDebugMode) {
+        print(error.toString());
+      }
     });
   }
 }

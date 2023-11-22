@@ -6,13 +6,13 @@ import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 
 class InnoticeNews extends StatelessWidget {
   const InnoticeNews({
-    required this.imageUrl,
+    required this.thumbnailUrl,
     required this.title,
     super.key,
     required this.onPressed,
   });
 
-  final String imageUrl;
+  final String thumbnailUrl;
   final String title;
   final void Function() onPressed;
 
@@ -26,7 +26,7 @@ class InnoticeNews extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TRoundedImage(
-              imageUrl: imageUrl,
+              imageUrl: thumbnailUrl,
               applyImageRadius: false,
               width: 120,
             ),

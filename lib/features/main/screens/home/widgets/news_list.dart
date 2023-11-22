@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/home/widgets/news_item_widget.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/group_new.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 

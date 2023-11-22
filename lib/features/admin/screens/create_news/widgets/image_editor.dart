@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/controllers/text_editor_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/models/get_type.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 // ignore: must_be_immutable
 class ImageEditor extends StatelessWidget implements GetType {
@@ -29,9 +30,10 @@ class ImageEditor extends StatelessWidget implements GetType {
           children: [
             Expanded(
               flex: 9,
-              child: Image(
+              child: FadeInImage.memoryNetwork(
                 fit: BoxFit.contain,
-                image: AssetImage(imageUrl),
+                placeholder: kTransparentImage,
+                image: imageUrl,
               ),
             ),
             const SizedBox(width: TSizes.spaceBtwItems),
@@ -44,6 +46,7 @@ class ImageEditor extends StatelessWidget implements GetType {
             ),
           ],
         ),
+        const SizedBox(height: TSizes.spaceBtwItems),
         Padding(
           padding: const EdgeInsets.only(right: TSizes.defaultSpace),
           child: TextField(

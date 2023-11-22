@@ -28,7 +28,7 @@ class TUserProfileTitle extends StatelessWidget {
         padding: 0,
       ),
       title: Text(
-        '${firstName} ${lastName}',
+        '$firstName $lastName',
         style: Theme.of(context).textTheme.headlineSmall!.apply(
               color: TColors.white,
             ),
