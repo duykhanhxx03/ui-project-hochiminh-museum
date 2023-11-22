@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'models/test_exam_question.dart';
 
 class RevisionScreen extends StatefulWidget {
   const RevisionScreen({super.key, required this.questions, required});
 
-  final List<TestExamQuestion> questions;
+  final List<TestExamModel> questions;
 
   @override
   State<RevisionScreen> createState() => _RevisionScreenState();
 }
 
 class _RevisionScreenState extends State<RevisionScreen> {
-  late List<TestExamQuestion> questions;
+  late List<TestExamModel> questions;
   late List<int> selectedAnswers;
-  late TestExamQuestion selectedQuestion;
+  late TestExamModel selectedQuestion;
   late int indexQuestion;
   late int numCorrect;
   late int numIncorrect;

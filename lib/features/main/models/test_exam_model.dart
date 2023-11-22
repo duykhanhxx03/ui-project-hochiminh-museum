@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TestExamModel {
   final String question;
-  final List<String> options;
+  final List<dynamic> options;
   final int correctAnswerIndex;
 
   TestExamModel({
@@ -21,7 +21,7 @@ class TestExamModel {
 
   factory TestExamModel.fromSnapShot(
       DocumentSnapshot<Map<String, dynamic>> document) {
-    var data = document.data()!;
+    final data = document.data()!;
     return TestExamModel(
       question: data['question'],
       options: data['options'],
