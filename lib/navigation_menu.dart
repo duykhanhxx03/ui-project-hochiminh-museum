@@ -1,3 +1,4 @@
+import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/create_news.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/text_editor_screen.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/home/home.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/indoor_map.dart';
@@ -36,8 +37,7 @@ class NavigationMenu extends StatelessWidget {
             NavigationDestination(
                 icon: Icon(Iconsax.teacher), label: "Học tập"),
             NavigationDestination(icon: Icon(Iconsax.user), label: "Profile"),
-            NavigationDestination(
-                icon: Icon(Iconsax.pen_add), label: "Viết báo"),
+            NavigationDestination(icon: Icon(Iconsax.pen_add), label: "Admin"),
           ],
         ),
       ),
@@ -54,6 +54,6 @@ class NavigationController extends GetxController {
     const IndoorMapScreen(),
     const QuizHome(),
     SettingsScreen(),
-    const TextEditorScreen()
+    const CreateNewsScreen()
   ];
 }

@@ -12,17 +12,15 @@ class NewsTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        title,
-        maxLines: isNotice ? null : 2,
-        style: isNotice
-            ? const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
-            : const TextStyle(
-                overflow: TextOverflow.ellipsis,
-                fontSize: 12,
-              ),
-      ),
+    return Text(
+      title,
+      maxLines: isNotice ? null : 2,
+      style: isNotice
+          ? const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+          : const TextStyle(
+              overflow: TextOverflow.ellipsis,
+              fontSize: 12,
+            ),
     );
   }
 }

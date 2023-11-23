@@ -18,7 +18,10 @@ import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:uuid/uuid.dart';
 
 class TextEditorScreen extends StatefulWidget {
-  const TextEditorScreen({Key? key}) : super(key: key);
+  const TextEditorScreen(
+      {super.key, required this.newsCategory, required this.subNewsCategory});
+  final String newsCategory;
+  final String subNewsCategory;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -30,7 +33,7 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
 
   String? url;
 
-  String? cloud_image_url;
+  String? cloudImageUrl;
 
   @override
   void initState() {
@@ -121,9 +124,9 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
 
         try {
           await referenceImageToUpload.putFile(File(imageFile.path));
-          cloud_image_url = await referenceImageToUpload.getDownloadURL();
+          cloudImageUrl = await referenceImageToUpload.getDownloadURL();
           if (kDebugMode) {
-            print(cloud_image_url);
+            print(cloudImageUrl);
           }
 
           textEditorController.edits.insert(
@@ -131,7 +134,7 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
             ImageEditor(
               key: ValueKey(DateTime.now()),
               removeLine: removeLine,
-              imageUrl: cloud_image_url!,
+              imageUrl: cloudImageUrl!,
             ),
           );
           textEditorController.edits.insert(
@@ -323,18 +326,22 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
           IconButton(
             onPressed: () {
               Get.to(NewsDescriptionScreen(
-                newsInfo: textEditorController.getNewsContent(),
+                newsContent: textEditorController.getNewsContent(),
               ));
             },
             icon: const Icon(Iconsax.eye),
           ),
           ElevatedButton(
             onPressed: () {
-              // var crl = Get.put(NewsRepository());
-              // NewsModel model = NewsModel(
-              //     newsContent: textEditorController.getNewsContent(),
-              //     date: '29/05/2003');
-              // crl.createNews(model, 'TinTucSuKien', 'HDBaoTang');
+              var crl = Get.put(NewsRepository());
+              NewsModel model = NewsModel(
+                  newsContent: textEditorController.getNewsContent(),
+                  date: '29/05/2003');
+              crl.createNews(
+                model,
+                widget.newsCategory,
+                widget.subNewsCategory,
+              );
             },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: TSizes.lg),

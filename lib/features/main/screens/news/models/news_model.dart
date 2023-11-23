@@ -11,15 +11,12 @@ class NewsModel {
     required this.date,
   });
 
-  late String title =
-      ((newsContent.singleWhere((element) => element['type'] == 'title'))
-          as Map<String, String>)['content']!;
-  late String thumbnailUrl =
-      ((newsContent.singleWhere((element) => element['type'] == 'image'))
-          as Map<String, String>)['image_url']!;
-  late String description =
-      ((newsContent.singleWhere((element) => element['type'] == 'description'))
-          as Map<String, String>)['content']!;
+  late String title = (newsContent
+      .singleWhere((element) => element['type'] == 'title'))['content']!;
+  late String thumbnailUrl = (newsContent
+      .singleWhere((element) => element['type'] == 'image'))['image_url']!;
+  late String description = (newsContent
+      .singleWhere((element) => element['type'] == 'description'))['content']!;
   String date;
   toJson() {
     return {
