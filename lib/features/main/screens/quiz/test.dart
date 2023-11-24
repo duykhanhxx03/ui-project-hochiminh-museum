@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
 
 import 'models/test_exam_question.dart';
 
 class TestExamScreen extends StatefulWidget {
   const TestExamScreen({super.key, required this.questions});
 
-  final List<TestExamQuestion> questions;
+  final List<TestExamModel> questions;
 
   @override
   State<TestExamScreen> createState() => _TestExamScreenState();
@@ -18,7 +16,7 @@ class TestExamScreen extends StatefulWidget {
 class _TestExamScreenState extends State<TestExamScreen> {
   // List<TestExamQuestion> questions = TestExamData.questions_list;
   // List<int> selectedAnswers = List.generate(questions.length, (index) => -1);
-  late List<TestExamQuestion> questions;
+  late List<TestExamModel> questions;
   late List<int> selectedAnswers;
   late List<bool> checkIfTheAnswerIsTrueOfFalse;
   late Timer timer;

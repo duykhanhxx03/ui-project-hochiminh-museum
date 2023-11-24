@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/choose_category_subcategory.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 // ignore: must_be_immutable
-class CreateNewsScreen extends StatelessWidget {
+class CreateNewsScreen extends StatefulWidget {
   const CreateNewsScreen({super.key});
 
+  @override
+  State<CreateNewsScreen> createState() => _CreateNewsScreenState();
+}
+
+class _CreateNewsScreenState extends State<CreateNewsScreen> {
   void showBottomModal(BuildContext context) {
     showModalBottomSheet(
       useSafeArea: true,
-      isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
-        return Container();
+        return const ChooseCategoryAndSubCategory();
       },
     );
   }
@@ -20,17 +25,20 @@ class CreateNewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dropdown Button'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showBottomModal(context);
-              },
-              icon: const Icon(Iconsax.add))
-        ],
+        title: const Text('Admin'),
+        actions: [],
       ),
-      body: const Center(
-        child: SizedBox(),
+      body: Padding(
+        padding: const EdgeInsets.all(TSizes.defaultSpace),
+        child: OutlinedButton(
+          onPressed: () {
+            showBottomModal(context);
+          },
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: TSizes.lg),
+            child: Text('Viết bài'),
+          ),
+        ),
       ),
     );
   }

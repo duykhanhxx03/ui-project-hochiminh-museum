@@ -23,6 +23,7 @@ class _VideoLibScreen extends State<VideoLibScreen> {
               color: const Color.fromARGB(255, 255, 255, 255),
               onPressed: () {
                 // Back về
+                Navigator.pop(context);
               },
             ),
             title: const Text(

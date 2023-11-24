@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const CategoriesList(),
+            CategoriesList(),
             const NewsList(),
           ],
         ),

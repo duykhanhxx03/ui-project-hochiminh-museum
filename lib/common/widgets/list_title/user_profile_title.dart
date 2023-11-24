@@ -9,7 +9,14 @@ import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 class TUserProfileTitle extends StatelessWidget {
   const TUserProfileTitle({
     super.key,
+    required this.lastName,
+    required this.firstName,
+    required this.email,
   });
+
+  final String lastName;
+  final String firstName;
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +28,19 @@ class TUserProfileTitle extends StatelessWidget {
         padding: 0,
       ),
       title: Text(
-        'Tran Duy Khanh',
+        '$firstName $lastName',
         style: Theme.of(context).textTheme.headlineSmall!.apply(
               color: TColors.white,
             ),
       ),
       subtitle: Text(
-        'duykhanhxx03@gmail.com',
+        email,
         style: Theme.of(context).textTheme.bodyMedium!.apply(
               color: TColors.white,
             ),
       ),
       trailing: IconButton(
-        onPressed: () => Get.to(const ProfileScreen()),
+        onPressed: () => Get.to(ProfileScreen()),
         icon: const Icon(
           Iconsax.edit,
           color: TColors.white,

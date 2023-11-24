@@ -1,4 +1,5 @@
-import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/verify_email.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/controllers/signup/signup_controller.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/widgets/terms_conditions_checkbox.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
@@ -13,7 +14,11 @@ class TSignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignUpController());
+    final formKey = GlobalKey<FormState>();
+
     return Form(
+      key: formKey,
       child: Column(
         children: [
           //FirstName and LastName
@@ -21,6 +26,7 @@ class TSignupForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  controller: controller.firstName,
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: TTexts.firstName,
@@ -31,6 +37,7 @@ class TSignupForm extends StatelessWidget {
               const SizedBox(width: TSizes.spaceBtwInputFields),
               Expanded(
                 child: TextFormField(
+                  controller: controller.lastName,
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: TTexts.lastName,
@@ -54,6 +61,7 @@ class TSignupForm extends StatelessWidget {
 
           //Email
           TextFormField(
+            controller: controller.email,
             expands: false,
             decoration: const InputDecoration(
               labelText: TTexts.email,
@@ -64,6 +72,7 @@ class TSignupForm extends StatelessWidget {
 
           //Phone number
           TextFormField(
+            controller: controller.phoneNumber,
             expands: false,
             decoration: const InputDecoration(
               labelText: TTexts.phoneNo,
@@ -74,6 +83,7 @@ class TSignupForm extends StatelessWidget {
 
           //Password
           TextFormField(
+            controller: controller.password,
             obscureText: true,
             expands: false,
             decoration: const InputDecoration(
@@ -91,7 +101,19 @@ class TSignupForm extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => Get.to(() => const VerifyEmailScreen()),
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  UserModel userModel = UserModel(
+                    firstName: controller.firstName.text,
+                    lastName: controller.lastName.text,
+                    email: controller.email.text,
+                    phoneNumber: controller.phoneNumber.text,
+                    password: controller.password.text,
+                  );
+
+                  SignUpController.instance.createUser(userModel);
+                }
+              },
               child: const Text(TTexts.createAccount),
             ),
           ),
