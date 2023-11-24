@@ -16,6 +16,7 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_desc
 import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 
 class TextEditorScreen extends StatefulWidget {
   const TextEditorScreen(
@@ -333,10 +334,13 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-              var crl = Get.put(NewsRepository());
+              final DateTime now = DateTime.now();
+              final DateFormat formatter = DateFormat('dd/MM/yyyy');
+              final crl = Get.put(NewsRepository());
               NewsModel model = NewsModel(
-                  newsContent: textEditorController.getNewsContent(),
-                  date: '29/05/2003');
+                newsContent: textEditorController.getNewsContent(),
+                date: formatter.format(now),
+              );
               crl.createNews(
                 model,
                 widget.newsCategory,
