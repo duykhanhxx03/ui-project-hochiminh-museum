@@ -14,7 +14,6 @@ class NoticeNews extends StatelessWidget {
     required this.isNotice,
     super.key,
     required this.onPressed,
-    required this.onPressed,
   });
 
   final String thumbnailUrl;

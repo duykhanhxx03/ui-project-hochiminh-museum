@@ -1,88 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
-import 'models/test_exam_question.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/questions_screen.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/result_screen.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/start_screen.dart';
 
 class RevisionScreen extends StatefulWidget {
-  const RevisionScreen({super.key, required this.questions, required});
-
+  const RevisionScreen({super.key, required this.questions});
   final List<TestExamModel> questions;
 
   @override
-  State<RevisionScreen> createState() => _RevisionScreenState();
+  State<RevisionScreen> createState() {
+    return _RevisionScreenState();
+  }
 }
 
 class _RevisionScreenState extends State<RevisionScreen> {
-  late List<TestExamModel> questions;
-  late List<int> selectedAnswers;
-  late TestExamModel selectedQuestion;
-  late int indexQuestion;
-  late int numCorrect;
-  late int numIncorrect;
+  late List<TestExamModel> questions = widget.questions;
+  List<String> selectedAnswers = [];
 
-  @override
-  void initState() {
-    super.initState();
-    questions = widget.questions;
-    indexQuestion = 3;
-    selectedQuestion = questions[0];
-    numCorrect = 0;
-    numIncorrect = 0;
+  String activeScreen = 'start-screen';
+  void switchScreen() {
+    setState(() {
+      activeScreen = 'questions-screen';
+    });
+  }
+
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        activeScreen = 'results-screen';
+      });
+    }
+  }
+
+  void restart() {
+    setState(() {
+      activeScreen = 'questions-screen';
+      selectedAnswers = [];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Câu hỏi ôn tập',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+    Widget screenWidget = StartScreen(switchScreen);
+    if (activeScreen == 'questions-screen') {
+      screenWidget = QuestionsScreen(
+        questions: questions,
+        onSelectAnswer: chooseAnswer,
+      );
+    }
+
+    // if (activeScreen == 'results-screen') {
+    //   screenWidget = ResultScreen(
+    //     choosenAnswers: selectedAnswers,
+    //     restart: restart,
+    //   );
+    // }
+
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 87, 27, 189),
+                Color.fromARGB(255, 129, 61, 246)
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
           ),
-          backgroundColor: TColors.primary,
+          child: screenWidget,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Center(
-                  child: Card(
-                color: TColors.primary,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 100.0,
-                    ),
-                    Text(selectedQuestion.question,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 28)),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    // for (int i = 0; i < selectedQuestion.options.length; i++)
-
-                    //   ,
-                    const SizedBox(
-                      height: 100,
-                    ),
-                  ],
-                ),
-              )),
-              const SizedBox(height: 32),
-              Container(
-                child: Column(
-                  children: [
-                    Text("Số câu hỏi đúng: $numCorrect"),
-                    Text("Số câu hỏi sai: $numIncorrect"),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }

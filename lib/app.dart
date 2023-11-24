@@ -18,7 +18,7 @@ class App extends StatelessWidget {
       darkTheme: TAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       // initialBinding: GeneralBindings(),
-      home: const TextEditorScreen(),
+      home: OnBoardingScreen(),
       // home: const MuseumThreeDimensionScreen(),
     );
   }
