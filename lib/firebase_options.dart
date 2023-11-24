@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running cthe FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,15 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCCuEzNyJHviDVkxFztpqXeGPFG9VlV460',
+    appId: '1:847473515931:web:99d6404c23b6ed1bd1153e',
+    messagingSenderId: '847473515931',
+    projectId: 'hochiminh-museum-uet-project',
+    authDomain: 'hochiminh-museum-uet-project.firebaseapp.com',
+    storageBucket: 'hochiminh-museum-uet-project.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAuHCS8svh8L1my_RnXCx_5YYTL-epB4a8',
     appId: '1:847473515931:android:41c0c532bbabfc90d1153e',
@@ -64,5 +67,14 @@ class DefaultFirebaseOptions {
     projectId: 'hochiminh-museum-uet-project',
     storageBucket: 'hochiminh-museum-uet-project.appspot.com',
     iosBundleId: 'com.example.uiProjectHochiminhMuseum',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBoCckX7wGMdZuWqV3CUwZg486zDpagy70',
+    appId: '1:847473515931:ios:d8f6be8fd82c16add1153e',
+    messagingSenderId: '847473515931',
+    projectId: 'hochiminh-museum-uet-project',
+    storageBucket: 'hochiminh-museum-uet-project.appspot.com',
+    iosBundleId: 'com.example.uiProjectHochiminhMuseum.RunnerTests',
   );
 }

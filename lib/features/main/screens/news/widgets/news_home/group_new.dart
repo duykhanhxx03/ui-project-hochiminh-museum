@@ -48,6 +48,8 @@ class GroupNews extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (_, index) => InnoticeNews(
+                date: '23/11/2023',
+                isNetworkImage: false,
                 onPressed: () => Get.to(const NewsDescriptionScreen()),
                 thumbnailUrl: TImages.thumbnail2,
                 title:
