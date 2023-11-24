@@ -62,11 +62,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Hoạt động của bảo tàng Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var test = await controller.getAllNews(
+                      var newsListCloud = await controller.getAllNews(
                           'TinTucSuKien', 'HDBaoTang');
                       // print(test[0].title);
                       Get.to(NewsScreen(
-                        newsList: test,
+                        newsList: newsListCloud,
                       ));
                     },
                     icon: Iconsax.receipt_search,
@@ -75,25 +75,79 @@ class CategoriesList extends StatelessWidget {
                     label:
                         'Hoạt động của hệ thống các bảo tàng, di tích lưu niệm về chủ tích Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud = await controller.getAllNews(
+                          'TinTucSuKien', 'HDHeThongCacBT_DTLuuNiemHCM');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                   SquaredButton(
                     label: 'Hoạt động ngành di sản văn hóa',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud = await controller.getAllNews(
+                          'TinTucSuKien', 'HDNganhDSVH');
+                      // print(newsListCloud[0].thumbnailUrl);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                   SquaredButton(
                     label: 'Hoạt động bảo tàng trên thế giới',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud = await controller.getAllNews(
+                          'TinTucSuKien', 'HDBaoTangTrenTG');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                 ],
               );
             },
             icon: Iconsax.book_1,
+          ),
+          SquaredButton(
+            label: 'Trưng bày',
+            backgroundColor: Colors.redAccent,
+            onTap: () {
+              _showBottomModal(context, [
+                SquaredButton(
+                  label: 'Trưng bày online',
+                  backgroundColor: Colors.redAccent,
+                  onTap: () {},
+                  icon: Iconsax.book,
+                ),
+                SquaredButton(
+                  label: 'Trưng bày thường xuyên',
+                  backgroundColor: Colors.redAccent,
+                  onTap: () {},
+                  icon: Iconsax.book,
+                ),
+                SquaredButton(
+                  label: 'Trưng bày chuyên đề',
+                  backgroundColor: Colors.redAccent,
+                  onTap: () {},
+                  icon: Iconsax.book,
+                ),
+              ]);
+            },
+            icon: Iconsax.book,
+          ),
+          SquaredButton(
+            label: 'Đăng ký tham quan',
+            backgroundColor: Colors.redAccent,
+            onTap: () {},
+            icon: Iconsax.book,
           ),
           SquaredButton(
             label: 'Nghiên cứu',
@@ -105,43 +159,92 @@ class CategoriesList extends StatelessWidget {
                   SquaredButton(
                     label: 'Nghiên cứu về Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud = await controller.getAllNews(
+                          'NghienCuu', 'NghienCuuHCM');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                   SquaredButton(
                     label: 'Chuyện kể về Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud = await controller.getAllNews(
+                          'NghienCuu', 'ChuyenKeHCM');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                   SquaredButton(
                     label: 'Ấn phẩm về Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud =
+                          await controller.getAllNews('NghienCuu', 'AnPhamHCM');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                   SquaredButton(
                     label: 'Bộ sưu tập',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud =
+                          await controller.getAllNews('NghienCuu', 'BoSuuTap');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                   SquaredButton(
                     label: 'Hiện vật kể chuyện',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud = await controller.getAllNews(
+                          'NghienCuu', 'HienVatKeChuyen');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                   SquaredButton(
                     label: 'Hoạt động khoa học',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud =
+                          await controller.getAllNews('NghienCuu', 'HDKhoaHoc');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                   SquaredButton(
                     label: 'Công bố khoa học',
                     backgroundColor: Colors.lightBlue,
-                    onTap: () {},
+                    onTap: () async {
+                      var newsListCloud =
+                          await controller.getAllNews('NghienCuu', 'CongBoKH');
+                      // print(test[0].title);
+                      Get.to(NewsScreen(
+                        newsList: newsListCloud,
+                      ));
+                    },
                     icon: Iconsax.receipt_search,
                   ),
                 ],
@@ -188,7 +291,89 @@ class CategoriesList extends StatelessWidget {
           SquaredButton(
             label: 'Giáo dục',
             backgroundColor: Colors.yellow,
-            onTap: () {},
+            onTap: () {
+              _showBottomModal(context, [
+                SquaredButton(
+                  label:
+                      'Học tập và làm theo tấm gương đạo đức, phong cách Hồ Chí Minh',
+                  backgroundColor: Colors.lightBlue,
+                  onTap: () async {
+                    var newsListCloud = await controller.getAllNews(
+                        'GiaoDuc', 'HocTapTheoTamGuongHCM');
+                    // print(test[0].title);
+                    Get.to(NewsScreen(
+                      newsList: newsListCloud,
+                    ));
+                  },
+                  icon: Iconsax.receipt_search,
+                ),
+                SquaredButton(
+                  label: 'Kể chuyện tấm gương đạo đức Hồ Chí Minh',
+                  backgroundColor: Colors.lightBlue,
+                  onTap: () async {
+                    var newsListCloud =
+                        await controller.getAllNews('GiaoDuc', 'KeChuyenHCM');
+                    // print(test[0].title);
+                    Get.to(NewsScreen(
+                      newsList: newsListCloud,
+                    ));
+                  },
+                  icon: Iconsax.receipt_search,
+                ),
+                SquaredButton(
+                  label: 'Những tấm gương bình dị mà cao quý',
+                  backgroundColor: Colors.lightBlue,
+                  onTap: () async {
+                    var newsListCloud =
+                        await controller.getAllNews('GiaoDuc', 'NhungTamGuong');
+                    // print(test[0].title);
+                    Get.to(NewsScreen(
+                      newsList: newsListCloud,
+                    ));
+                  },
+                  icon: Iconsax.receipt_search,
+                ),
+                SquaredButton(
+                  label: 'Phòng khám phá, trải nghiệm',
+                  backgroundColor: Colors.lightBlue,
+                  onTap: () async {
+                    var newsListCloud =
+                        await controller.getAllNews('GiaoDuc', 'PhongKhamPha');
+                    // print(test[0].title);
+                    Get.to(NewsScreen(
+                      newsList: newsListCloud,
+                    ));
+                  },
+                  icon: Iconsax.receipt_search,
+                ),
+                SquaredButton(
+                  label: 'Bồi dưỡng nghiệp vụ thuyết minh',
+                  backgroundColor: Colors.lightBlue,
+                  onTap: () async {
+                    var newsListCloud = await controller.getAllNews(
+                        'GiaoDuc', 'BoiDuongNghiepVu');
+                    // print(test[0].title);
+                    Get.to(NewsScreen(
+                      newsList: newsListCloud,
+                    ));
+                  },
+                  icon: Iconsax.receipt_search,
+                ),
+                SquaredButton(
+                  label: 'Các hoạt động giáo dục khác',
+                  backgroundColor: Colors.lightBlue,
+                  onTap: () async {
+                    var newsListCloud = await controller.getAllNews(
+                        'GiaoDuc', 'CacHoatDongKhac');
+                    // print(test[0].title);
+                    Get.to(NewsScreen(
+                      newsList: newsListCloud,
+                    ));
+                  },
+                  icon: Iconsax.receipt_search,
+                ),
+              ]);
+            },
             icon: Iconsax.book,
           ),
           SquaredButton(

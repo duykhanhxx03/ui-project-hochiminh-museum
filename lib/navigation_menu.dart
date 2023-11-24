@@ -1,5 +1,4 @@
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/create_news.dart';
-import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/text_editor_screen.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/home/home.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/indoor_map.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/quiz_home.dart';
