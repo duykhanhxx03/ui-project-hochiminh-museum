@@ -49,6 +49,10 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+  Future<bool> isDuplicateEmail() async {
+    return false;
+  }
+
   Future<void> loginUserWithEmailAndPassword(
       String email, String password) async {
     try {

@@ -1,11 +1,11 @@
 import 'package:ui_project_hochiminh_museum/features/authentication/controllers/signup/signup_controller.dart';
-import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/widgets/terms_conditions_checkbox.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ui_project_hochiminh_museum/utils/validators/validation.dart';
 
 class TSignupForm extends StatelessWidget {
   const TSignupForm({
@@ -27,6 +27,8 @@ class TSignupForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller.firstName,
+                  validator: TValidator.validateName,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: TTexts.firstName,
@@ -38,6 +40,8 @@ class TSignupForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller.lastName,
+                  validator: TValidator.validateName,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   expands: false,
                   decoration: const InputDecoration(
                     labelText: TTexts.lastName,
@@ -62,6 +66,8 @@ class TSignupForm extends StatelessWidget {
           //Email
           TextFormField(
             controller: controller.email,
+            validator: TValidator.validateEmail,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             expands: false,
             decoration: const InputDecoration(
               labelText: TTexts.email,
@@ -73,6 +79,8 @@ class TSignupForm extends StatelessWidget {
           //Phone number
           TextFormField(
             controller: controller.phoneNumber,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: TValidator.validatePhoneNumber,
             expands: false,
             decoration: const InputDecoration(
               labelText: TTexts.phoneNo,
@@ -84,6 +92,8 @@ class TSignupForm extends StatelessWidget {
           //Password
           TextFormField(
             controller: controller.password,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: TValidator.validatePassword,
             obscureText: true,
             expands: false,
             decoration: const InputDecoration(

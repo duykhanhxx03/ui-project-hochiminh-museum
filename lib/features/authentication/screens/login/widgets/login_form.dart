@@ -9,6 +9,7 @@ import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ui_project_hochiminh_museum/utils/validators/validation.dart';
 
 // ignore: must_be_immutable
 class TLoginForm extends StatelessWidget {
@@ -30,6 +31,8 @@ class TLoginForm extends StatelessWidget {
             //Email
             TextFormField(
               controller: controller.email,
+              validator: TValidator.validateEmail,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.direct_right),
                 labelText: TTexts.email,
@@ -42,6 +45,8 @@ class TLoginForm extends StatelessWidget {
             //Password
             TextFormField(
               controller: controller.password,
+              validator: TValidator.validatePassword,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Iconsax.password_check),
                 suffixIcon: Icon(Iconsax.eye_slash),

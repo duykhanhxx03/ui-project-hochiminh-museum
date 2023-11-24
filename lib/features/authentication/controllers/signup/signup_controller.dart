@@ -23,6 +23,10 @@ class SignUpController extends GetxController {
         .createUserWithEmailAndPassword(email, password);
   }
 
+  Future<bool> isDuplicateEmail() async {
+    return controller.isDuplicateEmail();
+  }
+
   createUser(UserModel userModel) {
     userRepo.createUser(userModel);
     registerUser(userModel.email, userModel.password);
