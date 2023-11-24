@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class NewsModel {
   final String? id;

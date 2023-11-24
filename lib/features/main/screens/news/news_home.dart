@@ -6,6 +6,7 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_desc
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/innotice_news.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
+// ignore: must_be_immutable
 class NewsScreen extends StatelessWidget {
   NewsScreen({super.key, required this.newsList});
 

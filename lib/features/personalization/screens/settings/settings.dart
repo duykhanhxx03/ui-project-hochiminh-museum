@@ -6,6 +6,7 @@ import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/custom_shape/containers/primary_header_container.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/list_title/settings_menu_title.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/section_heading.dart';
+import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/choose_category_subcategory.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/settings_controller.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
@@ -27,6 +28,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   late bool _isThemeModeSystemSetting =
       controller.getCurrentTheme() == ThemeMode.system;
+
+  void showNewsCreateCategoryOptions(BuildContext context) {
+    showModalBottomSheet(
+      useSafeArea: true,
+      context: context,
+      builder: (BuildContext context) {
+        return const ChooseCategoryAndSubCategory();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,15 +70,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         if (snapshot.hasData) {
                           UserModel userModel = snapshot.data as UserModel;
 
-                          return TUserProfileTitle(
-                            email: userModel.email,
-                            firstName: userModel.firstName,
-                            lastName: userModel.lastName,
+                          return SizedBox(
+                            height: 65,
+                            child: TUserProfileTitle(
+                              email: userModel.email,
+                              firstName: userModel.firstName,
+                              lastName: userModel.lastName,
+                            ),
                           );
                         }
                       }
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return const SizedBox(
+                        height: 65,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       );
                     },
                   ),
@@ -83,9 +100,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: const EdgeInsets.all(TSizes.defaultSpace),
               child: Column(
                 children: [
+                  //Admin settings
+                  const TSectionHeading(
+                    title: 'Admin',
+                    showActionButton: false,
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  TSettingsMenuTitle(
+                    title: 'Viết báo',
+                    icon: Iconsax.pen_add,
+                    subtitle: 'Soạn thảo báo',
+                    onPressed: () {
+                      showNewsCreateCategoryOptions(context);
+                    },
+                  ),
                   //Account settings
                   const TSectionHeading(
-                    title: 'Account Settings',
+                    title: 'Cài đặt tài khoản',
                     showActionButton: false,
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
@@ -109,18 +140,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     subtitle: 'abc abc abc abc',
                     onPressed: () {},
                   ),
-                  TSettingsMenuTitle(
-                    title: 'My address',
-                    icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
-                    onPressed: () {},
-                  ),
-                  TSettingsMenuTitle(
-                    title: 'My address',
-                    icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
-                    onPressed: () {},
-                  ),
 
                   //System settings
                   const SizedBox(height: TSizes.spaceBtwSections),
@@ -129,13 +148,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     showActionButton: false,
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
-                  TSettingsMenuTitle(
-                    title: '',
-                    icon: Iconsax.safe_home,
-                    subtitle:
-                        'Cài đặt giao diện sáng tối thích ứng với hệ thống',
-                    onPressed: () {},
-                  ),
                   TSettingsMenuTitle(
                     title: 'Dark mode',
                     icon: Iconsax.safe_home,
