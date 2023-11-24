@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/news/models/news_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_description/full_news_description.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 

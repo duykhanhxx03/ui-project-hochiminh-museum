@@ -11,13 +11,22 @@ import 'package:ui_project_hochiminh_museum/features/personalization/controllers
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 import '../../../../common/widgets/list_title/user_profile_title.dart';
 
-class SettingsScreen extends StatelessWidget {
-  SettingsScreen({Key? key}) : super(key: key);
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
   final controller = Get.put(SettingsController());
+
+  late bool _isThemeModeSystemSetting =
+      controller.getCurrentTheme() == ThemeMode.system;
 
   @override
   Widget build(BuildContext context) {
@@ -116,36 +125,53 @@ class SettingsScreen extends StatelessWidget {
                   //System settings
                   const SizedBox(height: TSizes.spaceBtwSections),
                   const TSectionHeading(
-                    title: 'Account Settings',
+                    title: 'Cài đặt hệ thống',
                     showActionButton: false,
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
                   TSettingsMenuTitle(
-                    title: 'My address',
+                    title: '',
                     icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
+                    subtitle:
+                        'Cài đặt giao diện sáng tối thích ứng với hệ thống',
                     onPressed: () {},
                   ),
                   TSettingsMenuTitle(
-                    title: 'My address',
+                    title: 'Dark mode',
                     icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
+                    subtitle: 'Thay đổi chế độ sáng tối',
                     onPressed: () {},
                     trailing: Switch(
-                      value: true,
-                      onChanged: (value) {},
+                      value: THelperFunctions.isDarkMode(context),
+                      onChanged: _isThemeModeSystemSetting
+                          ? null
+                          : (value) {
+                              setState(() {
+                                controller.setCurrentTheme(
+                                  THelperFunctions.isDarkMode(context)
+                                      ? ThemeMode.light
+                                      : ThemeMode.dark,
+                                );
+                              });
+                            },
                     ),
                   ),
                   TSettingsMenuTitle(
-                    title: 'My address',
+                    title: 'Dark/ Light mode tự động',
                     icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
+                    subtitle:
+                        'Cài đặt giao diện sáng tối thích ứng với hệ thống',
                     onPressed: () {},
                     trailing: Switch(
-                      value: false,
-                      onChanged: (value) {},
+                      value: _isThemeModeSystemSetting,
+                      onChanged: (value) {
+                        setState(() {
+                          _isThemeModeSystemSetting = value;
+                        });
+                      },
                     ),
                   ),
+
                   TSettingsMenuTitle(
                     title: 'My address',
                     icon: Iconsax.safe_home,
