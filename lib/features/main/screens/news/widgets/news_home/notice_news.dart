@@ -4,23 +4,23 @@ import 'package:ui_project_hochiminh_museum/common/widgets/images/t_rounded_imag
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_title_home.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
-class ProminentNews extends StatelessWidget {
-  const ProminentNews({
-    required this.imageUrl,
+class NoticeNews extends StatelessWidget {
+  const NoticeNews({
+    required this.thumbnailUrl,
     required this.title,
     required this.date,
     required this.view,
-    required this.content,
+    required this.description,
     required this.isNotice,
     super.key,
     required this.onPressed,
   });
 
-  final String imageUrl;
+  final String thumbnailUrl;
   final String title;
   final String date;
   final int view;
-  final String content;
+  final String description;
   final bool isNotice;
   final void Function() onPressed;
 
@@ -33,7 +33,7 @@ class ProminentNews extends StatelessWidget {
         children: [
           TRoundedImage(
             onPressed: onPressed,
-            imageUrl: imageUrl,
+            imageUrl: thumbnailUrl,
             applyImageRadius: false,
             fit: BoxFit.fitWidth,
           ),
@@ -83,7 +83,7 @@ class ProminentNews extends StatelessWidget {
             height: TSizes.spaceBtwElements,
           ),
           Text(
-            content,
+            description,
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
             textAlign: TextAlign.justify,

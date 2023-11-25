@@ -1,15 +1,14 @@
-
 class TValidator {
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email is required.';
+      return 'Email là bắt buộc.';
     }
 
     // Regular expression for email validation
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
     if (!emailRegExp.hasMatch(value)) {
-      return 'Invalid email address.';
+      return 'Email không hợp lệ.';
     }
 
     return null;
@@ -17,27 +16,27 @@ class TValidator {
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Password is required.';
+      return 'Chưa nhập mặt khẩu.';
     }
 
     // Check for minimum password length
     if (value.length < 6) {
-      return 'Password must be at least 6 characters long.';
+      return 'Mật khẩu phải có từ 6 kí tự trở lên.';
     }
 
     // Check for uppercase letters
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter.';
+      return 'Mật khẩu phải có ít nhất 1 kí tự viết hoa.';
     }
 
     // Check for numbers
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number.';
+      return 'Mật khẩu phải có ít nhất 1 số.';
     }
 
     // Check for special characters
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character.';
+      return 'Mật khẩu phải có ít nhất 1 kí tự đặc biệt.';
     }
 
     return null;
@@ -45,15 +44,30 @@ class TValidator {
 
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Phone number is required.';
+      return 'Số điện thoại là bắt buộc.';
     }
 
-    // Regular expression for phone number validation (assuming a 10-digit US phone number format)
+    // Regular expression for phone number validation (VN phone number format)
     final phoneRegExp = RegExp(r'^\d{10}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return 'Invalid phone number format (10 digits required).';
+      return 'Định dạng số điện thoại không hợp lệ';
     }
+
+    return null;
+  }
+
+  static String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Tên là bắt buộc.';
+    }
+
+    // // Regular expression for name validation (no special characters)
+    // final nameRegExp = RegExp(r'^[a-zA-Z_0-9]+$');
+
+    // if (!nameRegExp.hasMatch(value)) {
+    //   return 'Tên không được chứa kí tự đặc biệt.';
+    // }
 
     return null;
   }

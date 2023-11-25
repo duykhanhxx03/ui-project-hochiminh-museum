@@ -31,16 +31,16 @@ class GroupNews extends StatelessWidget {
       const SizedBox(
         height: TSizes.spaceBtwItems,
       ),
-      ProminentNews(
+      NoticeNews(
         onPressed: () {
           Get.to(const NewsDescriptionScreen());
         },
         title: "Bảo tàng Hồ Chí Minh và bộ Tư Lệnh Cảnh vệ tổ quốc",
         isNotice: true,
-        imageUrl: TImages.thumbnail1,
+        thumbnailUrl: TImages.thumbnail1,
         date: "03/11/2023",
         view: 137,
-        content:
+        description:
             "​Ngày 21/10/2023, nhân chuyến thăm và làm việc tại tỉnh Cao Bằng, đoàn công tác Ban Tuyên giáo Trung ương long trọng tổ chức nghi lễ dâng hương, dâng hoa Chủ tịch Hồ Chí Minh tại Khu di tích Quốc gia đặc biệt Pác Bó (Hà Quảng, Cao Bằng).",
       ),
       ListView.builder(
@@ -48,8 +48,10 @@ class GroupNews extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (_, index) => InnoticeNews(
+                date: '23/11/2023',
+                isNetworkImage: false,
                 onPressed: () => Get.to(const NewsDescriptionScreen()),
-                imageUrl: TImages.thumbnail2,
+                thumbnailUrl: TImages.thumbnail2,
                 title:
                     "Đoàn Cơ sở Bảo tàng Hồ Chí Minh triển khai Chương trình “Đưa đoàn viên đến với các địa điểm văn hóa”",
               ))

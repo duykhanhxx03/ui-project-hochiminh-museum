@@ -22,7 +22,7 @@ class HomeSlider extends StatelessWidget {
       () => Column(
         children: [
           CarouselSlider(
-            items: [...banners.map((e) => TRoundImage(imageUrl: e)).toList()],
+            items: [...banners.map((e) => TRoundedImage(imageUrl: e)).toList()],
             options: CarouselOptions(
               onPageChanged: (index, reason) {
                 controller.updatePageIndicator(index);

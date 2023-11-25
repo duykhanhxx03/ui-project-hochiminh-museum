@@ -1,6 +1,5 @@
 import 'package:ui_project_hochiminh_museum/features/main/screens/home/home.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/indoor_map.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_description.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/quiz_home.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/settings/settings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
@@ -51,6 +50,6 @@ class NavigationController extends GetxController {
     const HomeScreen(),
     const IndoorMapScreen(),
     const QuizHome(),
-    const SettingsScreen()
+    const SettingsScreen(),
   ];
 }

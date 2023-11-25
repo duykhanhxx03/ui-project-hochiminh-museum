@@ -2,14 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
-
-import 'models/test_exam_question.dart';
 
 class TestExamScreen extends StatefulWidget {
   const TestExamScreen({super.key, required this.questions});
 
-  final List<TestExamQuestion> questions;
+  final List<TestExamModel> questions;
 
   @override
   State<TestExamScreen> createState() => _TestExamScreenState();
@@ -18,7 +17,7 @@ class TestExamScreen extends StatefulWidget {
 class _TestExamScreenState extends State<TestExamScreen> {
   // List<TestExamQuestion> questions = TestExamData.questions_list;
   // List<int> selectedAnswers = List.generate(questions.length, (index) => -1);
-  late List<TestExamQuestion> questions;
+  late List<TestExamModel> questions;
   late List<int> selectedAnswers;
   late List<bool> checkIfTheAnswerIsTrueOfFalse;
   late Timer timer;
@@ -31,7 +30,8 @@ class _TestExamScreenState extends State<TestExamScreen> {
     super.initState();
     questions = widget.questions;
     selectedAnswers = List.generate(questions.length, (index) => -1);
-    checkIfTheAnswerIsTrueOfFalse = List.generate(questions.length, (index) => false);
+    checkIfTheAnswerIsTrueOfFalse =
+        List.generate(questions.length, (index) => false);
 
     timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       if (totalTimeInSeconds > 0) {
@@ -46,7 +46,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
   }
 
   void checkSubmit() {
-    if(!isSubmit) {
+    if (!isSubmit) {
       if (selectedAnswers.contains(-1)) {
         showDialog(
           context: context,
@@ -124,20 +124,20 @@ class _TestExamScreenState extends State<TestExamScreen> {
         ),
         backgroundColor: Colors.red,
         actions: [
-          if(!isSubmit)
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: ElevatedButton(
-              onPressed: checkSubmit,
-              child: const Text(
-                '    Nộp bài   ',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+          if (!isSubmit)
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: ElevatedButton(
+                onPressed: checkSubmit,
+                child: const Text(
+                  '    Nộp bài   ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
               ),
-            ),
-          )
+            )
           else
             Padding(
               padding: const EdgeInsets.only(right: 22),
@@ -151,7 +151,6 @@ class _TestExamScreenState extends State<TestExamScreen> {
               ),
             )
         ],
-
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -182,13 +181,14 @@ class _TestExamScreenState extends State<TestExamScreen> {
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    if(!isSubmit)
+                    if (!isSubmit)
                       Column(
                         children: List.generate(
                           questions[index].options.length,
                           (optionIndex) {
                             return RadioListTile(
-                              title: Text(questions[index].options[optionIndex]),
+                              title:
+                                  Text(questions[index].options[optionIndex]),
                               value: optionIndex,
                               groupValue: selectedAnswers[index],
                               onChanged: (value) {
@@ -204,20 +204,26 @@ class _TestExamScreenState extends State<TestExamScreen> {
                       Column(
                         children: List.generate(
                           questions[index].options.length,
-                              (optionIndex) {
+                          (optionIndex) {
                             return RadioListTile(
-                              title: Text(
-                                questions[index].options[optionIndex],
-                                style: TextStyle(
-                                  color: (optionIndex == selectedAnswers[index] && checkIfTheAnswerIsTrueOfFalse[index])
-                                      ? Colors.green
-                                      : (optionIndex == selectedAnswers[index] && !checkIfTheAnswerIsTrueOfFalse[index])
-                                      ? Colors.red
-                                      : (optionIndex == questions[index].correctAnswerIndex)
-                                      ? Colors.green
-                                      : Colors.grey,
-                                )
-                              ),
+                              title: Text(questions[index].options[optionIndex],
+                                  style: TextStyle(
+                                    color: (optionIndex ==
+                                                selectedAnswers[index] &&
+                                            checkIfTheAnswerIsTrueOfFalse[
+                                                index])
+                                        ? Colors.green
+                                        : (optionIndex ==
+                                                    selectedAnswers[index] &&
+                                                !checkIfTheAnswerIsTrueOfFalse[
+                                                    index])
+                                            ? Colors.red
+                                            : (optionIndex ==
+                                                    questions[index]
+                                                        .correctAnswerIndex)
+                                                ? Colors.green
+                                                : Colors.grey,
+                                  )),
                               value: optionIndex,
                               groupValue: selectedAnswers[index],
                               onChanged: null,
@@ -229,18 +235,6 @@ class _TestExamScreenState extends State<TestExamScreen> {
                 );
               },
             ),
-<<<<<<< HEAD
-            if(isSubmit)
-            Container(
-              alignment: Alignment.bottomRight,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  ' Xem bình luận ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-=======
             if (isSubmit)
               Container(
                 alignment: Alignment.bottomRight,
@@ -254,11 +248,9 @@ class _TestExamScreenState extends State<TestExamScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
->>>>>>> 7e5a152 (add opensans font, change the newlist and connect some screens with each other)
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
