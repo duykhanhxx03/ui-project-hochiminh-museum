@@ -1,4 +1,6 @@
-import 'package:ui_project_hochiminh_museum/common/widgets/success_screen/success_screen.dart';
+import 'dart:async';
+
+import 'package:ui_project_hochiminh_museum/features/authentication/controllers/mail_verification/mail_verification_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/login/login_screen.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
@@ -8,11 +10,56 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key});
+class VerifyEmailScreen extends StatefulWidget {
+  VerifyEmailScreen({super.key});
+
+  Timer? timer;
+  int start = 60;
+
+  @override
+  State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
+}
+
+class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
+  void restartCountDown() {
+    setState(() {
+      widget.start = 60;
+    });
+  }
+
+  void startCountdown() {
+    const oneSec = Duration(seconds: 1);
+    widget.timer = Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (widget.start == 0) {
+          setState(() {
+            timer.cancel();
+            widget.start = 0;
+          });
+        } else {
+          setState(() {
+            widget.start--;
+            print(widget.start);
+          });
+        }
+      },
+    );
+  }
+
+  bool isCountdownDone() {
+    return widget.start <= 0;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startCountdown();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MailVerificationController());
     return Scaffold(
       appBar: AppBar(
         //Hide back button
@@ -59,14 +106,9 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(
-                    () => SuccessScreen(
-                      image: TImages.staticSuccessIllustration,
-                      title: TTexts.yourAccountCreatedTitle,
-                      subtitle: TTexts.yourAccountCreatedSubTitle,
-                      callback: () => Get.to(() => const LoginScreen()),
-                    ),
-                  ),
+                  onPressed: () {
+                    controller.manuallyCheckEmailVerification();
+                  },
                   child: const Text(TTexts.tContinue),
                 ),
               ),
@@ -75,8 +117,16 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
-                  child: const Text(TTexts.resendEmail),
+                  onPressed: () {
+                    if (isCountdownDone()) {
+                      controller.sendVerification();
+                      restartCountDown();
+                      startCountdown();
+                    }
+                  },
+                  child: isCountdownDone()
+                      ? const Text(TTexts.resendEmail)
+                      : Text('Gửi lại sau ${widget.start}'),
                 ),
               ),
             ],

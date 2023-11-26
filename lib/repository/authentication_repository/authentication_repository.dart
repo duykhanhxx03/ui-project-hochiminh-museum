@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/login/login_screen.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/verify_email.dart';
 import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
 import 'package:ui_project_hochiminh_museum/repository/exception/signup_email_password_failure.dart';
 
@@ -25,10 +26,11 @@ class AuthenticationRepository extends GetxController {
 
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    setInitialScreen(firebaseUser.value);
+    // ever(firebaseUser, _setInitialScreen);
   }
 
-  void _setInitialScreen(User? user) {
+  void setInitialScreen(User? user) {
     deviceStorage.writeIfNull('isFirstTime', true);
 
     user == null
@@ -39,8 +41,14 @@ class AuthenticationRepository extends GetxController {
                     () => const OnBoardingScreen(),
                   ),
           )
-        : Get.offAll(
-            const NavigationMenu(),
+        : (
+            user.emailVerified
+                ? Get.offAll(
+                    () => const NavigationMenu(),
+                  )
+                : Get.to(
+                    () => VerifyEmailScreen(),
+                  ),
           );
   }
 
@@ -51,13 +59,23 @@ class AuthenticationRepository extends GetxController {
         email: email,
         password: password,
       );
-      firebaseUser.value != null
-          ? Get.offAll(const NavigationMenu())
-          : Get.offAll(const LoginScreen());
+      setInitialScreen(_auth.currentUser);
     } on FirebaseAuthException catch (error) {
       if (kDebugMode) {
         print(error);
       }
+    }
+  }
+
+  Future<void> sendEmailVerification() async {
+    try {
+      _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      final ex = SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+      throw ex.message;
+    } catch (err) {
+      const ex = SignUpWithEmailAndPasswordFailure();
+      throw ex.message;
     }
   }
 
@@ -72,11 +90,9 @@ class AuthenticationRepository extends GetxController {
         email: email,
         password: password,
       );
-      firebaseUser.value != null
-          ? Get.offAll(const NavigationMenu())
-          : Get.offAll(const LoginScreen());
+      setInitialScreen(_auth.currentUser);
     } on FirebaseAuthException catch (e) {
-      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
+      final ex = SignUpWithEmailAndPasswordFailure.fromCode(e.code);
       if (kDebugMode) {
         print('FIREBASE AUTH EXCEPTION: -${ex.message}');
       }
@@ -90,5 +106,8 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  Future<void> logout() async => await _auth.signOut();
+  Future<void> logout() async {
+    await _auth.signOut();
+    setInitialScreen(_auth.currentUser);
+  }
 }
