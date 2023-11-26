@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/login/login_screen.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/screens/password_configuration/reset_password.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/verify_email.dart';
 import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
 import 'package:ui_project_hochiminh_museum/repository/exception/signup_email_password_failure.dart';
@@ -29,6 +30,28 @@ class AuthenticationRepository extends GetxController {
     setInitialScreen(firebaseUser.value);
 
     // ever(firebaseUser, _setInitialScreen);
+  }
+
+  void resetPassword(String email) {
+    try {
+      FirebaseAuth.instance.sendPasswordResetEmail(email: email).then(
+        (value) {
+          Get.off(
+            () => ResetPasswordScreen(
+              resendResetPassword: () {
+                resetPassword(email);
+              },
+            ),
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      final ex = SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+      throw ex.message;
+    } catch (err) {
+      const ex = SignUpWithEmailAndPasswordFailure();
+      throw ex.message;
+    }
   }
 
   void setInitialScreen(User? user) {

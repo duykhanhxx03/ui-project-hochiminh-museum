@@ -1,13 +1,21 @@
-import 'package:ui_project_hochiminh_museum/features/authentication/screens/password_configuration/reset_password.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/controllers/forget_password/forget_password_controller.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ui_project_hochiminh_museum/utils/validators/validation.dart';
 
-class ForgetPassword extends StatelessWidget {
+class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
 
+  @override
+  State<ForgetPassword> createState() => _ForgetPasswordState();
+}
+
+class _ForgetPasswordState extends State<ForgetPassword> {
+  final controller = Get.put(ForgetPasswordController());
+  final form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,10 +40,16 @@ class ForgetPassword extends StatelessWidget {
               const SizedBox(height: TSizes.spaceBtwSections),
 
               //Text field
-              TextFormField(
-                decoration: const InputDecoration(
-                    labelText: TTexts.email,
-                    prefixIcon: Icon(Iconsax.direct_right)),
+              Form(
+                key: form,
+                child: TextFormField(
+                  controller: controller.email,
+                  validator: TValidator.validateEmail,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  decoration: const InputDecoration(
+                      labelText: TTexts.email,
+                      prefixIcon: Icon(Iconsax.direct_right)),
+                ),
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
 
@@ -43,7 +57,11 @@ class ForgetPassword extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => Get.off(() => const ResetPassword()),
+                  onPressed: () {
+                    if (form.currentState!.validate()) {
+                      controller.forgetPassword();
+                    }
+                  },
                   child: const Text(TTexts.submit),
                 ),
               )
