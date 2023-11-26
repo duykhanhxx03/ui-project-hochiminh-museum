@@ -44,7 +44,7 @@ dependencies:
   http: ^1.1.0
   logger: ^2.0.2+1
   url_launcher: ^6.2.1
-  flutter_native_splash: ^2.3.5
+  flutter_native_splash: ^2.3.6
   smooth_page_indicator: ^1.1.0
 
   # Product Specific
