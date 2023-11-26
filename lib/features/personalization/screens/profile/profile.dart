@@ -1,26 +1,42 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/images/t_circular_image.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/section_heading.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
+import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/update_password.dart';
+import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/update_profile.dart';
+import 'package:ui_project_hochiminh_museum/features/personalization/screens/settings/settings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 import 'widgets/profile_menu.dart';
 
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final controller = Get.put(ProfileController());
+
+  late String userAvatarURL;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TAppBar(
-        title: Text('Hồ sơ'),
+      appBar:  TAppBar(
+        title: const Text('Hồ sơ'),
         showBackArrow: true,
+        backOnPress: () => Get.off(() => const SettingsScreen()),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -31,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     final data = snapshot.data as UserModel;
-
+                    userAvatarURL = data.avatar_imgURL;
                     return Column(
                       children: [
                         //Profile picture
@@ -39,14 +55,64 @@ class ProfileScreen extends StatelessWidget {
                           width: double.infinity,
                           child: Column(
                             children: [
-                              const TCircularImage(
-                                image: TImages.user,
+                              TCircularImage(
+                                fit: BoxFit.cover,
+                                isNetworkImage: true,
+                                image: userAvatarURL,
                                 width: 80,
                                 height: 80,
                                 padding: 0,
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  final imagePicker = ImagePicker();
+                                  final XFile? pickedFile = await imagePicker
+                                      .pickImage(source: ImageSource.gallery);
+
+                                  if (pickedFile != null) {
+                                    String uniqueFileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+                                    // You might need to update the imageURL in the controller or wherever it is stored
+                                    Reference referenceRoot = FirebaseStorage
+                                        .instance.ref();
+                                    Reference referenceDirImages = referenceRoot
+                                        .child('profiles');
+
+                                    Reference referenceImageToUpload = referenceDirImages
+                                        .child(uniqueFileName);
+
+                                    try {
+                                      await referenceImageToUpload.putFile(File(pickedFile.path));
+                                      userAvatarURL = await referenceImageToUpload.getDownloadURL();
+                                      print(userAvatarURL);
+                                      UserModel userData = UserModel(
+                                        id: data.id,
+                                        firstName: data.firstName,
+                                        lastName: data.lastName,
+                                        email: data.email,
+                                        phoneNumber: data.phoneNumber,
+                                        password: data.password,
+                                        avatar_imgURL: userAvatarURL,
+                                      );
+                                      await controller.updateUser(userData);
+                                      setState(()  {
+                                         userAvatarURL = userAvatarURL;
+                                      });
+                                    } catch (error) {
+                                      if (kDebugMode) {
+                                        print(error);
+                                      }
+                                    }
+                                  } else {
+                                    Get.snackbar(
+                                      'Thông báo',
+                                      'Không chọn ảnh',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        backgroundColor: Colors.green.withOpacity(0.1),
+                                        colorText: Colors.green,
+                                        duration: const Duration(seconds: 1)
+                                    );
+                                  }
+                                },
                                 child: const Text('Đổi ảnh đại diện'),
                               ),
                             ],
@@ -99,13 +165,47 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const Divider(),
                         const SizedBox(height: TSizes.spaceBtwItems),
+                        Center(
+                          child: TextButton(
+                            onPressed: () {
+                              Get.off(() => const ProfileUpdateScreen());
+                            },
+                            child: const Text(
+                              'Sửa đổi thông tin',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
 
                         Center(
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.off(() => const PasswordUpdateScreen());
+                            },
+                            child: const Text(
+                              'Đổi mật khẩu',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        Center(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
                             child: const Text(
                               'Đóng tài khoản',
-                              style: TextStyle(color: Colors.red),
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
                         )

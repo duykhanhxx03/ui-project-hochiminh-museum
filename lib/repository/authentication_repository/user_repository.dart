@@ -25,6 +25,33 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  Future<void> updateUserDetail(UserModel userModel) async {
+    await _db
+        .collection('Users')
+        .doc(userModel.id)
+        .update(userModel.toJson())
+        .whenComplete(() => Get.snackbar(
+              "Thành công",
+              "Tài khoản của bạn đã được cập nhật",
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green.withOpacity(0.1),
+              colorText: Colors.green,
+              duration: const Duration(seconds: 1),
+            ))
+        .catchError((error, stacktrace) {
+      () => Get.snackbar(
+            'Lỗi',
+            'Có gì đó không đúng, thử lại?',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.redAccent.withOpacity(0.1),
+            colorText: Colors.red,
+          );
+      if (kDebugMode) {
+        print(error.toString());
+      }
+    });
+  }
+
   Future<List<UserModel>> getAllUsers() async {
     final snapshot = await _db.collection('Users').get();
     final userData =

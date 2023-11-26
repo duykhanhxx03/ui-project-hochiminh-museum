@@ -58,6 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 color: TColors.white,
                               ),
                     ),
+
                   ),
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
@@ -73,6 +74,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           return SizedBox(
                             height: 65,
                             child: TUserProfileTitle(
+                              avatar_imgURL: userModel.avatar_imgURL,
                               email: userModel.email,
                               firstName: userModel.firstName,
                               lastName: userModel.lastName,

@@ -13,13 +13,16 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.showBackArrow = false,
       this.leadingIcon,
       this.leadingOnPress,
-      this.actions});
+      this.actions,
+      this.backOnPress});
 
   final Widget? title;
   final bool showBackArrow;
   final IconData? leadingIcon;
   final void Function()? leadingOnPress;
+  final void Function()? backOnPress;
   final List<Widget>? actions;
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
         automaticallyImplyLeading: false,
         leading: showBackArrow
             ? IconButton(
-                onPressed: () => Get.back(),
+                onPressed:  backOnPress ?? () => Get.back(),
                 icon: const Icon(Iconsax.arrow_left))
             : leadingIcon != null
                 ? IconButton(
