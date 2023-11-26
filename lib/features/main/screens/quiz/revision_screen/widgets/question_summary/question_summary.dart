@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/question_summary/summary_item.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/widgets/question_summary/summary_item.dart';
 
 class QuestionSummary extends StatelessWidget {
   final List<Map<String, Object>> summaryData;
@@ -7,8 +7,7 @@ class QuestionSummary extends StatelessWidget {
   const QuestionSummary({super.key, required this.summaryData});
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
+    return Expanded(
       child: SingleChildScrollView(
         child: Column(
           children: [

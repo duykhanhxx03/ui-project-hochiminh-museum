@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/answer_buttom.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/widgets/answer_buttom.dart';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen(
@@ -27,27 +28,20 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     });
   }
 
-  // List getShuffledAnswers() {
-  //   final shuffledList = List.of(questions[currentQuestionIndex].options);
-  //   shuffledList.shuffle();
-  //   return shuffledList;
-  // }
-
   @override
   Widget build(context) {
     final currentQuestion = questions[currentQuestionIndex];
-    return SizedBox(
-      width: double.infinity,
-      child: Container(
-        margin: const EdgeInsets.all(20),
-        child: Column(
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: Stack(children: [
+        Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 50),
             Text(
               currentQuestion.question,
               style: GoogleFonts.lato(
-                color: const Color.fromARGB(255, 235, 197, 244),
+                color: Color.fromARGB(255, 0, 0, 0),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -56,6 +50,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             const SizedBox(
               height: 30,
             ),
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 250),
             ...currentQuestion.options.map(
               (answer) => AnswerButton(
                 answerText: answer,
@@ -63,10 +63,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   answerQuestion(answer);
                 },
               ),
-            ),
+            )
           ],
         ),
-      ),
+      ]),
     );
   }
 }

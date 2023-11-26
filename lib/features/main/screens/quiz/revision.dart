@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/questions_screen.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/result_screen.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/start_screen.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
 class RevisionScreen extends StatefulWidget {
   const RevisionScreen({super.key, required this.questions});
@@ -18,12 +19,7 @@ class _RevisionScreenState extends State<RevisionScreen> {
   late List<TestExamModel> questions = widget.questions;
   List<String> selectedAnswers = [];
 
-  String activeScreen = 'start-screen';
-  void switchScreen() {
-    setState(() {
-      activeScreen = 'questions-screen';
-    });
-  }
+  String activeScreen = 'questions-screen';
 
   void chooseAnswer(String answer) {
     selectedAnswers.add(answer);
@@ -43,37 +39,31 @@ class _RevisionScreenState extends State<RevisionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget screenWidget = StartScreen(switchScreen);
-    if (activeScreen == 'questions-screen') {
-      screenWidget = QuestionsScreen(
+    Widget screenWidget = QuestionsScreen(
+      questions: questions,
+      onSelectAnswer: chooseAnswer,
+    );
+
+    if (activeScreen == 'results-screen') {
+      screenWidget = ResultScreen(
+        choosenAnswers: selectedAnswers,
+        restart: restart,
         questions: questions,
-        onSelectAnswer: chooseAnswer,
       );
     }
 
-    // if (activeScreen == 'results-screen') {
-    //   screenWidget = ResultScreen(
-    //     choosenAnswers: selectedAnswers,
-    //     restart: restart,
-    //   );
-    // }
-
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 87, 27, 189),
-                Color.fromARGB(255, 129, 61, 246)
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Ôn tập',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
-          child: screenWidget,
         ),
+        backgroundColor: TColors.primary,
       ),
+      body: screenWidget,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
 class AnswerButton extends StatelessWidget {
   const AnswerButton(
@@ -16,7 +17,7 @@ class AnswerButton extends StatelessWidget {
           horizontal: 40,
           vertical: 10,
         ),
-        backgroundColor: const Color.fromARGB(255, 58, 2, 78),
+        backgroundColor: TColors.primary,
         foregroundColor: Colors.white,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
