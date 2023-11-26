@@ -12,12 +12,18 @@ import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/utils/validators/validation.dart';
 
 // ignore: must_be_immutable
-class TLoginForm extends StatelessWidget {
-  TLoginForm({
+class TLoginForm extends StatefulWidget {
+  const TLoginForm({
     super.key,
   });
 
+  @override
+  State<TLoginForm> createState() => _TLoginFormState();
+}
+
+class _TLoginFormState extends State<TLoginForm> {
   var controller = Get.put(SignInController());
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -45,11 +51,22 @@ class TLoginForm extends StatelessWidget {
             //Password
             TextFormField(
               controller: controller.password,
+              obscureText: controller.isPasswordObscure.value,
               validator: TValidator.validatePassword,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.password_check),
-                suffixIcon: Icon(Iconsax.eye_slash),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Iconsax.password_check),
+                suffixIcon: IconButton(
+                  icon: controller.isPasswordObscure.value
+                      ? const Icon(Iconsax.eye)
+                      : const Icon(Iconsax.eye_slash),
+                  onPressed: () {
+                    setState(() {
+                      controller.isPasswordObscure.value =
+                          !controller.isPasswordObscure.value;
+                    });
+                  },
+                ),
                 labelText: TTexts.password,
               ),
             ),
@@ -64,7 +81,15 @@ class TLoginForm extends StatelessWidget {
                 //Remember me
                 Row(
                   children: [
-                    Checkbox(value: true, onChanged: (value) {}),
+                    Checkbox(
+                      value: controller.isRememberMe.value,
+                      onChanged: (value) {
+                        setState(() {
+                          controller.isRememberMe.value =
+                              !controller.isRememberMe.value;
+                        });
+                      },
+                    ),
                     const Text(TTexts.rememberMe)
                   ],
                 ),
@@ -85,11 +110,8 @@ class TLoginForm extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    AuthenticationRepository.instance
-                        .loginUserWithEmailAndPassword(
-                      controller.email.text,
-                      controller.password.text,
-                    );
+                    controller.signIn(
+                        controller.email.text, controller.password.text);
                   }
                 },
                 child: const Text(TTexts.signIn),

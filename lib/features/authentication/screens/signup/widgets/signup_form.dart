@@ -8,16 +8,20 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/utils/validators/validation.dart';
 
-class TSignupForm extends StatelessWidget {
+class TSignupForm extends StatefulWidget {
   const TSignupForm({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(SignUpController());
-    final formKey = GlobalKey<FormState>();
+  State<TSignupForm> createState() => _TSignupFormState();
+}
 
+class _TSignupFormState extends State<TSignupForm> {
+  final controller = Get.put(SignUpController());
+  final formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
     return Form(
       key: formKey,
       child: Column(
@@ -93,14 +97,23 @@ class TSignupForm extends StatelessWidget {
           //Password
           TextFormField(
             controller: controller.password,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            obscureText: controller.isPasswordObscure.value,
             validator: TValidator.validatePassword,
-            obscureText: true,
-            expands: false,
-            decoration: const InputDecoration(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Iconsax.password_check),
+              suffixIcon: IconButton(
+                icon: controller.isPasswordObscure.value
+                    ? const Icon(Iconsax.eye)
+                    : const Icon(Iconsax.eye_slash),
+                onPressed: () {
+                  setState(() {
+                    controller.isPasswordObscure.value =
+                        !controller.isPasswordObscure.value;
+                  });
+                },
+              ),
               labelText: TTexts.password,
-              prefixIcon: Icon(Iconsax.password_check),
-              suffixIcon: Icon(Iconsax.eye_slash),
             ),
           ),
           const SizedBox(height: TSizes.spaceBtwSections),

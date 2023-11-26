@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -11,6 +12,11 @@ class SignUpController extends GetxController {
   var controller = Get.put(AuthenticationRepository());
 
   var userRepo = Get.put(UserRepository());
+
+  var isPasswordObscure = true.obs;
+  var isRememberMe = true.obs;
+
+  void showHiddenPassword() {}
 
   final email = TextEditingController();
   final password = TextEditingController();

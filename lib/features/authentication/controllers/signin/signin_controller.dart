@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 
 class SignInController extends GetxController {
   static SignInController get instance => Get.find();
   var controller = Get.put(AuthenticationRepository());
+
+  var deviceStorage = GetStorage();
+
+  var isPasswordObscure = true.obs;
+  var isRememberMe = true.obs;
+
+  void showHiddenPassword() {}
+
+  void rememberMe(bool isRememberMe) {}
 
   final email = TextEditingController();
   final password = TextEditingController();
@@ -14,8 +22,18 @@ class SignInController extends GetxController {
   final lastName = TextEditingController();
   final phoneNumber = TextEditingController();
 
-  void signIn(String email, String password) {
-    AuthenticationRepository.instance
+  @override
+  void onReady() {
+    super.onReady();
+    final savedEmail = deviceStorage.read('userEmail');
+    email.text = savedEmail;
+  }
+
+  void signIn(String email, String password) async {
+    if (isRememberMe.value) {
+      await deviceStorage.write('userEmail', email);
+    }
+    await AuthenticationRepository.instance
         .loginUserWithEmailAndPassword(email, password);
   }
 }
