@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/login/login_screen.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
@@ -8,6 +10,8 @@ import 'package:ui_project_hochiminh_museum/repository/exception/signup_email_pa
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
+
+  final deviceStorage = GetStorage();
 
   //Var
   final _auth = FirebaseAuth.instance;
@@ -17,15 +21,23 @@ class AuthenticationRepository extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    FlutterNativeSplash.remove();
+
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
   }
 
   void _setInitialScreen(User? user) {
+    deviceStorage.writeIfNull('isFirstTime', true);
+
     user == null
-        ? Get.offAll(
-            const OnBoardingScreen(),
+        ? (
+            deviceStorage.read('isFirstTime') != true
+                ? Get.offAll(() => const LoginScreen())
+                : Get.offAll(
+                    () => const OnBoardingScreen(),
+                  ),
           )
         : Get.offAll(
             const NavigationMenu(),

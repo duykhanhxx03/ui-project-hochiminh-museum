@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/login/login_screen.dart';
 
 class OnBoardingController extends GetxController {
@@ -20,6 +21,8 @@ class OnBoardingController extends GetxController {
   void nextPage() {
     if (currentPageIndex.value == 3 - 1) {
       Get.offAll(const LoginScreen());
+      final deviceStorage = GetStorage();
+      deviceStorage.write('isFirstTime', false);
     } else {
       int page = currentPageIndex.value + 1;
       pageController.animateToPage(page,
@@ -33,5 +36,7 @@ class OnBoardingController extends GetxController {
       duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
+    final deviceStorage = GetStorage();
+    deviceStorage.write('isFirstTime', false);
   }
 }
