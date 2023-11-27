@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/images/t_rounded_image.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_title_home.dart';
-import 'package:ui_project_hochiminh_museum/common/widgets/texts/stamp_text.dart';
+import 'package:iconsax/iconsax.dart';
 // ignore: unused_import
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 
@@ -26,6 +26,7 @@ class InnoticeNews extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+        height: 90,
         padding: const EdgeInsets.only(top: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,22 +34,54 @@ class InnoticeNews extends StatelessWidget {
             TRoundedImage(
               imageUrl: thumbnailUrl,
               applyImageRadius: false,
+              height: 90,
               width: 120,
+              fit: BoxFit.cover,
               isNetworkImage: isNetworkImage,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: SizedBox(
-                    width: 200,
-                    child: NewsTitle(title: title, isNotice: false),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    flex: 6,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: NewsTitle(
+                          title: title,
+                          isNotice: false,
+                          maxLines: 3,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                StampText(content: date),
-              ],
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Iconsax.clock,
+                            size: 10,
+                            color: Colors.grey,
+                          ),
+                          Text(
+                            " $date",
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

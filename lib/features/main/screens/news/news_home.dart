@@ -37,8 +37,12 @@ class NewsScreen extends StatelessWidget {
                     itemBuilder: (_, index) => InnoticeNews(
                       date: newsList[index].date,
                       isNetworkImage: true,
-                      onPressed: () => Get.to(NewsDescriptionScreen(
-                          newsContent: newsList[index].newsContent)),
+                      onPressed: () {
+                        Get.to(
+                          NewsDescriptionScreen(
+                              newsContent: newsList[index].newsContent),
+                        );
+                      },
                       thumbnailUrl: newsList[index].thumbnailUrl,
                       title: newsList[index].title,
                     ),

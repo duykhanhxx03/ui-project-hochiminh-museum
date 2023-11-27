@@ -20,13 +20,11 @@ class NewsModel {
       'content': '',
     },
   ))['content']!;
-  // late String thumbnailUrl = (newsContent.singleWhere(
-  //   (element) => element['type'] == 'image',
-  //   orElse: () => {
-  //     'image_url': defaultImageUrl,
-  //   },
-  // ))['image_url']!;
-  late String thumbnailUrl = defaultImageUrl;
+  late String thumbnailUrl = newsContent
+          .where((element) => element['type'] == 'image')
+          .toList()
+          .first['image_url'] ??
+      defaultImageUrl;
 
   late String description = (newsContent.singleWhere(
     (element) => element['type'] == 'description',
