@@ -47,8 +47,9 @@ class _ReviewScreen extends State<ReviewScreen> {
               },
             ),
             title: const Text(
-              'Comments',
+              'Thảo luận',
               style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -63,10 +64,6 @@ class _ReviewScreen extends State<ReviewScreen> {
                   return Comment(commentInfo: commentList[index]);
                 },
               ),
-            ),
-            const Divider(
-              thickness: 1,
-              color: Color.fromARGB(255, 167, 165, 165),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
