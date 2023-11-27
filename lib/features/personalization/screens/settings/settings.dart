@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -125,7 +126,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     icon: Iconsax.safe_home,
                     subtitle: 'abc abc abc abc',
                     onPressed: () {
-                      print((controller.getUserData() == null));
+                      if (kDebugMode) {
+                        print((controller.getUserData() == null));
+                      }
                     },
                   ),
                   TSettingsMenuTitle(

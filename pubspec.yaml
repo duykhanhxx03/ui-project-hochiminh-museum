@@ -95,6 +95,7 @@ flutter:
   assets:
     - assets/images/on_boarding_images/
     - assets/logos/
+    - assets/error/
     - assets/icons/brands/
     - assets/images/animations/
     - assets/images/news/

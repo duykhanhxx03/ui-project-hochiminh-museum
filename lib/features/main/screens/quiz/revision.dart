@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
-import 'models/test_exam_question.dart';
 
 class RevisionScreen extends StatefulWidget {
   const RevisionScreen({super.key, required this.questions, required});
@@ -73,13 +72,11 @@ class _RevisionScreenState extends State<RevisionScreen> {
                 ),
               )),
               const SizedBox(height: 32),
-              Container(
-                child: Column(
-                  children: [
-                    Text("Số câu hỏi đúng: $numCorrect"),
-                    Text("Số câu hỏi sai: $numIncorrect"),
-                  ],
-                ),
+              Column(
+                children: [
+                  Text("Số câu hỏi đúng: $numCorrect"),
+                  Text("Số câu hỏi sai: $numIncorrect"),
+                ],
               )
             ],
           ),

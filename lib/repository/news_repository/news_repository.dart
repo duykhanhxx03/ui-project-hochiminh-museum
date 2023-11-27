@@ -5,27 +5,59 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/utils.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/models/news_model.dart';
 
 class NewsRepository extends GetxController {
   static NewsRepository get instance => Get.find();
 
   final _db = FirebaseFirestore.instance;
+  final initList = {
+    'TinTucSuKien': [
+      'HDBaoTang',
+      'HDHeThongCacBT_DTLuuNiemHCM',
+      'HDNganhDSVH',
+      'HDBaoTangTrenTG',
+    ],
+    'NghienCuu': [
+      'NghienCuuHCM',
+      'ChuyenKeHCM',
+      'AnPhamHCM',
+      'BoSuuTap',
+      'HienVatKeChuyen',
+      'HDKhoaHoc',
+      'CongBoKH',
+    ],
+    'GiaoDuc': [
+      'HocTapTheoTamGuongHCM',
+      'KeChuyenHCM',
+      'NhungTamGuong',
+      'PhongKhamPha',
+      'BoiDuongNghiepVu',
+      'CacHoatDongKhac',
+    ]
+  };
 
-  // Future<UserModel> getUserDetails(String email) async {
-  //   final snapshot = await _db
-  //       .collection('Users')
-  //       .where(
-  //         'email',
-  //         isEqualTo: email,
-  //       )
-  //       .get();
+  void cacheNewsIntoDeviceStorage() async {
+    for (var i in initList.keys) {
+      final box = GetStorage(i);
+      for (var j in initList[i]!) {
+        await box.write(j, await getAllNews(i, j, isForCache: true));
+      }
+    }
+  }
 
-  //   final userData = snapshot.docs.map((e) => UserModel.fromSnapShot(e)).single;
-  //   return userData;
-  // }
+  Future<List<NewsModel>> getAllNews(String collection, String document,
+      {bool isForCache = false}) async {
+    if (!isForCache) {
+      final box = GetStorage(collection);
+      final List<dynamic> cache = box.read(document);
+      if (cache.isNotEmpty) {
+        return cache.map((e) => e as NewsModel).toList();
+      }
+    }
 
-  Future<List<NewsModel>> getAllNews(String collection, String document) async {
     final snapshot = await _db
         .collection(collection)
         .doc(document)

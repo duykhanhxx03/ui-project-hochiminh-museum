@@ -1,13 +1,7 @@
-import 'dart:async';
-
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/test_exam_controller.dart';
-import 'package:ui_project_hochiminh_museum/repository/test_exam_repository/test_exam_repository.dart';
 
-import '../features/main/screens/quiz/models/test_exam_question.dart';
-
-class TestExamData extends GetxController{
+class TestExamData extends GetxController {
   static late List<TestExamModel> questionsList1;
   static late List<TestExamModel> questionsList2;
   // ignore: non_constant_identifier_names

@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class VerifyEmailScreen extends StatefulWidget {
   VerifyEmailScreen({super.key});
 
@@ -40,7 +41,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
         } else {
           setState(() {
             widget.start--;
-            print(widget.start);
+            // print(widget.start);
           });
         }
       },

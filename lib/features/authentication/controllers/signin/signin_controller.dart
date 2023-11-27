@@ -7,7 +7,7 @@ class SignInController extends GetxController {
   static SignInController get instance => Get.find();
   var controller = Get.put(AuthenticationRepository());
 
-  var deviceStorage = GetStorage();
+  var deviceStorage = GetStorage('app-setting-configs');
 
   var isPasswordObscure = true.obs;
   var isRememberMe = true.obs;

@@ -65,9 +65,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud = await controller.getAllNews(
                           'TinTucSuKien', 'HDBaoTang');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -79,9 +83,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud = await controller.getAllNews(
                           'TinTucSuKien', 'HDHeThongCacBT_DTLuuNiemHCM');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -92,9 +100,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud = await controller.getAllNews(
                           'TinTucSuKien', 'HDNganhDSVH');
                       // print(newsListCloud[0].thumbnailUrl);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -105,9 +117,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud = await controller.getAllNews(
                           'TinTucSuKien', 'HDBaoTangTrenTG');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -163,9 +179,11 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud = await controller.getAllNews(
                           'NghienCuu', 'NghienCuuHCM');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -176,9 +194,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud = await controller.getAllNews(
                           'NghienCuu', 'ChuyenKeHCM');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -189,9 +211,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud =
                           await controller.getAllNews('NghienCuu', 'AnPhamHCM');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -202,9 +228,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud =
                           await controller.getAllNews('NghienCuu', 'BoSuuTap');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -215,9 +245,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud = await controller.getAllNews(
                           'NghienCuu', 'HienVatKeChuyen');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -228,9 +262,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud =
                           await controller.getAllNews('NghienCuu', 'HDKhoaHoc');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -241,9 +279,13 @@ class CategoriesList extends StatelessWidget {
                       var newsListCloud =
                           await controller.getAllNews('NghienCuu', 'CongBoKH');
                       // print(test[0].title);
-                      Get.to(NewsScreen(
-                        newsList: newsListCloud,
-                      ));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      await Get.to(
+                        () => NewsScreen(
+                          newsList: newsListCloud,
+                        ),
+                      );
                     },
                     icon: Iconsax.receipt_search,
                   ),
@@ -301,9 +343,13 @@ class CategoriesList extends StatelessWidget {
                     var newsListCloud = await controller.getAllNews(
                         'GiaoDuc', 'HocTapTheoTamGuongHCM');
                     // print(test[0].title);
-                    Get.to(NewsScreen(
-                      newsList: newsListCloud,
-                    ));
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                    await Get.to(
+                      () => NewsScreen(
+                        newsList: newsListCloud,
+                      ),
+                    );
                   },
                   icon: Iconsax.receipt_search,
                 ),
@@ -314,9 +360,13 @@ class CategoriesList extends StatelessWidget {
                     var newsListCloud =
                         await controller.getAllNews('GiaoDuc', 'KeChuyenHCM');
                     // print(test[0].title);
-                    Get.to(NewsScreen(
-                      newsList: newsListCloud,
-                    ));
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                    await Get.to(
+                      () => NewsScreen(
+                        newsList: newsListCloud,
+                      ),
+                    );
                   },
                   icon: Iconsax.receipt_search,
                 ),
@@ -327,9 +377,13 @@ class CategoriesList extends StatelessWidget {
                     var newsListCloud =
                         await controller.getAllNews('GiaoDuc', 'NhungTamGuong');
                     // print(test[0].title);
-                    Get.to(NewsScreen(
-                      newsList: newsListCloud,
-                    ));
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                    await Get.to(
+                      () => NewsScreen(
+                        newsList: newsListCloud,
+                      ),
+                    );
                   },
                   icon: Iconsax.receipt_search,
                 ),
@@ -340,9 +394,13 @@ class CategoriesList extends StatelessWidget {
                     var newsListCloud =
                         await controller.getAllNews('GiaoDuc', 'PhongKhamPha');
                     // print(test[0].title);
-                    Get.to(NewsScreen(
-                      newsList: newsListCloud,
-                    ));
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                    await Get.to(
+                      () => NewsScreen(
+                        newsList: newsListCloud,
+                      ),
+                    );
                   },
                   icon: Iconsax.receipt_search,
                 ),
@@ -353,9 +411,13 @@ class CategoriesList extends StatelessWidget {
                     var newsListCloud = await controller.getAllNews(
                         'GiaoDuc', 'BoiDuongNghiepVu');
                     // print(test[0].title);
-                    Get.to(NewsScreen(
-                      newsList: newsListCloud,
-                    ));
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                    await Get.to(
+                      () => NewsScreen(
+                        newsList: newsListCloud,
+                      ),
+                    );
                   },
                   icon: Iconsax.receipt_search,
                 ),
@@ -366,9 +428,13 @@ class CategoriesList extends StatelessWidget {
                     var newsListCloud = await controller.getAllNews(
                         'GiaoDuc', 'CacHoatDongKhac');
                     // print(test[0].title);
-                    Get.to(NewsScreen(
-                      newsList: newsListCloud,
-                    ));
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+                    await Get.to(
+                      () => NewsScreen(
+                        newsList: newsListCloud,
+                      ),
+                    );
                   },
                   icon: Iconsax.receipt_search,
                 ),

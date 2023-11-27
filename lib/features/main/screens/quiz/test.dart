@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
 
-import 'models/test_exam_question.dart';
-
 class TestExamScreen extends StatefulWidget {
   const TestExamScreen({super.key, required this.questions});
 

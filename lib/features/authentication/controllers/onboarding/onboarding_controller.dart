@@ -21,7 +21,7 @@ class OnBoardingController extends GetxController {
   void nextPage() {
     if (currentPageIndex.value == 3 - 1) {
       Get.offAll(const LoginScreen());
-      final deviceStorage = GetStorage();
+      final deviceStorage = GetStorage('app-setting-configs');
       deviceStorage.write('isFirstTime', false);
     } else {
       int page = currentPageIndex.value + 1;
@@ -36,7 +36,7 @@ class OnBoardingController extends GetxController {
       duration: const Duration(milliseconds: 500),
       curve: Curves.ease,
     );
-    final deviceStorage = GetStorage();
+    final deviceStorage = GetStorage('app-setting-configs');
     deviceStorage.write('isFirstTime', false);
   }
 }

@@ -13,7 +13,7 @@ import 'package:ui_project_hochiminh_museum/repository/exception/signup_email_pa
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
-  final deviceStorage = GetStorage();
+  final deviceStorage = GetStorage('app-setting-configs');
 
   //Var
   final _auth = FirebaseAuth.instance;

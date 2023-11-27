@@ -12,7 +12,40 @@ Future<void> main() async {
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
 
-  await GetStorage.init();
+  //saves app config
+  await GetStorage.init('app-setting-configs');
+
+  final initList = {
+    'TinTucSuKien': [
+      'HDBaoTang',
+      'HDHeThongCacBT_DTLuuNiemHCM',
+      'HDNganhDSVH',
+      'HDBaoTangTrenTG',
+    ],
+    'NghienCuu': [
+      'NghienCuuHCM',
+      'ChuyenKeHCM',
+      'AnPhamHCM',
+      'BoSuuTap',
+      'HienVatKeChuyen',
+      'HDKhoaHoc',
+      'CongBoKH',
+    ],
+    'GiaoDuc': [
+      'HocTapTheoTamGuongHCM',
+      'KeChuyenHCM',
+      'NhungTamGuong',
+      'PhongKhamPha',
+      'BoiDuongNghiepVu',
+      'CacHoatDongKhac',
+    ]
+  };
+
+  for (var i in initList.keys) {
+    await GetStorage.init(i);
+  }
+
+  //cache news
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
