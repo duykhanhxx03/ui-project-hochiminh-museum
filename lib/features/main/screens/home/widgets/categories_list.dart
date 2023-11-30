@@ -6,7 +6,8 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/home/widgets/s
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/image_lib_main.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/vid_lib_main.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_home.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_register/ticket_register_screen.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_supporter/ticket_order_screen.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_supporter/ticket_register_screen.dart';
 import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
@@ -194,7 +195,25 @@ class CategoriesList extends StatelessWidget {
           SquaredButton(
             label: 'Hỗ trợ tham quan',
             backgroundColor: Colors.redAccent,
-            onTap: () => Get.to(const TicketRegister()),
+            onTap: () {
+              _showBottomModal(
+                context,
+                [
+                  SquaredButton(
+                    label: 'Đăng ký tham quan',
+                    backgroundColor: Colors.lightBlue,
+                    onTap: () => Get.to(const TicketRegisterScreen()),
+                    icon: Iconsax.ticket,
+                  ),
+                  SquaredButton(
+                    label: 'Lịch sử mua vé',
+                    backgroundColor: Colors.lightBlue,
+                    onTap: () => Get.to(TicketOrderScreen()),
+                    icon: Iconsax.refresh,
+                  ),
+                ],
+              );
+            },
             icon: Iconsax.book,
           ),
         ],

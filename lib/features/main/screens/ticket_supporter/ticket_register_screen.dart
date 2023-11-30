@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_register/controllers/ticket_controller.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_register/models/ticket_model.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_register/widgets/counter_button.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_supporter/controllers/ticket_register_controller.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_supporter/models/ticket_model.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_supporter/widgets/counter_button.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
-class TicketRegister extends StatefulWidget {
-  const TicketRegister({super.key});
+class TicketRegisterScreen extends StatefulWidget {
+  const TicketRegisterScreen({super.key});
 
   @override
-  State<TicketRegister> createState() => _TicketRegisterState();
+  State<TicketRegisterScreen> createState() => _TicketRegisterScreenState();
 }
 
-class _TicketRegisterState extends State<TicketRegister> {
-  final controller = Get.put(TicketController());
+class _TicketRegisterScreenState extends State<TicketRegisterScreen> {
+  final int price = 25000;
+  final controller = Get.put(TicketRegisterController());
 
   @override
   void initState() {
@@ -47,13 +47,13 @@ class _TicketRegisterState extends State<TicketRegister> {
         body: FutureBuilder(
             future: controller.getUserData(),
             builder: (context, snapshot) {
-              UserModel userData = snapshot.data as UserModel;
-              controller.userId.value = userData.id!;
-              controller.name.value =
-                  '${userData.lastName} ${userData.firstName}';
-              controller.phoneNumber.value = userData.phoneNumber;
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
+                  UserModel userData = snapshot.data as UserModel;
+                  controller.userId.value = userData.id!;
+                  controller.name.value =
+                      '${userData.lastName} ${userData.firstName}';
+                  controller.phoneNumber.value = userData.phoneNumber;
                   return Obx(
                     () => Container(
                       padding: const EdgeInsets.all(20),
@@ -144,13 +144,32 @@ class _TicketRegisterState extends State<TicketRegister> {
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Row(
                                     children: [
-                                      Text(
-                                        controller.dateRegister.value,
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            decorationThickness: 2.0,
-                                            fontWeight: FontWeight.bold),
+                                      Expanded(
+                                        child: Text(
+                                          controller.dateRegister.value,
+                                          style: const TextStyle(
+                                              fontSize: 18,
+                                              decorationThickness: 2.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
+                                      Expanded(
+                                          child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            'Tổng tiền: ${price * controller.counterQuantities.value} đ',
+                                            style: const TextStyle(
+                                                fontSize: 18,
+                                                decorationThickness: 2.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          )
+                                        ],
+                                      ))
                                     ],
                                   ),
                                 ),

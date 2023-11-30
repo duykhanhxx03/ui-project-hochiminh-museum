@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_register/models/ticket_model.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_supporter/models/ticket_model.dart';
 
 class TicketRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
@@ -29,5 +29,12 @@ class TicketRepository extends GetxController {
           );
       print(error.toString());
     });
+  }
+
+  Future<List<TicketModel>> queryAllTickets() async {
+    final snapshot = await _db.collection('DangKyThamQuan').get();
+    final ticketData =
+        snapshot.docs.map((e) => TicketModel.fromSnapShot(e)).toList();
+    return ticketData;
   }
 }
