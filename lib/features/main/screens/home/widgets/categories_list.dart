@@ -62,14 +62,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Hoạt động của bảo tàng Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud = await controller.getAllNews(
-                          'TinTucSuKien', 'HDBaoTang');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'TinTucSuKien',
+                          subCategory: 'HDBaoTang',
                         ),
                       );
                     },
@@ -80,14 +77,11 @@ class CategoriesList extends StatelessWidget {
                         'Hoạt động của hệ thống các bảo tàng, di tích lưu niệm về chủ tích Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud = await controller.getAllNews(
-                          'TinTucSuKien', 'HDHeThongCacBT_DTLuuNiemHCM');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'TinTucSuKien',
+                          subCategory: 'HDHeThongCacBT_DTLuuNiemHCM',
                         ),
                       );
                     },
@@ -97,14 +91,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Hoạt động ngành di sản văn hóa',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud = await controller.getAllNews(
-                          'TinTucSuKien', 'HDNganhDSVH');
-                      // print(newsListCloud[0].thumbnailUrl);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'TinTucSuKien',
+                          subCategory: 'HDNganhDSVH',
                         ),
                       );
                     },
@@ -114,14 +105,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Hoạt động bảo tàng trên thế giới',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud = await controller.getAllNews(
-                          'TinTucSuKien', 'HDBaoTangTrenTG');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'TinTucSuKien',
+                          subCategory: 'HDBaoTangTrenTG',
                         ),
                       );
                     },
@@ -176,12 +164,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Nghiên cứu về Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud = await controller.getAllNews(
-                          'NghienCuu', 'NghienCuuHCM');
-                      // print(test[0].title);
+                      Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'NghienCuu',
+                          subCategory: 'NghienCuuHCM',
                         ),
                       );
                     },
@@ -191,14 +178,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Chuyện kể về Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud = await controller.getAllNews(
-                          'NghienCuu', 'ChuyenKeHCM');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'NghienCuu',
+                          subCategory: 'ChuyenKeHCM',
                         ),
                       );
                     },
@@ -208,14 +192,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Ấn phẩm về Hồ Chí Minh',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud =
-                          await controller.getAllNews('NghienCuu', 'AnPhamHCM');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'NghienCuu',
+                          subCategory: 'AnPhamHCM',
                         ),
                       );
                     },
@@ -225,14 +206,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Bộ sưu tập',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud =
-                          await controller.getAllNews('NghienCuu', 'BoSuuTap');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'NghienCuu',
+                          subCategory: 'BoSuuTap',
                         ),
                       );
                     },
@@ -242,14 +220,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Hiện vật kể chuyện',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud = await controller.getAllNews(
-                          'NghienCuu', 'HienVatKeChuyen');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'NghienCuu',
+                          subCategory: 'HienVatKeChuyen',
                         ),
                       );
                     },
@@ -259,14 +234,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Hoạt động khoa học',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud =
-                          await controller.getAllNews('NghienCuu', 'HDKhoaHoc');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'NghienCuu',
+                          subCategory: 'HDKhoaHoc',
                         ),
                       );
                     },
@@ -276,14 +248,11 @@ class CategoriesList extends StatelessWidget {
                     label: 'Công bố khoa học',
                     backgroundColor: Colors.lightBlue,
                     onTap: () async {
-                      var newsListCloud =
-                          await controller.getAllNews('NghienCuu', 'CongBoKH');
-                      // print(test[0].title);
-                      // ignore: use_build_context_synchronously
                       Navigator.pop(context);
                       await Get.to(
                         () => NewsScreen(
-                          newsList: newsListCloud,
+                          category: 'NghienCuu',
+                          subCategory: 'CongBoKH',
                         ),
                       );
                     },
@@ -340,14 +309,11 @@ class CategoriesList extends StatelessWidget {
                       'Học tập và làm theo tấm gương đạo đức, phong cách Hồ Chí Minh',
                   backgroundColor: Colors.lightBlue,
                   onTap: () async {
-                    var newsListCloud = await controller.getAllNews(
-                        'GiaoDuc', 'HocTapTheoTamGuongHCM');
-                    // print(test[0].title);
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                     await Get.to(
                       () => NewsScreen(
-                        newsList: newsListCloud,
+                        category: 'GiaoDuc',
+                        subCategory: 'HocTapTheoTamGuongHCM',
                       ),
                     );
                   },
@@ -357,14 +323,11 @@ class CategoriesList extends StatelessWidget {
                   label: 'Kể chuyện tấm gương đạo đức Hồ Chí Minh',
                   backgroundColor: Colors.lightBlue,
                   onTap: () async {
-                    var newsListCloud =
-                        await controller.getAllNews('GiaoDuc', 'KeChuyenHCM');
-                    // print(test[0].title);
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                     await Get.to(
                       () => NewsScreen(
-                        newsList: newsListCloud,
+                        category: 'GiaoDuc',
+                        subCategory: 'KeChuyenHCM',
                       ),
                     );
                   },
@@ -374,14 +337,11 @@ class CategoriesList extends StatelessWidget {
                   label: 'Những tấm gương bình dị mà cao quý',
                   backgroundColor: Colors.lightBlue,
                   onTap: () async {
-                    var newsListCloud =
-                        await controller.getAllNews('GiaoDuc', 'NhungTamGuong');
-                    // print(test[0].title);
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                     await Get.to(
                       () => NewsScreen(
-                        newsList: newsListCloud,
+                        category: 'GiaoDuc',
+                        subCategory: 'NhungTamGuong',
                       ),
                     );
                   },
@@ -391,14 +351,11 @@ class CategoriesList extends StatelessWidget {
                   label: 'Phòng khám phá, trải nghiệm',
                   backgroundColor: Colors.lightBlue,
                   onTap: () async {
-                    var newsListCloud =
-                        await controller.getAllNews('GiaoDuc', 'PhongKhamPha');
-                    // print(test[0].title);
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                     await Get.to(
                       () => NewsScreen(
-                        newsList: newsListCloud,
+                        category: 'GiaoDuc',
+                        subCategory: 'PhongKhamPha',
                       ),
                     );
                   },
@@ -408,14 +365,11 @@ class CategoriesList extends StatelessWidget {
                   label: 'Bồi dưỡng nghiệp vụ thuyết minh',
                   backgroundColor: Colors.lightBlue,
                   onTap: () async {
-                    var newsListCloud = await controller.getAllNews(
-                        'GiaoDuc', 'BoiDuongNghiepVu');
-                    // print(test[0].title);
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                     await Get.to(
                       () => NewsScreen(
-                        newsList: newsListCloud,
+                        category: 'GiaoDuc',
+                        subCategory: 'BoiDuongNghiepVu',
                       ),
                     );
                   },
@@ -425,14 +379,11 @@ class CategoriesList extends StatelessWidget {
                   label: 'Các hoạt động giáo dục khác',
                   backgroundColor: Colors.lightBlue,
                   onTap: () async {
-                    var newsListCloud = await controller.getAllNews(
-                        'GiaoDuc', 'CacHoatDongKhac');
-                    // print(test[0].title);
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                     await Get.to(
                       () => NewsScreen(
-                        newsList: newsListCloud,
+                        category: 'GiaoDuc',
+                        subCategory: 'CacHoatDongKhac',
                       ),
                     );
                   },

@@ -40,6 +40,10 @@ Future<void> main() async {
       'CacHoatDongKhac',
     ]
   };
+  // box.writeInMemory(document, {
+  //   'last-modified': DateTime.now(),
+  //   'data': newsData,
+  // });
 
   for (var i in initList.keys) {
     await GetStorage.init(i);

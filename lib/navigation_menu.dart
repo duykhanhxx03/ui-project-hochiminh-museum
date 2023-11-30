@@ -48,12 +48,6 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final newsRepo = Get.put(NewsRepository());
 
-  @override
-  void onInit() {
-    super.onInit();
-    newsRepo.cacheNewsIntoDeviceStorage();
-  }
-
   final screens = [
     const HomeScreen(),
     const IndoorMapScreen(),

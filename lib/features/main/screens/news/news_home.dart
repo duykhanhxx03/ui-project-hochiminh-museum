@@ -4,13 +4,21 @@ import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/models/news_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_description.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/innotice_news.dart';
+import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 // ignore: must_be_immutable
 class NewsScreen extends StatelessWidget {
-  NewsScreen({super.key, required this.newsList});
+  NewsScreen({
+    super.key,
+    required this.category,
+    required this.subCategory,
+  });
 
-  List<NewsModel> newsList;
+  final controller = Get.put(NewsRepository());
+
+  final String category;
+  final String subCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +37,42 @@ class NewsScreen extends StatelessWidget {
                 const SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
-                if (newsList.isNotEmpty)
-                  ListView.builder(
-                    itemCount: newsList.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (_, index) => InnoticeNews(
-                      date: newsList[index].date,
-                      isNetworkImage: true,
-                      onPressed: () {
-                        Get.to(
-                          NewsDescriptionScreen(
-                              newsContent: newsList[index].newsContent),
-                        );
-                      },
-                      thumbnailUrl: newsList[index].thumbnailUrl,
-                      title: newsList[index].title,
-                    ),
-                  )
+                FutureBuilder(
+                  future: controller.getAllNews(category, subCategory),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        List<NewsModel> newsList =
+                            snapshot.data as List<NewsModel>;
+                        if (newsList.isNotEmpty) {
+                          return ListView.builder(
+                            itemCount: newsList.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (_, index) => InnoticeNews(
+                              date: newsList[index].date,
+                              isNetworkImage: true,
+                              onPressed: () {
+                                Get.to(
+                                  NewsDescriptionScreen(
+                                      newsContent: newsList[index].newsContent),
+                                );
+                              },
+                              thumbnailUrl: newsList[index].thumbnailUrl,
+                              title: newsList[index].title,
+                            ),
+                          );
+                        }
+                      }
+                    }
+                    return const SizedBox(
+                      height: 65,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),

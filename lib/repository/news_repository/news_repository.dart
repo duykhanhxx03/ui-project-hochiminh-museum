@@ -39,25 +39,27 @@ class NewsRepository extends GetxController {
     ]
   };
 
-  void cacheNewsIntoDeviceStorage() async {
-    for (var i in initList.keys) {
-      final box = GetStorage(i);
-      for (var j in initList[i]!) {
-        await box.write(j, await getAllNews(i, j, isForCache: true));
-      }
-    }
-  }
+  Future<List<NewsModel>> getAllNews(
+    String collection,
+    String document,
+  ) async {
+    // if (cache.isNotEmpty) {
+    //   return cache.map((e) => e as NewsModel).toList();
+    // }
+    // final box = GetStorage(collection);
+    // Map<String, dynamic> cache = box.read(document);
 
-  Future<List<NewsModel>> getAllNews(String collection, String document,
-      {bool isForCache = false}) async {
-    if (!isForCache) {
-      final box = GetStorage(collection);
-      final List<dynamic> cache = box.read(document);
-      if (cache.isNotEmpty) {
-        return cache.map((e) => e as NewsModel).toList();
-      }
-    }
+    // final lastModifier = cache['last-modified'] as DateTime;
+    // final List<NewsModel> newsCachedData =
+    //     cache['data'].map((e) => e as NewsModel).toList();
+    // print('d222d');
 
+    // if (DateTime.now().difference(lastModifier).inMinutes <= 2) {
+    //   print('dd');
+    //   print(newsCachedData);
+    //   return newsCachedData;
+    // }
+    // print('ddee');
     final snapshot = await _db
         .collection(collection)
         .doc(document)
@@ -65,6 +67,11 @@ class NewsRepository extends GetxController {
         .get();
     final newsData =
         snapshot.docs.map((e) => NewsModel.fromSnapShot(e)).toList();
+
+    // box.write(document, {
+    //   'last-modified': DateTime.now(),
+    //   'data': newsData,
+    // });
 
     return newsData;
   }
