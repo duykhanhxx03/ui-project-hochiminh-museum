@@ -43,23 +43,17 @@ class NewsRepository extends GetxController {
     String collection,
     String document,
   ) async {
-    // if (cache.isNotEmpty) {
-    //   return cache.map((e) => e as NewsModel).toList();
-    // }
-    // final box = GetStorage(collection);
-    // Map<String, dynamic> cache = box.read(document);
+    final box = GetStorage(collection);
+    if (box.hasData(document)) {
+      Map<String, dynamic> cache = box.read(document);
+      final lastModified = cache['last-modified'] as DateTime;
+      final List<NewsModel> newsCachedData = cache['data'];
 
-    // final lastModifier = cache['last-modified'] as DateTime;
-    // final List<NewsModel> newsCachedData =
-    //     cache['data'].map((e) => e as NewsModel).toList();
-    // print('d222d');
+      if (DateTime.now().difference(lastModified).inMinutes <= 10) {
+        return newsCachedData;
+      }
+    }
 
-    // if (DateTime.now().difference(lastModifier).inMinutes <= 2) {
-    //   print('dd');
-    //   print(newsCachedData);
-    //   return newsCachedData;
-    // }
-    // print('ddee');
     final snapshot = await _db
         .collection(collection)
         .doc(document)
@@ -68,10 +62,13 @@ class NewsRepository extends GetxController {
     final newsData =
         snapshot.docs.map((e) => NewsModel.fromSnapShot(e)).toList();
 
-    // box.write(document, {
-    //   'last-modified': DateTime.now(),
-    //   'data': newsData,
-    // });
+    box.write(
+      document,
+      {
+        'last-modified': DateTime.now(),
+        'data': newsData,
+      },
+    );
 
     return newsData;
   }
