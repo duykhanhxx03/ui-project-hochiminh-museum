@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
 
-import 'models/test_exam_question.dart';
 
 class TestExamScreen extends StatefulWidget {
-  const TestExamScreen({super.key, required this.questions});
+  const TestExamScreen({super.key, required this.questions, required this.title});
 
   final List<TestExamModel> questions;
+  final String title;
 
   @override
   State<TestExamScreen> createState() => _TestExamScreenState();
@@ -19,6 +19,7 @@ class TestExamScreen extends StatefulWidget {
 class _TestExamScreenState extends State<TestExamScreen> {
   // List<TestExamQuestion> questions = TestExamData.questions_list;
   // List<int> selectedAnswers = List.generate(questions.length, (index) => -1);
+  late String title;
   late List<TestExamModel> questions;
   late List<int> selectedAnswers;
   late List<bool> checkIfTheAnswerIsTrueOfFalse;
@@ -31,6 +32,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
   void initState() {
     super.initState();
     questions = widget.questions;
+    title = widget.title;
     selectedAnswers = List.generate(questions.length, (index) => -1);
     checkIfTheAnswerIsTrueOfFalse =
         List.generate(questions.length, (index) => false);
@@ -117,12 +119,27 @@ class _TestExamScreenState extends State<TestExamScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Đề Thi',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+        title: Row(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(width: 14),
+            const SizedBox(width: 14),
+            Text(
+              // 'Time: ${Duration(seconds: totalTimeInSeconds).toString()}',
+              'Time: $formattedTime',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ],
         ),
         backgroundColor: Colors.red,
         actions: [
@@ -160,18 +177,18 @@ class _TestExamScreenState extends State<TestExamScreen> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           alignment: AlignmentDirectional.topStart,
           children: [
-            Container(
-              // Display the timer in the top-right corner
-              alignment: Alignment.topRight,
-              child: Text(
-                // 'Time: ${Duration(seconds: totalTimeInSeconds).toString()}',
-                'Time: $formattedTime',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            // Container(
+            //   // Display the timer in the top-right corner
+            //   alignment: Alignment.topRight,
+            //   child: Text(
+            //     // 'Time: ${Duration(seconds: totalTimeInSeconds).toString()}',
+            //     'Time: $formattedTime',
+            //     style: const TextStyle(
+            //       color: Colors.black,
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
             ListView.builder(
               itemCount: questions.length,
               itemBuilder: (context, index) {

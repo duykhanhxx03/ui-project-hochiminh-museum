@@ -49,12 +49,12 @@ class QuizHome extends StatelessWidget {
                       child: [
                         QuizCategoryItemChild(
                           route: TestExamScreen(
-                              questions: TestExamData.questionsList1),
+                              questions: TestExamData.questionsList1, title: "Đề thi 1"),
                           title: 'Đề thi 1',
                         ),
                         QuizCategoryItemChild(
                           route: TestExamScreen(
-                              questions: TestExamData.questionsList2),
+                              questions: TestExamData.questionsList2, title: "Đề thi 2"),
                           title: 'Đề thi 2',
                         ),
                       ],
