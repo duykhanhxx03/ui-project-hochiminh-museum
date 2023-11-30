@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -67,14 +70,5 @@ class DefaultFirebaseOptions {
     projectId: 'hochiminh-museum-uet-project',
     storageBucket: 'hochiminh-museum-uet-project.appspot.com',
     iosBundleId: 'com.example.uiProjectHochiminhMuseum',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBoCckX7wGMdZuWqV3CUwZg486zDpagy70',
-    appId: '1:847473515931:ios:d8f6be8fd82c16add1153e',
-    messagingSenderId: '847473515931',
-    projectId: 'hochiminh-museum-uet-project',
-    storageBucket: 'hochiminh-museum-uet-project.appspot.com',
-    iosBundleId: 'com.example.uiProjectHochiminhMuseum.RunnerTests',
   );
 }

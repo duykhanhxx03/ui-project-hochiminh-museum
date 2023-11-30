@@ -19,7 +19,14 @@ class UserRepository extends GetxController {
           'email',
           isEqualTo: email,
         )
-        .get();
+        .get()
+        .catchError(
+      (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      },
+    );
 
     final userData = snapshot.docs.map((e) => UserModel.fromSnapShot(e)).single;
     return userData;

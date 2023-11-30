@@ -1,16 +1,18 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/data/vid_list_data.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/list_vid.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/video_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/widget/ytb_vid_player.dart';
 
 class VideoDetailScreen extends StatefulWidget {
-  final ListVideo video;
+  final VideoAlbumModel video;
 
   const VideoDetailScreen({
     Key? key,
     required this.video,
+    required this.allVideos,
   }) : super(key: key);
+
+  final List<VideoAlbumModel> allVideos;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -18,7 +20,7 @@ class VideoDetailScreen extends StatefulWidget {
 }
 
 class _VideoDetailScreenState extends State<VideoDetailScreen> {
-  late List<ListVideo> randomVideos;
+  late List<VideoAlbumModel> randomVideos;
 
   @override
   void initState() {
@@ -27,19 +29,19 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
   }
 
 // Random 4 video cho mục " Các video khác "
-  List<ListVideo> getRandomVideos() {
+  List<VideoAlbumModel> getRandomVideos() {
     final Random random = Random();
-    final List<ListVideo> allVideos = VideoListData.listVideoData;
-    final List<ListVideo> filteredVideos =
+    final List<VideoAlbumModel> allVideos = widget.allVideos;
+    final List<VideoAlbumModel> filteredVideos =
         allVideos // filteredVideos để lọc ra những video có tiêu đề khác với video đang hiển thị
-            .where((video) => video.vidTitle != widget.video.vidTitle)
+            .where((video) => video.title != widget.video.title)
             .toList();
 
-    final List<ListVideo> selectedVideos = [];
+    final List<VideoAlbumModel> selectedVideos = [];
 
     while (selectedVideos.length < 4 && filteredVideos.isNotEmpty) {
       final int randomIndex = random.nextInt(filteredVideos.length);
-      final ListVideo randomVideo = filteredVideos[randomIndex];
+      final VideoAlbumModel randomVideo = filteredVideos[randomIndex];
       selectedVideos.add(randomVideo);
       filteredVideos.removeAt(randomIndex);
     }
@@ -72,7 +74,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.video.vidTitle,
+              widget.video.title,
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -80,12 +82,13 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
             ),
             const SizedBox(height: 8.0),
             Text(
-              'Ngày đăng: ${widget.video.dateSubmitted.day}/${widget.video.dateSubmitted.month}/${widget.video.dateSubmitted.year}',
+              // 'Ngày đăng: ${widget.video.dateSubmitted.day}/${widget.video.dateSubmitted.month}/${widget.video.dateSubmitted.year}',
+              'Ngày đăng: ${widget.video.date}',
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16.0),
             // Hiển thị Player video
-            VideoPlayerWidget(videoURL: widget.video.vidURL),
+            VideoPlayerWidget(videoURL: widget.video.youtubeUrl),
             const SizedBox(height: 16.0),
             const Divider(
               thickness: 1,
@@ -110,7 +113,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: randomVideos.length,
                 itemBuilder: (context, index) {
-                  final ListVideo videoData = randomVideos[index];
+                  final VideoAlbumModel videoData = randomVideos[index];
                   return Container(
                     margin: const EdgeInsetsDirectional.only(bottom: 8.0),
                     padding: const EdgeInsets.all(8.0),
@@ -125,8 +128,10 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    VideoDetailScreen(video: videoData),
+                                builder: (context) => VideoDetailScreen(
+                                  video: videoData,
+                                  allVideos: widget.allVideos,
+                                ),
                               ),
                             );
                           },
@@ -137,7 +142,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
                               borderRadius: BorderRadius.circular(8.0),
                               image: DecorationImage(
                                 image: NetworkImage(
-                                  'https://img.youtube.com/vi/${videoData.vidURL.split("/").last}/hqdefault.jpg',
+                                  'https://img.youtube.com/vi/${videoData.youtubeUrl.split("/").last}/hqdefault.jpg',
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -150,7 +155,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                videoData.vidTitle,
+                                videoData.title,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -158,7 +163,8 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
                               ),
                               const SizedBox(height: 8.0),
                               Text(
-                                'Ngày đăng: ${videoData.dateSubmitted.day}/${videoData.dateSubmitted.month}/${videoData.dateSubmitted.year}',
+                                // 'Ngày đăng: ${videoData.dateSubmitted.day}/${videoData.dateSubmitted.month}/${videoData.dateSubmitted.year}',
+                                'Ngày đăng ${videoData.date}',
                                 style: const TextStyle(fontSize: 16),
                               ),
                             ],

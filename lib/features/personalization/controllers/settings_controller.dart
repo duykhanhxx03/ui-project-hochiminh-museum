@@ -12,22 +12,22 @@ class SettingsController extends GetxController {
 
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
-  final _dark_light = Get.put(DarkLightModeController());
+  final _darkLight = Get.put(DarkLightModeController());
 
-  getUserData() {
+  getUserData() async {
     final email = _authRepo.firebaseUser.value?.email;
     if (email != null) {
-      return _userRepo.getUserDetails(email);
+      return await _userRepo.getUserDetails(email);
     } else {
       Get.snackbar('Lỗi', 'Bạn phải đăng nhập để tiếp tục');
     }
   }
 
   setCurrentTheme(ThemeMode mode) {
-    _dark_light.setCurrentTheme(mode);
+    _darkLight.setCurrentTheme(mode);
   }
 
   ThemeMode getCurrentTheme() {
-    return _dark_light.getCurrentTheme();
+    return _darkLight.getCurrentTheme();
   }
 }

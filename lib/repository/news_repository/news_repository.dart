@@ -85,17 +85,19 @@ class NewsRepository extends GetxController {
           ),
         )
         // ignore: body_might_complete_normally_catch_error
-        .catchError((error, stacktrace) {
-      () => Get.snackbar(
-            'Lỗi',
-            'Có gì đó không đúng, thử lại?',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.redAccent.withOpacity(0.1),
-            colorText: Colors.red,
-          );
-      if (kDebugMode) {
-        print(error.toString());
-      }
-    });
+        .catchError(
+      (error, stacktrace) {
+        () => Get.snackbar(
+              'Lỗi',
+              'Có gì đó không đúng, thử lại?',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.redAccent.withOpacity(0.1),
+              colorText: Colors.red,
+            );
+        if (kDebugMode) {
+          print(error.toString());
+        }
+      },
+    );
   }
 }

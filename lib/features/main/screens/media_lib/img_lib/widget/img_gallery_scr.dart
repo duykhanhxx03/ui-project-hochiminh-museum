@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/list_img.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/photo_album_model.dart';
 
 class ImageGalleryScreen extends StatelessWidget {
-  final ListImage imageData;
+  final PhotoAlbumModel imageData;
 
   const ImageGalleryScreen({Key? key, required this.imageData})
       : super(key: key);
@@ -46,14 +46,15 @@ class ImageGalleryScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              imageData.imgTitle,
+              imageData.title,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Ngày đăng: ${imageData.dateSubmitted.day}/${imageData.dateSubmitted.month}/${imageData.dateSubmitted.year}',
+              // 'Ngày đăng: ${imageData.dateSubmitted.day}/${imageData.dateSubmitted.month}/${imageData.dateSubmitted.year}',
+              'Ngày đăng ${imageData.date}',
               style: const TextStyle(fontSize: 16),
             ),
           ),
@@ -64,7 +65,7 @@ class ImageGalleryScreen extends StatelessWidget {
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
               ),
-              itemCount: imageData.imgURL.length,
+              itemCount: imageData.photos.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
@@ -74,7 +75,7 @@ class ImageGalleryScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.0),
                       image: DecorationImage(
-                        image: NetworkImage(imageData.imgURL[index]),
+                        image: NetworkImage(imageData.photos[index]),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -90,7 +91,7 @@ class ImageGalleryScreen extends StatelessWidget {
 }
 
 class ImageDetailScreen extends StatelessWidget {
-  final ListImage imageDataList;
+  final PhotoAlbumModel imageDataList;
   final int initialIndex;
 
   const ImageDetailScreen({
@@ -119,10 +120,10 @@ class ImageDetailScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: PhotoViewGallery.builder(
-        itemCount: imageDataList.imgURL.length,
+        itemCount: imageDataList.photos.length,
         builder: (context, index) {
           return PhotoViewGalleryPageOptions(
-            imageProvider: NetworkImage(imageDataList.imgURL[index]),
+            imageProvider: NetworkImage(imageDataList.photos[index]),
             minScale: PhotoViewComputedScale.contained,
             maxScale: PhotoViewComputedScale.covered * 2,
           );

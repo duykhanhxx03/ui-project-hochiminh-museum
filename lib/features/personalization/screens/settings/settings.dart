@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/custom_shape/containers/primary_header_container.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/list_title/settings_menu_title.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/section_heading.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/choose_category_subcategory.dart';
+import 'package:ui_project_hochiminh_museum/features/admin/screens/create_photo_album/create_photo_album.dart';
+import 'package:ui_project_hochiminh_museum/features/admin/screens/create_video_album/create_video_album.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/settings_controller.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
@@ -30,12 +31,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late bool _isThemeModeSystemSetting =
       controller.getCurrentTheme() == ThemeMode.system;
 
-  void showNewsCreateCategoryOptions(BuildContext context) {
+  void showNewsCreateCategoryOptions(BuildContext context, Widget child) {
     showModalBottomSheet(
       useSafeArea: true,
       context: context,
       builder: (BuildContext context) {
-        return const ChooseCategoryAndSubCategory();
+        return child;
       },
     );
   }
@@ -106,13 +107,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: 'Admin',
                     showActionButton: false,
                   ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
+
                   TSettingsMenuTitle(
                     title: 'Viết báo',
                     icon: Iconsax.pen_add,
                     subtitle: 'Soạn thảo báo',
                     onPressed: () {
-                      showNewsCreateCategoryOptions(context);
+                      showNewsCreateCategoryOptions(
+                          context, const ChooseCategoryAndSubCategory());
+                    },
+                  ),
+                  TSettingsMenuTitle(
+                    title: 'Thêm thư viện ảnh',
+                    icon: Iconsax.pen_add,
+                    subtitle: 'Đăng ảnh',
+                    onPressed: () {
+                      Get.to(const CreatePhotoAlbumScreen());
+                    },
+                  ),
+                  TSettingsMenuTitle(
+                    title: 'Thêm thư viện video',
+                    icon: Iconsax.pen_add,
+                    subtitle: 'Đăng video',
+                    onPressed: () {
+                      Get.to(const CreateVideoAlbumScreen());
                     },
                   ),
                   //Account settings

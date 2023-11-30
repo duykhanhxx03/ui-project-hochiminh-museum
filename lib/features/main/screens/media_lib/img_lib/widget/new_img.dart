@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/list_img.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/photo_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/widget/img_gallery_scr.dart';
 
 class NewsImg extends StatelessWidget {
-  final ListImage imageData;
+  final PhotoAlbumModel imageData;
 
   const NewsImg({super.key, required this.imageData});
 
@@ -39,7 +39,7 @@ class NewsImg extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image:
-                      NetworkImage(imageData.imgURL[0]), // Sử dụng ảnh đầu tiên
+                      NetworkImage(imageData.photos[0]), // Sử dụng ảnh đầu tiên
                   fit: BoxFit.cover,
                 ),
               ),
@@ -52,7 +52,7 @@ class NewsImg extends StatelessWidget {
                       color: Colors.black.withOpacity(0.7),
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Số lượng ảnh: ${imageData.imgURL.length}',
+                        'Số lượng ảnh: ${imageData.photos.length}',
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -68,7 +68,7 @@ class NewsImg extends StatelessWidget {
               children: [
                 //Title image
                 Text(
-                  imageData.imgTitle,
+                  imageData.title,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -77,7 +77,8 @@ class NewsImg extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  'Ngày đăng: ${imageData.dateSubmitted.day}/${imageData.dateSubmitted.month}/${imageData.dateSubmitted.year}',
+                  // 'Ngày đăng: ${imageData.dateSubmitted.day}/${imageData.dateSubmitted.month}/${imageData.dateSubmitted.year}',
+                  'Ngày đăng ${imageData.date}',
                   style: const TextStyle(fontSize: 14),
                 ),
               ],

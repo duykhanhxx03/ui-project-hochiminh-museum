@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/list_vid.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/video_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/widget/new_vid.dart';
 
 class VideoListView extends StatefulWidget {
-  final List<ListVideo> videoDataList;
+  final List<VideoAlbumModel> videoDataList;
 
   const VideoListView({
     Key? key,
@@ -46,7 +46,10 @@ class _VideoListViewState extends State<VideoListView> {
         .sublist(startIndex, endIndex.clamp(0, widget.videoDataList.length));
 
     return visibleVideos.map((video) {
-      return NewsVid(videoData: video);
+      return NewsVid(
+        videoData: video,
+        allVideos: widget.videoDataList,
+      );
     }).toList();
   }
 

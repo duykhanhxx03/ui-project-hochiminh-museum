@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/data/img_list_data.dart';
+import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/controller/img_lib_controller.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/photo_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/widget/new_img.dart';
 
 class ImageLibScreen extends StatefulWidget {
@@ -31,21 +32,45 @@ class _ImageLibScreen extends State<ImageLibScreen> {
               ),
             ),
             centerTitle: true),
-        body: const NewsListImg(),
+        body: NewsListImg(),
       ),
     );
   }
 }
 
 class NewsListImg extends StatelessWidget {
-  const NewsListImg({super.key});
+  NewsListImg({super.key});
+  final controller = Get.put(ImgLibController());
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: ImageListData.listImageData.length,
-      itemBuilder: (context, index) {
-        return NewsImg(imageData: ImageListData.listImageData[index]);
+    // return ListView.builder(
+    //   itemCount: ImageListData.listImageData.length,
+    //   itemBuilder: (context, index) {
+    //     return NewsImg(imageData: ImageListData.listImageData[index]);
+    //   },
+    // );
+    return FutureBuilder(
+      future: controller.getAllPhotoAlbum(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
+            final List<PhotoAlbumModel> list =
+                snapshot.data as List<PhotoAlbumModel>;
+            return ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                return NewsImg(imageData: list[index]);
+              },
+            );
+          }
+        }
+        return const SizedBox(
+          height: 65,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
       },
     );
   }
