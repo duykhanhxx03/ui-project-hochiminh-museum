@@ -1,107 +1,68 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/comment_info_controller.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/reply_comment_controller.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/comment_info_model.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/reply_comment_model.dart';
+import 'package:ui_project_hochiminh_museum/common/models/comment_info.dart';
+import 'package:ui_project_hochiminh_museum/common/models/user_info.dart';
+import 'package:ui_project_hochiminh_museum/data/user_data.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/widgets/comment_connector.dart';
-import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
-import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
 
+class ReplyComment {
+  final String id;
+  final String content;
+  final String parentId;
+
+  ReplyComment({
+    required this.id,
+    required this.content,
+    required this.parentId,
+  });
+}
+
+// ignore: must_be_immutable
 class Comment extends StatefulWidget {
   Comment({
     super.key,
     required this.commentInfo,
-    required this.deThi,
   });
-
-  final String deThi;
-  CommentInfoModel commentInfo;
-
+  CommentInfo commentInfo;
   @override
   State<Comment> createState() => _CommentState();
 }
 
 class _CommentState extends State<Comment> {
-  late String deThi;
-
-  final _authRepo = Get.put(AuthenticationRepository());
-  final controllerUser = Get.put(UserRepository());
-  final controller = Get.put(ReplyCommentController());
-  final controllerCommentInfo = Get.put(CommentInfoController());
-
-  List<ReplyCommentModel> replyCommentList = [];
+  List<ReplyComment> replyCommentList = [];
   TextEditingController replyController = TextEditingController();
   String? parentId;
   double endY = 0;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    deThi = widget.deThi;
-    initAllReplyComments();
-  }
-
-  void replyComment(String parentId, String content) async {
-    String? userIdEmail = _authRepo.firebaseUser.value?.email;
-    ReplyCommentModel newComment = ReplyCommentModel(
-      id: userIdEmail as String,
+  void replyComment(String parentId, String content) {
+    ReplyComment newComment = ReplyComment(
+      id: 2.toString(),
       content: content,
       parentId: parentId,
-      date: Timestamp.fromDate(DateTime.now()),
     );
-    controller.createReplyComment(newComment, deThi);
-
-    final List<ReplyCommentModel> replyCommentListResult = await controller.getAllReplyComment(deThi);
-
-    //print(replyCommentListResult);
-    setState(() {
-      // replyCommentList.add(newComment);
-      replyCommentList = replyCommentListResult;
-
-      // parentId = null;
-      replyController.clear();
-    });
+    setState(
+          () {
+        replyCommentList.add(newComment);
+        replyController.clear();
+      },
+    );
   }
 
-  void initAllReplyComments() async {
-    final List<ReplyCommentModel> replyCommentListResult = await controller.getAllReplyComment(deThi);
-    replyCommentList = replyCommentListResult;
-  }
-
-  List<ReplyCommentModel> getReplyComments(String id) {
+  List<ReplyComment> getReplyComments(String parentId) {
     return replyCommentList
-        .where((comment) => comment.parentId == id)
+        .where((comment) => comment.parentId == parentId)
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    String? userIdEmail = _authRepo.firebaseUser.value?.email;
-    final isLiked = widget.commentInfo.isContain(userIdEmail as String);
+    final isLiked = widget.commentInfo.isContain('2');
+    final user = userList
+        .firstWhere((e) => e.id.toString() == widget.commentInfo.userId);
 
-    return FutureBuilder(
-        future: controllerUser.getUserDetails(widget.commentInfo.userId),
-        builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasData) {
-              UserModel user = snapshot.data!;
-              //print(user.toJson());
-              return buildCommentWidget(user, isLiked);
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            }
-          }
-          return const CircularProgressIndicator();
-        }
-    );
-
+    return buildCommentWidget(user, isLiked);
   }
 
-  Widget buildCommentWidget(UserModel user, bool isLiked) {
+  Widget buildCommentWidget(UserInfo user, bool isLiked) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Row(
@@ -146,7 +107,7 @@ class _CommentState extends State<Comment> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${user.lastName} ${user.firstName}',
+                              user.fullName,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
@@ -188,20 +149,9 @@ class _CommentState extends State<Comment> {
                         isLiked ? Icons.favorite : Icons.favorite_outline,
                         color: isLiked ? Colors.red : Colors.grey,
                       ),
-                      onPressed: () async{
-                        String? userIdEmail = _authRepo.firebaseUser.value?.email;
-                        widget.commentInfo.toggleLike(userIdEmail as String);
-                        // CommentInfoModel commentInfoModel = CommentInfoModel(
-                        //     id: id,
-                        //     userId: userId,
-                        //     content: content,
-                        //     userLiked: userLiked,
-                        //     date: date
-                        // );
-                        await controllerCommentInfo.updateCommentUserLiked(deThi, widget.commentInfo.id, widget.commentInfo.userLiked);
+                      onPressed: () {
                         setState(() {
-                          ///HERE TO CHANGE
-                          widget.commentInfo.userLiked = widget.commentInfo.userLiked;
+                          widget.commentInfo.toggleLike('2');
                         });
                       },
                     ),
@@ -227,10 +177,10 @@ class _CommentState extends State<Comment> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: getReplyComments(widget.commentInfo.id).length,
+                  itemCount: getReplyComments(widget.commentInfo.userId).length,
                   itemBuilder: (BuildContext context, int index) {
-                    ReplyCommentModel replyComment =
-                    getReplyComments(widget.commentInfo.id)[index];
+                    ReplyComment replyComment =
+                    getReplyComments(widget.commentInfo.userId)[index];
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(
                           16, 0, 0, 0), // Thụt vào từ trái
@@ -272,36 +222,22 @@ class _CommentState extends State<Comment> {
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                           children: [
-                                            FutureBuilder(
-                                              future: controllerUser.getUserDetails(replyComment.id),
-                                              builder: (context, snapshot) {
-                                                if(snapshot.connectionState == ConnectionState.done) {
-                                                  if (snapshot.hasData) {
-                                                    UserModel userReply = snapshot.data!;
-                                                    //print(user.toJson());
-                                                    return Text(
-                                                      ///HERE TO CHANGE
-                                                      "${userReply.lastName} ${userReply.firstName}",
-                                                      // để tạm ntn, sau sẽ lấy id của user đang login
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 18,
-                                                        color: Color.fromARGB(
-                                                            255, 0, 0, 0),
-                                                      ),
-                                                    );
-                                                  } else if (snapshot.hasError) {
-                                                    return Text('Error: ${snapshot.error}');
-                                                  }
-                                                }
-                                                return const CircularProgressIndicator();
-                                              },
+                                            const Text(
+                                              'Nguyễn Nhật Lê',
+                                              // để tạm ntn, sau sẽ lấy id của user đang login
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
                                             ),
                                             Padding(
                                               padding:
                                               const EdgeInsets.all(8.0),
                                               child: Text(
-                                                replyComment.FormattedDate,
+                                                widget
+                                                    .commentInfo.FormattedDate,
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
                                                 ),
@@ -326,6 +262,27 @@ class _CommentState extends State<Comment> {
                                 const SizedBox(
                                   height: 8.0,
                                 ),
+
+                                // Row(
+                                //   children: [
+                                //     IconButton(
+                                //       icon: Icon(
+                                //         isLiked
+                                //             ? Icons.favorite
+                                //             : Icons.favorite_outline,
+                                //         color:
+                                //             isLiked ? Colors.red : Colors.grey,
+                                //       ),
+                                //       onPressed: () {
+                                //         setState(() {
+                                //           replyComment.toggleLike('2');
+                                //         });
+                                //       },
+                                //     ),
+                                //     Text(replyComment.userLiked.length
+                                //         .toString()), // Số lượt thả tim cho reply
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),
@@ -350,7 +307,7 @@ class _CommentState extends State<Comment> {
     );
   }
 
-  void showReplyModal(UserModel user) {
+  void showReplyModal(UserInfo user) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -375,7 +332,7 @@ class _CommentState extends State<Comment> {
                   icon: const Icon(Icons.send),
                   onPressed: () {
                     replyComment(
-                      widget.commentInfo.id,
+                      widget.commentInfo.userId,
                       replyController
                           .text, // Truyền nội dung nhập từ bàn phím vào hàm replyComment
                     );
@@ -393,7 +350,7 @@ class _CommentState extends State<Comment> {
   double calculateEndY() {
     // Chiều cao của comment chính và các phản hồi
     double commentHeight =
-    calculateCommentHeight(widget.commentInfo.id, onlyComment: true);
+    calculateCommentHeight(widget.commentInfo.userId, onlyComment: true);
 
     // Kiểm tra xem có phản hồi hay không
     if (replyCommentList.isNotEmpty) {
@@ -403,10 +360,10 @@ class _CommentState extends State<Comment> {
     return endY;
   }
 
-  double calculateCommentHeight(String id, {bool onlyComment = false}) {
+  double calculateCommentHeight(String parentId, {bool onlyComment = false}) {
     double commentHeight = 50;
     double replyHeight = 89;
-    int numberOfReplies = getReplyComments(id).length;
+    int numberOfReplies = getReplyComments(parentId).length;
 
     // Tính toán vị trí dựa trên số lượng replies và kích thước của chúng
     double totalHeight = commentHeight;

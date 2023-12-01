@@ -38,14 +38,26 @@ class CommentInfoRepository extends GetxController {
     return commentInfoData;
   }
 
-  // toggleLike(String userId, String deThi) async {
-  //   final snapshot = await _db.collection('KiemTra').doc(deThi).collection('CommentInfo').get();
-  //   final commentInfoData =
-  //   snapshot.docs.map((e) => CommentInfoModel.fromSnapShot(e)).toList();
-  //   if(commentInfoData.contains(userId)) {
-  //     commentInfoData.remove(userId);
-  //   } else {
-  //     commentInfoData.add(userId);
-  //   }
-  // }
+  Future<void> updateCommentUserLiked(String deThi, String id, List<dynamic> newUserLikedValue) async {
+    try {
+      QuerySnapshot querySnapshot = await _db.collection('KiemTra')
+          .doc(deThi)
+          .collection('CommentInfo')
+          .where('id', isEqualTo: id)
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        // Giả sử chỉ có một document trùng khớp, nếu có nhiều hơn, bạn cần xử lý phù hợp
+        DocumentReference documentReference = querySnapshot.docs.first.reference;
+
+        await documentReference.update({
+          'userLiked': newUserLikedValue,
+        });
+      } else {
+        print('Không tìm thấy comment với id: $id');
+      }
+    } catch (error) {
+      print('Lỗi khi cập nhật comment: $error');
+      throw error;
+    }
+  }
 }

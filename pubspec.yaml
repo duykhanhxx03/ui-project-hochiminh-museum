@@ -69,6 +69,8 @@ dependencies:
   firebase_storage: ^11.5.1
   image_picker: ^1.0.4
   transparent_image: ^2.0.1
+  comment_tree: ^0.3.0
+  flutter_painter: ^1.0.1
 
 dev_dependencies:
   flutter_test:

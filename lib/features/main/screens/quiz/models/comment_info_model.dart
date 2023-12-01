@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class CommentInfoModel {
+  final String id;
   final String userId;
   final String content;
-  final List<dynamic> userLiked;
+  late List<dynamic> userLiked;
   // final DateTime date;
   final Timestamp date;
 
   CommentInfoModel({
+    required this.id,
     required this.userId,
     required this.content,
     required this.userLiked,
@@ -17,6 +19,7 @@ class CommentInfoModel {
 
   toJson() {
     return {
+      'id': id,
       'userId': userId,
       'content': content,
       'userLiked': userLiked,
@@ -38,12 +41,14 @@ class CommentInfoModel {
     } else {
       userLiked.add(userId);
     }
+    // return isContain(userId);
   }
 
   factory CommentInfoModel.fromSnapShot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return CommentInfoModel(
+      id: data['id'],
       userId: data['userId'],
       content: data['content'],
       userLiked: data['userLiked'],

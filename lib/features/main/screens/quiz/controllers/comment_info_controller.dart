@@ -14,4 +14,8 @@ class CommentInfoController extends GetxController {
   Future<List<CommentInfoModel>> getAllComment(String deThi) {
     return _commentInfoRepo.getAllComment(deThi);
   }
+
+  Future<void> updateCommentUserLiked(String deThi, String id, List<dynamic> newUserLikedValue) async {
+    await _commentInfoRepo.updateCommentUserLiked(deThi, id, newUserLikedValue);
+  }
 }

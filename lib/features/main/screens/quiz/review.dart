@@ -46,6 +46,7 @@ class _ReviewScreen extends State<ReviewScreen> {
     if (myComment.isNotEmpty) {
       CommentInfoModel newComment = CommentInfoModel(
         //userId: userIdEmail as String,
+        id: "${commentList.length + 1}",
         userId: userIdEmail as String,
         content: myComment,
         userLiked: [],
@@ -79,8 +80,9 @@ class _ReviewScreen extends State<ReviewScreen> {
               },
             ),
             title: const Text(
-              'Comments',
+              'Thảo luận',
               style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -96,10 +98,10 @@ class _ReviewScreen extends State<ReviewScreen> {
                 },
               ),
             ),
-            const Divider(
-              thickness: 1,
-              color: Color.fromARGB(255, 167, 165, 165),
-            ),
+            // const Divider(
+            //   thickness: 1,
+            //   color: Color.fromARGB(255, 167, 165, 165),
+            // ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Row(

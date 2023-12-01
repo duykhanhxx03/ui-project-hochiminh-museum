@@ -31,12 +31,11 @@ class ReplyCommentRepository extends GetxController {
     });
   }
 
-  Future<List<ReplyCommentModel>> getAllReplyComment(String parentId) async {
-    //final snapshot =
-    // await _db.collection('KiemTra').doc(deThi).collection('CommentInfo').get();
-    // final commentInfoData =
-    // snapshot.docs.map((e) => CommentInfoModel.fromSnapShot(e)).toList();
-    // return commentInfoData;
-    return [];
+  Future<List<ReplyCommentModel>> getAllReplyComment(String deThi) async {
+    final snapshot =
+    await _db.collection('KiemTra').doc(deThi).collection('ReplyComment').get();
+    final replyCommentData =
+    snapshot.docs.map((e) => ReplyCommentModel.fromSnapShot(e)).toList();
+    return replyCommentData;
   }
 }
