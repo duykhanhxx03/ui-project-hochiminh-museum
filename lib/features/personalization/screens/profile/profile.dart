@@ -12,7 +12,7 @@ import 'package:ui_project_hochiminh_museum/features/authentication/models/user_
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/update_password.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/update_profile.dart';
-import 'package:ui_project_hochiminh_museum/features/personalization/screens/settings/settings.dart';
+import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 import 'widgets/profile_menu.dart';
@@ -27,6 +27,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final controller = Get.put(ProfileController());
+  //final controllerNav = Get.put(NavigationController(initialIndex: 3));
 
   late String userAvatarURL;
 
@@ -36,7 +37,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar:  TAppBar(
         title: const Text('Hồ sơ'),
         showBackArrow: true,
-        backOnPress: () => Get.off(() => const SettingsScreen()),
+        backOnPress: () => {
+          Get.off(() => const NavigationMenu(initialIndex: 3)),
+        },
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -83,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     try {
                                       await referenceImageToUpload.putFile(File(pickedFile.path));
                                       userAvatarURL = await referenceImageToUpload.getDownloadURL();
-                                      print(userAvatarURL);
+                                      //print(userAvatarURL);
                                       UserModel userData = UserModel(
                                         id: data.id,
                                         firstName: data.firstName,

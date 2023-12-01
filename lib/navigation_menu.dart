@@ -2,7 +2,6 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/home/home.dart
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/indoor_map.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/quiz_home.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/settings/settings.dart';
-import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +9,18 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class NavigationMenu extends StatelessWidget {
-  const NavigationMenu({super.key});
+  const NavigationMenu({super.key, this.initialIndex});
+
+  final int? initialIndex;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
+    late NavigationController controller = Get.put(NavigationController());
+
+    if (initialIndex != null) {
+      controller = Get.put(NavigationController(initialIndex: initialIndex));
+    }
+
     final darkMode = THelperFunctions.isDarkMode(context);
 
     return Scaffold(
@@ -45,8 +51,15 @@ class NavigationMenu extends StatelessWidget {
 }
 
 class NavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
-  final newsRepo = Get.put(NewsRepository());
+  late Rx<int> selectedIndex;
+
+  NavigationController({int? initialIndex}) {
+    if (initialIndex != null) {
+      selectedIndex = initialIndex.obs;
+    } else {
+      selectedIndex = 0.obs;
+    }
+  }
 
   final screens = [
     const HomeScreen(),
