@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/widgets/terms_conditions_checkbox.dart';
+import 'package:ui_project_hochiminh_museum/repository/exception/email_password_failure.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +128,7 @@ class _TSignupFormState extends State<TSignupForm> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   UserModel userModel = UserModel(
                     firstName: controller.firstName.text,

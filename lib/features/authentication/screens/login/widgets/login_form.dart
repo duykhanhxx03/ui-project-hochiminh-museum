@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/loading/custom_loading.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/controllers/signin/signin_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/screens/signup/signup.dart';
@@ -19,9 +23,11 @@ class TLoginForm extends StatefulWidget {
 }
 
 class _TLoginFormState extends State<TLoginForm> {
-  var controller = Get.put(SignInController());
+  final controller = Get.put(SignInController());
 
   final _formKey = GlobalKey<FormState>();
+
+  final btnController = RoundedLoadingButtonController();
 
   @override
   Widget build(BuildContext context) {
@@ -105,10 +111,22 @@ class _TLoginFormState extends State<TLoginForm> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    controller.signIn(
-                        controller.email.text, controller.password.text);
+                    SmartDialog.showLoading(
+                      animationType: SmartAnimationType.scale,
+                      builder: (_) => const CustomLoading(),
+                    );
+                    try {
+                      await controller.signIn(
+                          controller.email.text, controller.password.text);
+                    } catch (error) {
+                      if (kDebugMode) {
+                        print(error);
+                      }
+                    } finally {
+                      await SmartDialog.dismiss();
+                    }
                   }
                 },
                 child: const Text(TTexts.signIn),

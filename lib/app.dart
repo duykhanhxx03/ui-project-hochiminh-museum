@@ -4,6 +4,7 @@ import 'package:ui_project_hochiminh_museum/global_settings/controllers/dark_lig
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/text_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/theme/theme.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class App extends StatelessWidget {
   App({super.key});
@@ -14,8 +15,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => GetMaterialApp(
+        navigatorObservers: [FlutterSmartDialog.observer],
         title: TTexts.appName,
         themeMode: themeController.getCurrentTheme(),
+        builder: FlutterSmartDialog.init(),
         theme: TAppTheme.lightTheme,
         darkTheme: TAppTheme.darkTheme,
         debugShowCheckedModeBanner: false,

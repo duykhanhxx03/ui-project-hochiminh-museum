@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
+import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
 
 class SignInController extends GetxController {
   static SignInController get instance => Get.find();
   var controller = Get.put(AuthenticationRepository());
+  var userRepo = Get.put(UserRepository());
 
   var deviceStorage = GetStorage('app-setting-configs');
 
@@ -29,7 +31,7 @@ class SignInController extends GetxController {
     email.text = savedEmail;
   }
 
-  void signIn(String email, String password) async {
+  Future<void> signIn(String email, String password) async {
     if (isRememberMe.value) {
       await deviceStorage.write('userEmail', email);
     }

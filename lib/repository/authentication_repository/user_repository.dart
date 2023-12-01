@@ -12,6 +12,25 @@ class UserRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
+  Future<bool> isEmailExisted(String email) async {
+    final snapshot = await _db
+        .collection('Users')
+        .where(
+          'email',
+          isEqualTo: email,
+        )
+        .get()
+        .catchError(
+      (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      },
+    );
+    final userData = snapshot.docs.map((e) => UserModel.fromSnapShot(e));
+    return userData.isNotEmpty;
+  }
+
   Future<UserModel> getUserDetails(String email) async {
     final snapshot = await _db
         .collection('Users')

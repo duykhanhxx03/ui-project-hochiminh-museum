@@ -5,6 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/custom_shape/containers/primary_header_container.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/list_title/settings_menu_title.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/loading/custom_loading.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/section_heading.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/choose_category_subcategory.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_photo_album/create_photo_album.dart';
@@ -85,7 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       return const SizedBox(
                         height: 65,
                         child: Center(
-                          child: CircularProgressIndicator(),
+                          child: Center(child: CustomLoading()),
                         ),
                       );
                     },

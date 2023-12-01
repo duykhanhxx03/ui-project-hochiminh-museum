@@ -15,14 +15,18 @@ class SignUpController extends GetxController {
 
   void showHiddenPassword() {}
 
+  Future<bool> isEmailExisted() async {
+    return await userRepo.isEmailExisted(email.text);
+  }
+
   final email = TextEditingController();
   final password = TextEditingController();
   final firstName = TextEditingController();
   final lastName = TextEditingController();
   final phoneNumber = TextEditingController();
 
-  Future<void> registerUser(String email, String password) async {
-    AuthenticationRepository.instance
+  Future<bool> registerUser(String email, String password) async {
+    return await AuthenticationRepository.instance
         .createUserWithEmailAndPassword(email, password);
   }
 
@@ -30,8 +34,9 @@ class SignUpController extends GetxController {
     return controller.isDuplicateEmail();
   }
 
-  createUser(UserModel userModel) {
-    userRepo.createUser(userModel);
-    registerUser(userModel.email, userModel.password);
+  createUser(UserModel userModel) async {
+    if (await registerUser(userModel.email, userModel.password)) {
+      userRepo.createUser(userModel);
+    }
   }
 }

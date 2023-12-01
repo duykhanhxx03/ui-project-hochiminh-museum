@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/loading/custom_loading.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/models/news_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_description.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/innotice_news.dart';
@@ -65,12 +66,7 @@ class NewsScreen extends StatelessWidget {
                         }
                       }
                     }
-                    return const SizedBox(
-                      height: 65,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
+                    return const Center(child: CustomLoading());
                   },
                 ),
               ],
