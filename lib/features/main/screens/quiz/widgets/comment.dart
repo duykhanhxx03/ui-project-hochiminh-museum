@@ -1,52 +1,84 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/data/comment_data.dart';
 import 'package:ui_project_hochiminh_museum/data/user_data.dart';
-import 'package:ui_project_hochiminh_museum/common/models/comment_info.dart';
 import 'package:ui_project_hochiminh_museum/common/models/user_info.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/reply_comment_controller.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/comment_info_model.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/reply_comment_model.dart';
+import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
+import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
 
 class Comment extends StatefulWidget {
   Comment({
     super.key,
     required this.commentInfo,
+    required this.deThi,
   });
-  CommentInfo commentInfo;
+
+  final String deThi;
+  CommentInfoModel commentInfo;
 
   @override
   State<Comment> createState() => _CommentState();
 }
 
-class ReplyComment {
-  final String id;
-  final String content;
-  final String parentId;
-
-  ReplyComment({
-    required this.id,
-    required this.content,
-    required this.parentId,
-  });
-}
+// class ReplyComment {
+//   final String id;
+//   final String content;
+//   final String parentId;
+//
+//   ReplyComment({
+//     required this.id,
+//     required this.content,
+//     required this.parentId,
+//   });
+// }
 
 class _CommentState extends State<Comment> {
-  List<ReplyComment> replyCommentList = [];
+  late String deThi;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    deThi = widget.deThi;
+  }
+
+  final _authRepo = Get.put(AuthenticationRepository());
+  final controllerUser = Get.put(UserRepository());
+  final controller = Get.put(ReplyCommentController());
+
+  List<ReplyCommentModel> replyCommentList = [];
   TextEditingController replyController = TextEditingController();
   String? parentId;
 
-  void replyComment(String parentId, String content) {
-    ReplyComment newComment = ReplyComment(
-      id: 2.toString(),
+  void replyComment(String parentId, String content) async {
+    String? userIdEmail = _authRepo.firebaseUser.value?.email;
+    ReplyCommentModel newComment = ReplyCommentModel(
+      id: userIdEmail as String,
       content: content,
       parentId: parentId,
+      date: Timestamp.fromDate(DateTime.now()),
     );
+    controller.createReplyComment(newComment, deThi);
+
+    final List<ReplyCommentModel> replyCommentListResult = await controller.getAllReplyComment(deThi);
+
     setState(() {
-      replyCommentList.add(newComment);
+      // replyCommentList.add(newComment);
+      replyCommentList = replyCommentListResult;
+
       // parentId = null;
       replyController.clear();
     });
   }
 
-  List<ReplyComment> getReplyComments(String parentId) {
+  List<ReplyCommentModel> getReplyComments(String parentId) {
     return replyCommentList
         .where((comment) => comment.parentId == parentId)
         .toList();
@@ -54,10 +86,20 @@ class _CommentState extends State<Comment> {
 
   @override
   Widget build(BuildContext context) {
-    final isLiked = widget.commentInfo.isContain('2');
-    UserInfo? user = userList.firstWhere(
-      (e) => e.id.toString() == widget.commentInfo.userId,
-    );
+    String? userIdEmail = _authRepo.firebaseUser.value?.email;
+    /// HERE TO CHANGE
+    final isLiked = widget.commentInfo.isContain(userIdEmail as String);
+
+    // UserInfo? user = userList.firstWhere(
+    //       (e) => e.id.toString() == widget.commentInfo.userId,
+    // );
+
+    // UserModel user = controllerUser.getUserDetails(widget.commentInfo.userId);
+
+    // UserModel? user = controllerUser.getAllUsers().firstWhere(
+    //   (e) => e.id.toString() == widget.commentInfo.userId,
+    // );
+    //print("aaa   " + widget.commentInfo.userId);
     return ListTile(
       leading: const CircleAvatar(
         //Avatar
@@ -68,14 +110,27 @@ class _CommentState extends State<Comment> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              // ignore: unnecessary_string_interpolations
-              '${user.fullName}',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
+            FutureBuilder(
+              future: controllerUser.getUserDetails(widget.commentInfo.userId),
+              builder: (context, snapshot) {
+                if(snapshot.connectionState == ConnectionState.done) {
+                  if(snapshot.hasData) {
+                    UserModel user = snapshot.data!;
+                    return Text(
+                      // ignore: unnecessary_string_interpolations
+                      '${user.lastName} ${user.firstName}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    );
+                  } else if(snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
+                }
+                return const CircularProgressIndicator();
+              },
             ),
 
             //Thời gian cmt
@@ -110,7 +165,9 @@ class _CommentState extends State<Comment> {
                   ),
                   onPressed: () {
                     setState(() {
-                      widget.commentInfo.toggleLike('2');
+                      ///HERE TO CHANGE
+
+                      //widget.commentInfo.toggleLike(widget.commentInfo.userId);
                     });
                   }),
               Text(widget.commentInfo.userLiked.length
@@ -211,7 +268,7 @@ class _CommentState extends State<Comment> {
                             ),
                             onPressed: () {
                               setState(() {
-                                widget.commentInfo.toggleLike('2');
+                                widget.commentInfo.toggleLike(userIdEmail);
                               });
                             }),
                         Text(widget.commentInfo.userLiked.length
