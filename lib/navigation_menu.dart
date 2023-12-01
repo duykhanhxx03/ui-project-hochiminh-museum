@@ -9,11 +9,18 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class NavigationMenu extends StatelessWidget {
-  const NavigationMenu({super.key});
+  const NavigationMenu({super.key, this.initialIndex});
+
+  final int? initialIndex;
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
+    late NavigationController controller = Get.put(NavigationController());
+
+    if(initialIndex != null) {
+      controller = Get.put(NavigationController(initialIndex: initialIndex));
+    }
+
     final darkMode = THelperFunctions.isDarkMode(context);
 
     return Scaffold(
@@ -44,7 +51,15 @@ class NavigationMenu extends StatelessWidget {
 }
 
 class NavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
+  late Rx<int> selectedIndex;
+
+  NavigationController({int? initialIndex}) {
+    if (initialIndex != null) {
+      selectedIndex = initialIndex.obs;
+    } else {
+      selectedIndex = 0.obs;
+    }
+  }
 
   final screens = [
     const HomeScreen(),
