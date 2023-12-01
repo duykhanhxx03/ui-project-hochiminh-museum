@@ -17,6 +17,7 @@ class CategoriesList extends StatelessWidget {
 
   void _showBottomModal(BuildContext context, List<Widget> children) {
     showModalBottomSheet(
+      //scrollControlDisabledMaxHeightRatio: 0.5,
       useSafeArea: true,
       // isScrollControlled: true,
       context: context,

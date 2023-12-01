@@ -16,7 +16,7 @@ class TValidator {
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Chưa nhập mặt khẩu.';
+      return 'Chưa nhập mật khẩu.';
     }
 
     // Check for minimum password length
@@ -72,5 +72,24 @@ class TValidator {
     return null;
   }
 
+  static String? validateOldPassword(String? value, String? oldPassword) {
+    if (value == null || value.isEmpty) {
+      return 'Chưa nhập mật khẩu.';
+    } else if (value != oldPassword) {
+      return 'Mật khẩu không trùng khớp.';
+    }
+
+    return null;
+  }
+
+  static String? validateRetypePassword(String? value, String? newPassword) {
+    if (value == null || value.isEmpty) {
+      return 'Chưa nhập lại mật khẩu.';
+    } else if (value != newPassword) {
+      return 'Nhập lại mật khẩu không đúng.';
+    }
+
+    return null;
+  }
 // Add more custom validators as needed for your specific requirements.
 }

@@ -8,10 +8,10 @@ class TProfileMenu extends StatelessWidget {
     required this.onPressed,
     required this.title,
     required this.value,
-    this.icon = Iconsax.arrow_right_34,
+    //this.icon = Iconsax.arrow_right_34,
   });
 
-  final IconData icon;
+  //final IconData icon;
   final void Function() onPressed;
   final String title, value;
 
@@ -40,7 +40,7 @@ class TProfileMenu extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Icon(icon),
+            //Icon(icon),
           ],
         ),
       ),
