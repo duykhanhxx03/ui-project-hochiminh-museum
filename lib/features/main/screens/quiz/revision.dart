@@ -1,85 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/questions_screen.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/result_screen.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
 class RevisionScreen extends StatefulWidget {
-  const RevisionScreen({super.key, required this.questions, required});
-
+  const RevisionScreen({super.key, required this.questions});
   final List<TestExamModel> questions;
 
   @override
-  State<RevisionScreen> createState() => _RevisionScreenState();
+  State<RevisionScreen> createState() {
+    return _RevisionScreenState();
+  }
 }
 
 class _RevisionScreenState extends State<RevisionScreen> {
-  late List<TestExamModel> questions;
-  late List<int> selectedAnswers;
-  late TestExamModel selectedQuestion;
-  late int indexQuestion;
-  late int numCorrect;
-  late int numIncorrect;
+  late List<TestExamModel> questions = widget.questions;
+  List<String> selectedAnswers = [];
 
-  @override
-  void initState() {
-    super.initState();
-    questions = widget.questions;
-    indexQuestion = 3;
-    selectedQuestion = questions[0];
-    numCorrect = 0;
-    numIncorrect = 0;
+  String activeScreen = 'questions-screen';
+
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        activeScreen = 'results-screen';
+      });
+    }
+  }
+
+  void restart() {
+    setState(() {
+      activeScreen = 'questions-screen';
+      selectedAnswers = [];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Câu hỏi ôn tập',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          backgroundColor: TColors.primary,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Center(
-                  child: Card(
-                color: TColors.primary,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 100.0,
-                    ),
-                    Text(selectedQuestion.question,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 28)),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    // for (int i = 0; i < selectedQuestion.options.length; i++)
+    Widget screenWidget = QuestionsScreen(
+      questions: questions,
+      onSelectAnswer: chooseAnswer,
+    );
 
-                    //   ,
-                    const SizedBox(
-                      height: 100,
-                    ),
-                  ],
-                ),
-              )),
-              const SizedBox(height: 32),
-              Column(
-                children: [
-                  Text("Số câu hỏi đúng: $numCorrect"),
-                  Text("Số câu hỏi sai: $numIncorrect"),
-                ],
-              )
-            ],
+    if (activeScreen == 'results-screen') {
+      screenWidget = ResultScreen(
+        choosenAnswers: selectedAnswers,
+        restart: restart,
+        questions: questions,
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Ôn tập',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
-        ));
+        ),
+        backgroundColor: TColors.primary,
+      ),
+      body: screenWidget,
+    );
   }
 }
