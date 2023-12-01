@@ -69,7 +69,8 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
                                         ? Icons.visibility
                                         : Icons.visibility_off),
                                     onPressed: () {
-                                        controller1.showPassword.value = !controller1.showPassword.value;
+                                      controller1.showPassword.value =
+                                          !controller1.showPassword.value;
                                       // Toggle showPassword state
                                     },
                                   ),
@@ -92,7 +93,8 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
                                         ? Icons.visibility
                                         : Icons.visibility_off),
                                     onPressed: () {
-                                      controller1.showNewPassword.value = !controller1.showNewPassword.value;
+                                      controller1.showNewPassword.value =
+                                          !controller1.showNewPassword.value;
                                     },
                                   ),
                                 ),
@@ -101,7 +103,8 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
 
                               TextFormField(
                                 controller: retypePassword,
-                                obscureText: !controller1.showRetypePassword.value,
+                                obscureText:
+                                    !controller1.showRetypePassword.value,
                                 validator: (value) =>
                                     TValidator.validateRetypePassword(
                                         value, newPassword.text),
@@ -112,11 +115,13 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
                                   prefixIcon:
                                       const Icon(Iconsax.password_check),
                                   suffixIcon: IconButton(
-                                    icon: Icon(controller1.showRetypePassword.value
-                                        ? Icons.visibility
-                                        : Icons.visibility_off),
+                                    icon: Icon(
+                                        controller1.showRetypePassword.value
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
                                     onPressed: () {
-                                      controller1.showRetypePassword.value = !controller1.showRetypePassword.value;
+                                      controller1.showRetypePassword.value =
+                                          !controller1.showRetypePassword.value;
                                     },
                                   ),
                                 ),
@@ -140,6 +145,8 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
                                       );
 
                                       await controller1.updateUser(userData);
+                                      await controller1
+                                          .updatePassword(userModel);
                                       // Navigator.pop(context,
                                       //     MaterialPageRoute(builder: (context) => ProfileScreen()));
                                       Get.off(() => const ProfileScreen());

@@ -35,7 +35,7 @@ class SignUpController extends GetxController {
   }
 
   createUser(UserModel userModel) async {
-    if (await registerUser(userModel.email, userModel.password)) {
+    if (await registerUser(userModel.email, userModel.password!)) {
       userRepo.createUser(userModel);
     }
   }

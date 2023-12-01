@@ -39,8 +39,6 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
 
                   //Controllers
                   final email = TextEditingController(text: userModel.email);
-                  final password =
-                      TextEditingController(text: userModel.password);
                   final firstName =
                       TextEditingController(text: userModel.firstName);
                   final lastName =
@@ -107,7 +105,6 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                                     lastName: lastName.text.trim(),
                                     email: email.text.trim(),
                                     phoneNumber: phoneNumber.text.trim(),
-                                    password: userModel.password,
                                     avatar_imgURL: userModel.avatar_imgURL,
                                   );
 

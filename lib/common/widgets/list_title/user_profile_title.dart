@@ -30,7 +30,7 @@ class _TUserProfileTitleState extends State<TUserProfileTitle> {
         backgroundImage: NetworkImage(
           widget.avatar_imgURL,
         ),
-        radius: 40,
+        radius: 35,
       ),
       title: Text(
         '${widget.firstName} ${widget.lastName}',

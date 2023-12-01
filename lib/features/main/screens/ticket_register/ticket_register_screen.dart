@@ -50,7 +50,7 @@ class _TicketRegisterState extends State<TicketRegister> {
               controller.userId.value = userData.id!;
               controller.name.value =
                   '${userData.lastName} ${userData.firstName}';
-              controller.phoneNumber.value = userData.phoneNumber;
+              controller.phoneNumber.value = userData.phoneNumber!;
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   return Obx(

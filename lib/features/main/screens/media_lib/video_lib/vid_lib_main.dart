@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/state_manager.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/controllers/vid_lib_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/video_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/vid_list_view.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class VideoLibScreen extends StatefulWidget {
   const VideoLibScreen({super.key});
@@ -21,22 +24,17 @@ class _VideoLibScreen extends State<VideoLibScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-              backgroundColor: const Color.fromARGB(255, 173, 7, 7),
-              leading: BackButton(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                onPressed: () {
-                  // Back về
-                  Navigator.pop(context);
-                },
+          appBar: const TAppBar(
+            title: Text(
+              'Thư viện video',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: TColors.light,
               ),
-              title: const Text(
-                'Thư viện video',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              centerTitle: true),
+            ),
+            backgroundColor: TColors.primary,
+            showBackArrow: true,
+          ),
           body: FutureBuilder(
             future: controller.getAllPhotoAlbum(),
             builder: (context, snapshot) {
@@ -45,7 +43,10 @@ class _VideoLibScreen extends State<VideoLibScreen> {
                   final List<VideoAlbumModel> list =
                       snapshot.data as List<VideoAlbumModel>;
 
-                  return VideoListView(videoDataList: list);
+                  return Padding(
+                    padding: const EdgeInsets.all(TSizes.defaultSpace),
+                    child: VideoListView(videoDataList: list),
+                  );
                 }
               }
               return const SizedBox(
@@ -60,3 +61,4 @@ class _VideoLibScreen extends State<VideoLibScreen> {
   }
 }
 // VideoListView(videoDataList: VideoListData.listVideoData),
+

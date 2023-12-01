@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
 
@@ -24,6 +26,10 @@ class SignInController extends GetxController {
   final lastName = TextEditingController();
   final phoneNumber = TextEditingController();
 
+  final isLoading = false.obs;
+  final isGoogleLoading = false.obs;
+  final isFacebookLoading = false.obs;
+
   @override
   void onReady() {
     super.onReady();
@@ -35,7 +41,75 @@ class SignInController extends GetxController {
     if (isRememberMe.value) {
       await deviceStorage.write('userEmail', email);
     }
+    isLoading.value = true;
     await AuthenticationRepository.instance
         .loginUserWithEmailAndPassword(email, password);
+    isLoading.value = false;
+  }
+
+  Future<void> googleSignIn() async {
+    try {
+      isGoogleLoading.value = true;
+      print('hihi');
+      final auth = AuthenticationRepository.instance;
+      await auth.signInWithGoogle();
+      print('hehe');
+      isGoogleLoading.value = false;
+
+      auth.setInitialScreen(auth.firebaseUser.value);
+      final names = auth.firebaseUser.value!.displayName!.split(' ');
+
+      final model = UserModel(
+        firstName: names[0],
+        lastName: names.sublist(1).join(' '),
+        email: auth.firebaseUser.value!.email!,
+        phoneNumber: auth.firebaseUser.value!.phoneNumber ?? '000000000',
+      );
+      if (!await userRepo.isEmailExisted(model.email)) {
+        userRepo.createUser(model);
+      }
+    } catch (e) {
+      isGoogleLoading.value = false;
+      Get.snackbar(
+        'Lỗi',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      GoogleSignIn().signOut();
+    }
+  }
+
+  Future<void> facebookSignIn() async {
+    try {
+      isFacebookLoading.value = true;
+      final auth = AuthenticationRepository.instance;
+      await auth.signInWithFacebook();
+      isFacebookLoading.value = false;
+
+      auth.setInitialScreen(auth.firebaseUser.value);
+      final names = auth.firebaseUser.value!.displayName!.split(' ');
+
+      final model = UserModel(
+        firstName: names[0],
+        lastName: names.sublist(1).join(' '),
+        email: auth.firebaseUser.value!.email!,
+        phoneNumber: auth.firebaseUser.value!.phoneNumber ?? '000000000',
+      );
+      if (!await userRepo.isEmailExisted(model.email)) {
+        userRepo.createUser(model);
+      }
+    } catch (e) {
+      isFacebookLoading.value = false;
+      Get.snackbar(
+        'Lỗi',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      // FacebookAuth.instance.logOut();
+    }
   }
 }

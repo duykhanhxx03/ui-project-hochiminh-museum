@@ -34,8 +34,8 @@ class InnoticeNews extends StatelessWidget {
             TRoundedImage(
               imageUrl: thumbnailUrl,
               applyImageRadius: false,
-              height: 90,
-              width: 120,
+              height: 100,
+              width: 130,
               fit: BoxFit.cover,
               isNetworkImage: isNetworkImage,
             ),
@@ -46,7 +46,7 @@ class InnoticeNews extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Expanded(
-                    flex: 6,
+                    flex: 8,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: SizedBox(

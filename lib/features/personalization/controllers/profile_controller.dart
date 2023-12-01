@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
@@ -22,7 +23,16 @@ class ProfileController extends GetxController {
     }
   }
 
+  String getProviderId() {
+    final info = FirebaseAuth.instance.currentUser!.providerData.first;
+    return info.providerId;
+  }
+
   updateUser(UserModel userModel) async {
     await _userRepo.updateUserDetail(userModel);
+  }
+
+  Future<void> updatePassword(UserModel userModel) async {
+    await _userRepo.updatePassword(userModel);
   }
 }

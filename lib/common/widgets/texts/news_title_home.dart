@@ -21,7 +21,7 @@ class NewsTitle extends StatelessWidget {
           ? const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
           : const TextStyle(
               overflow: TextOverflow.ellipsis,
-              fontSize: 12,
+              fontSize: 14,
             ),
     );
   }

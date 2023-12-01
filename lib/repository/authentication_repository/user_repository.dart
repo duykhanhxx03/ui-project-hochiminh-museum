@@ -2,10 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 
 class UserRepository extends GetxController {
@@ -52,8 +49,12 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  Future<void> updatePassword(UserModel userModel) async {
+    await FirebaseAuth.instance.currentUser!
+        .updatePassword(userModel.password!);
+  }
+
   Future<void> updateUserDetail(UserModel userModel) async {
-    await FirebaseAuth.instance.currentUser!.updatePassword(userModel.password);
     await _db
         .collection('Users')
         .doc(userModel.id)

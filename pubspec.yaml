@@ -72,6 +72,8 @@ dependencies:
   rounded_loading_button: ^2.1.0
   flutter_smart_dialog: ^4.9.5+1
   google_fonts: ^6.1.0
+  google_sign_in: ^6.1.6
+  flutter_facebook_auth: ^6.0.1
 
 dev_dependencies:
   flutter_test:

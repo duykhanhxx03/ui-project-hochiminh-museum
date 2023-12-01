@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ho Chi Minh Museum</string>
+    <string name="facebook_app_id">1013642516588115</string>
+    <string name="facebook_client_token">59a063dbf094930bd56e6abe2789f821</string>
+    <string name="fb_login_protocol_scheme">fb1013642516588115</string>
+</resources>

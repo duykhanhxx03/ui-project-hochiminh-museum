@@ -161,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         TProfileMenu(
                           onPressed: () {},
                           title: 'Số điện thoại',
-                          value: data.phoneNumber,
+                          value: data.phoneNumber!,
                         ),
                         TProfileMenu(
                           onPressed: () {},
@@ -189,21 +189,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                         ),
-
-                        Center(
-                          child: TextButton(
-                            onPressed: () {
-                              Get.off(() => const PasswordUpdateScreen());
-                            },
-                            child: const Text(
-                              'Đổi mật khẩu',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 16,
+                        if (controller.getProviderId() != 'google.com' &&
+                            controller.getProviderId() != 'facebook.com')
+                          Center(
+                            child: TextButton(
+                              onPressed: () {
+                                Get.off(() => const PasswordUpdateScreen());
+                              },
+                              child: const Text(
+                                'Đổi mật khẩu',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ),
-                        ),
 
                         Center(
                           child: TextButton(

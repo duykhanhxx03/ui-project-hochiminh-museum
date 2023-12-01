@@ -61,7 +61,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 color: TColors.white,
                               ),
                     ),
-
                   ),
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
