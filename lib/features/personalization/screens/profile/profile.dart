@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/loading/custom_loading.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/section_heading.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
@@ -97,10 +99,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         password: data.password,
                                         avatar_imgURL: userAvatarURL,
                                       );
+
+                                      SmartDialog.showLoading(
+                                        animationType: SmartAnimationType.scale,
+                                        builder: (_) => const CustomLoading(),
+                                      );
                                       await controller.updateUser(userData);
                                       setState(() {
                                         userAvatarURL = userAvatarURL;
                                       });
+                                      SmartDialog.dismiss();
                                     } catch (error) {
                                       if (kDebugMode) {
                                         print(error);
