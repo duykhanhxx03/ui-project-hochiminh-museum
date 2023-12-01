@@ -83,7 +83,7 @@ class QuizHome extends StatelessWidget {
                   return Text('Error: ${snapshot.error}');
                 }
               }
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }),
       ),
     );

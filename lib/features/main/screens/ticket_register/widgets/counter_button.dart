@@ -1,8 +1,6 @@
 library counter_button;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 ///Counter button class
 class CounterButton extends StatefulWidget {

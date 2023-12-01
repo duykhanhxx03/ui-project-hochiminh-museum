@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
@@ -52,6 +53,7 @@ class UserRepository extends GetxController {
   }
 
   Future<void> updateUserDetail(UserModel userModel) async {
+    await FirebaseAuth.instance.currentUser!.updatePassword(userModel.password);
     await _db
         .collection('Users')
         .doc(userModel.id)

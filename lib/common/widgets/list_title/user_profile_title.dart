@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:ui_project_hochiminh_museum/common/widgets/images/t_circular_image.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/profile.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 
 class TUserProfileTitle extends StatefulWidget {
   const TUserProfileTitle({
@@ -28,12 +26,11 @@ class _TUserProfileTitleState extends State<TUserProfileTitle> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: TCircularImage(
-        isNetworkImage: true,
-        image: widget.avatar_imgURL,
-        width: 50,
-        height: 50,
-        padding: 0,
+      leading: CircleAvatar(
+        backgroundImage: NetworkImage(
+          widget.avatar_imgURL,
+        ),
+        radius: 40,
       ),
       title: Text(
         '${widget.firstName} ${widget.lastName}',

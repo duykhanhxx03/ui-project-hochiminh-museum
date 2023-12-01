@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
-import 'package:ui_project_hochiminh_museum/common/widgets/images/t_circular_image.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/section_heading.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
@@ -19,7 +18,6 @@ import 'widgets/profile_menu.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
-
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -34,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  TAppBar(
+      appBar: TAppBar(
         title: const Text('Hồ sơ'),
         showBackArrow: true,
         backOnPress: () => {
@@ -58,13 +56,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           width: double.infinity,
                           child: Column(
                             children: [
-                              TCircularImage(
-                                fit: BoxFit.cover,
-                                isNetworkImage: true,
-                                image: userAvatarURL,
-                                width: 80,
-                                height: 80,
-                                padding: 0,
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  userAvatarURL,
+                                ),
+                                radius: 60,
                               ),
                               TextButton(
                                 onPressed: () async {
@@ -73,19 +69,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .pickImage(source: ImageSource.gallery);
 
                                   if (pickedFile != null) {
-                                    String uniqueFileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+                                    String uniqueFileName =
+                                        '${DateTime.now().millisecondsSinceEpoch}.jpg';
                                     // You might need to update the imageURL in the controller or wherever it is stored
-                                    Reference referenceRoot = FirebaseStorage
-                                        .instance.ref();
-                                    Reference referenceDirImages = referenceRoot
-                                        .child('profiles');
+                                    Reference referenceRoot =
+                                        FirebaseStorage.instance.ref();
+                                    Reference referenceDirImages =
+                                        referenceRoot.child('profiles');
 
-                                    Reference referenceImageToUpload = referenceDirImages
-                                        .child(uniqueFileName);
+                                    Reference referenceImageToUpload =
+                                        referenceDirImages
+                                            .child(uniqueFileName);
 
                                     try {
-                                      await referenceImageToUpload.putFile(File(pickedFile.path));
-                                      userAvatarURL = await referenceImageToUpload.getDownloadURL();
+                                      await referenceImageToUpload
+                                          .putFile(File(pickedFile.path));
+                                      userAvatarURL =
+                                          await referenceImageToUpload
+                                              .getDownloadURL();
                                       //print(userAvatarURL);
                                       UserModel userData = UserModel(
                                         id: data.id,
@@ -97,8 +98,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         avatar_imgURL: userAvatarURL,
                                       );
                                       await controller.updateUser(userData);
-                                      setState(()  {
-                                         userAvatarURL = userAvatarURL;
+                                      setState(() {
+                                        userAvatarURL = userAvatarURL;
                                       });
                                     } catch (error) {
                                       if (kDebugMode) {
@@ -106,14 +107,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       }
                                     }
                                   } else {
-                                    Get.snackbar(
-                                      'Thông báo',
-                                      'Không chọn ảnh',
+                                    Get.snackbar('Thông báo', 'Không chọn ảnh',
                                         snackPosition: SnackPosition.BOTTOM,
-                                        backgroundColor: Colors.green.withOpacity(0.1),
+                                        backgroundColor:
+                                            Colors.green.withOpacity(0.1),
                                         colorText: Colors.green,
-                                        duration: const Duration(seconds: 1)
-                                    );
+                                        duration: const Duration(seconds: 1));
                                   }
                                 },
                                 child: const Text('Đổi ảnh đại diện'),

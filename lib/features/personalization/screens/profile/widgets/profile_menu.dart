@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class TProfileMenu extends StatelessWidget {
