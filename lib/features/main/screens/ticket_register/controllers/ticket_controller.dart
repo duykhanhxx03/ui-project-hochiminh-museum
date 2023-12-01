@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_register/models/ticket_model.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
