@@ -4,14 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:ui_project_hochiminh_museum/data/comment_data.dart';
-import 'package:ui_project_hochiminh_museum/common/models/comment_info.dart';
-import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/comment_info_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/comment_info_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/widgets/comment.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
-import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
 
 class ReviewScreen extends StatefulWidget {
   ReviewScreen({super.key, required this.commentList, required this.deThi});
@@ -38,6 +34,7 @@ class _ReviewScreen extends State<ReviewScreen> {
     deThi = widget.deThi;
     super.initState();
   }
+
   TextEditingController commentController = TextEditingController();
 
   void addComment() async {
@@ -54,7 +51,8 @@ class _ReviewScreen extends State<ReviewScreen> {
       );
       controller.createComment(newComment, deThi);
 
-      final List<CommentInfoModel> commentListResult = await controller.getAllComment(deThi);
+      final List<CommentInfoModel> commentListResult =
+          await controller.getAllComment(deThi);
 
       setState(() {
         commentList = commentListResult;

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/comment_info_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/reply_comment_model.dart';
 import 'package:ui_project_hochiminh_museum/repository/comment_info_repository/reply_comment_repository.dart';
 
