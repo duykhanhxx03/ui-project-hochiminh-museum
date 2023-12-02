@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_register/models/ticket_model.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_supporter/models/ticket_model.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
-import 'package:ui_project_hochiminh_museum/repository/visitor_register_repo/visitor_repository.dart';
+import 'package:ui_project_hochiminh_museum/repository/ticket_supporter_repo/ticket_repository.dart';
 
-class TicketController extends GetxController {
-  static TicketController get instance => Get.find();
+class TicketRegisterController extends GetxController {
+  static TicketRegisterController get instance => Get.find();
 
   final _repoVisitor = Get.put(TicketRepository());
   final _authRepo = Get.put(AuthenticationRepository());
