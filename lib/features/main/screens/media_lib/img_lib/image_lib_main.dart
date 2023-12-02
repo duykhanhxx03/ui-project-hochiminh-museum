@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/controller/img_lib_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/photo_album_model.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/widget/new_img.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/widget/news_image_preview.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class ImageLibScreen extends StatefulWidget {
@@ -42,12 +42,6 @@ class NewsListImg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return ListView.builder(
-    //   itemCount: ImageListData.listImageData.length,
-    //   itemBuilder: (context, index) {
-    //     return NewsImg(imageData: ImageListData.listImageData[index]);
-    //   },
-    // );
     return FutureBuilder(
       future: controller.getAllPhotoAlbum(),
       builder: (context, snapshot) {
@@ -58,7 +52,7 @@ class NewsListImg extends StatelessWidget {
             return ListView.builder(
               itemCount: list.length,
               itemBuilder: (context, index) {
-                return NewsImg(imageData: list[index]);
+                return NewsImagePreview(imageData: list[index]);
               },
             );
           }

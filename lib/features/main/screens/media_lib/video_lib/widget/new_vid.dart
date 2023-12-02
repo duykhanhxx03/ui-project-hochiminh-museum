@@ -33,7 +33,7 @@ class NewsVid extends StatelessWidget {
         _navigateToVideoDetail(context);
       },
       isNetworkImage: true,
-      date: 'Ngày đăng: ${videoData.date}',
+      date: videoData.date,
       isVideo: true,
     );
     // return Container(

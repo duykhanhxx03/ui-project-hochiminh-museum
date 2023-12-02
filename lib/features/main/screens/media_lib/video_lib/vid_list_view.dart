@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/video_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/widget/new_vid.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class VideoListView extends StatefulWidget {
   final List<VideoAlbumModel> videoDataList;
@@ -17,7 +18,7 @@ class VideoListView extends StatefulWidget {
 }
 
 class _VideoListViewState extends State<VideoListView> {
-  final int videosPerPage = 6;
+  final int videosPerPage = (THelperFunctions.screenHeight() / 105 - 3).ceil();
   int currentPage = 0;
 
   @override
@@ -26,6 +27,8 @@ class _VideoListViewState extends State<VideoListView> {
       children: [
         Expanded(
           child: ListView(
+            addAutomaticKeepAlives: true,
+            shrinkWrap: true,
             children: [
               // List videos
               ..._buildVideoList(),

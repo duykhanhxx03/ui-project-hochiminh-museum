@@ -304,6 +304,7 @@ class CategoriesList extends StatelessWidget {
                     label: 'Thư viện ảnh',
                     backgroundColor: Colors.lightBlue,
                     onTap: () {
+                      Navigator.pop(context);
                       Get.to(const ImageLibScreen());
                     },
                     icon: Iconsax.gallery,
@@ -312,6 +313,7 @@ class CategoriesList extends StatelessWidget {
                     label: 'Thư viện video',
                     backgroundColor: Colors.lightBlue,
                     onTap: () {
+                      Navigator.pop(context);
                       Get.to(const VideoLibScreen());
                     },
                     icon: Iconsax.video_play,
