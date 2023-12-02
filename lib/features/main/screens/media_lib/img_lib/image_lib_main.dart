@@ -4,7 +4,7 @@ import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/controller/img_lib_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/photo_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/widget/new_img.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class ImageLibScreen extends StatefulWidget {
   const ImageLibScreen({super.key});
@@ -23,13 +23,14 @@ class _ImageLibScreen extends State<ImageLibScreen> {
             'Thư viện ảnh',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: TColors.light,
             ),
           ),
-          backgroundColor: TColors.primary,
           showBackArrow: true,
         ),
-        body: NewsListImg(),
+        body: Padding(
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          child: NewsListImg(),
+        ),
       ),
     );
   }

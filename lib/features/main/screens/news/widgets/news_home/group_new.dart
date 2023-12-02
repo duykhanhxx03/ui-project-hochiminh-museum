@@ -1,60 +1,125 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/loading/custom_loading.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/models/news_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_description.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_home.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/innotice_news.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/notice_news.dart';
+import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/category_subcategory.dart';
 
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class GroupNews extends StatelessWidget {
-  const GroupNews({
+  GroupNews({
     super.key,
+    required this.category,
+    required this.subCategory,
   });
 
-  // List<News> news;
+  final controller = Get.put(NewsRepository());
+
+  final String category;
+  final String subCategory;
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const Padding(
-        padding: EdgeInsets.only(top: TSizes.spaceBtwSections),
-        child: Text(
-          "MUSUEM ACTIVITIES",
-          style: TextStyle(
-              color: TColors.primary,
-              fontWeight: FontWeight.bold,
-              fontSize: TSizes.fontSizeLg),
+    bool isDark = THelperFunctions.isDarkMode(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: TSizes.spaceBtwSections),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '|${TCategorySubCategoryConstanst.getSubNewsCategoryName(
+                    TCategorySubCategoryConstanst.getNewsCategoryName(category),
+                    subCategory,
+                  )}',
+                  style: TextStyle(
+                    color: !isDark ? TColors.primary : TColors.light,
+                    fontWeight: FontWeight.bold,
+                    fontSize: TSizes.fontSizeLg,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      const SizedBox(
-        height: TSizes.spaceBtwItems,
-      ),
-      NoticeNews(
-        onPressed: () {
-          Get.to(const NewsDescriptionScreen());
-        },
-        title: "Bảo tàng Hồ Chí Minh và bộ Tư Lệnh Cảnh vệ tổ quốc",
-        isNotice: true,
-        thumbnailUrl: TImages.thumbnail1,
-        date: "03/11/2023",
-        view: 137,
-        description:
-            "​Ngày 21/10/2023, nhân chuyến thăm và làm việc tại tỉnh Cao Bằng, đoàn công tác Ban Tuyên giáo Trung ương long trọng tổ chức nghi lễ dâng hương, dâng hoa Chủ tịch Hồ Chí Minh tại Khu di tích Quốc gia đặc biệt Pác Bó (Hà Quảng, Cao Bằng).",
-      ),
-      ListView.builder(
-          itemCount: 4,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (_, index) => InnoticeNews(
-                date: '23/11/2023',
-                isNetworkImage: false,
-                onPressed: () => Get.to(const NewsDescriptionScreen()),
-                thumbnailUrl: TImages.thumbnail2,
-                title:
-                    "Đoàn Cơ sở Bảo tàng Hồ Chí Minh triển khai Chương trình “Đưa đoàn viên đến với các địa điểm văn hóa”",
-              ))
-    ]);
+        Column(
+          children: [
+            FutureBuilder(
+              future:
+                  controller.getAllNews(category, subCategory, isLimit: true),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    List<NewsModel> newsList = snapshot.data as List<NewsModel>;
+                    if (newsList.isNotEmpty) {
+                      return ListView.builder(
+                        itemCount: newsList.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (_, index) {
+                          if (newsList.length > 1 && index == 0) {
+                            return NoticeNews(
+                              isNetworkImage: true,
+                              thumbnailUrl: newsList[index].thumbnailUrl,
+                              title: newsList[index].title,
+                              date: newsList[index].date,
+                              view: 130,
+                              description: newsList[index].description,
+                              isNotice: true,
+                              onPressed: () {
+                                Get.to(
+                                  NewsDescriptionScreen(
+                                      newsContent: newsList[index].newsContent),
+                                );
+                              },
+                            );
+                          } else {
+                            return InnoticeNews(
+                              date: newsList[index].date,
+                              isNetworkImage: true,
+                              onPressed: () {
+                                Get.to(
+                                  NewsDescriptionScreen(
+                                      newsContent: newsList[index].newsContent),
+                                );
+                              },
+                              thumbnailUrl: newsList[index].thumbnailUrl,
+                              title: newsList[index].title,
+                            );
+                          }
+                        },
+                      );
+                    }
+                  }
+                }
+                return const Center(child: CustomLoading());
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(
+                    NewsScreen(category: category, subCategory: subCategory));
+              },
+              child: Text(
+                'Xem thêm',
+                style: TextStyle(
+                  color: !isDark ? TColors.primary : TColors.light,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

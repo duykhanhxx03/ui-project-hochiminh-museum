@@ -54,7 +54,7 @@ class TRoundedImage extends StatelessWidget {
                       image: DecorationImage(
                         //image size fill
                         image: imageProvider,
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

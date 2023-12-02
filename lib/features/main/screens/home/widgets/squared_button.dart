@@ -3,18 +3,19 @@ import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class SquaredButton extends StatelessWidget {
-  const SquaredButton({
-    super.key,
-    required this.label,
-    required this.icon,
-    required this.backgroundColor,
-    required this.onTap,
-  });
+  const SquaredButton(
+      {super.key,
+      required this.label,
+      required this.icon,
+      required this.backgroundColor,
+      required this.onTap,
+      this.iconSize});
 
   final String label;
   final IconData icon;
   final Color backgroundColor;
   final void Function() onTap;
+  final double? iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +31,12 @@ class SquaredButton extends StatelessWidget {
             onTap: onTap,
             child: Card(
               elevation: 0,
-              color: backgroundColor,
+              color: backgroundColor.withOpacity(0.8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(TSizes.borderRadiusLLg),
               ),
               child: Center(
-                child: Icon(icon, color: TColors.textWhite),
+                child: Icon(icon, color: TColors.textWhite, size: iconSize),
               ),
             ),
           ),

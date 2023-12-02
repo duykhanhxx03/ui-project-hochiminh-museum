@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/images/t_rounded_image.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_title_home.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 // ignore: unused_import
 import 'package:ui_project_hochiminh_museum/utils/constants/image_strings.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class InnoticeNews extends StatelessWidget {
   const InnoticeNews({
@@ -13,6 +15,7 @@ class InnoticeNews extends StatelessWidget {
     required this.onPressed,
     required this.isNetworkImage,
     required this.date,
+    this.isVideo,
   });
 
   final String thumbnailUrl;
@@ -20,24 +23,35 @@ class InnoticeNews extends StatelessWidget {
   final bool isNetworkImage;
   final String title;
   final void Function() onPressed;
+  final bool? isVideo;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 90,
-        padding: const EdgeInsets.only(top: 15),
+        height: 105,
+        padding: const EdgeInsets.all(TSizes.spaceBtwElements),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TRoundedImage(
-              imageUrl: thumbnailUrl,
-              applyImageRadius: false,
-              height: 100,
-              width: 130,
-              fit: BoxFit.cover,
-              isNetworkImage: isNetworkImage,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                TRoundedImage(
+                  imageUrl: thumbnailUrl,
+                  applyImageRadius: true,
+                  borderRadius: 3,
+                  height: 100,
+                  width: 130,
+                  fit: BoxFit.cover,
+                  isNetworkImage: isNetworkImage,
+                ),
+                if (isVideo != null)
+                  const Positioned(
+                    child: Icon(Iconsax.video_circle, color: TColors.white),
+                  )
+              ],
             ),
             Expanded(
               child: Column(

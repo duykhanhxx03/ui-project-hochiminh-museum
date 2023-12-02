@@ -41,34 +41,63 @@ class NewsRepository extends GetxController {
 
   Future<List<NewsModel>> getAllNews(
     String collection,
-    String document,
-  ) async {
+    String document, {
+    bool isLimit = false,
+  }) async {
     final box = GetStorage(collection);
-    if (box.hasData(document)) {
-      Map<String, dynamic> cache = box.read(document);
-      final lastModified = cache['last-modified'] as DateTime;
-      final List<NewsModel> newsCachedData = cache['data'];
+    if (!isLimit) {
+      if (box.hasData(document)) {
+        Map<String, dynamic> cache = box.read(document);
+        final lastModified = cache['last-modified'] as DateTime;
+        final List<NewsModel> newsCachedData = cache['data'];
 
-      if (DateTime.now().difference(lastModified).inMinutes <= 10) {
-        return newsCachedData;
+        if (DateTime.now().difference(lastModified).inMinutes <= 10) {
+          return newsCachedData;
+        }
+      }
+    } else {
+      if (box.hasData('$document-limit')) {
+        Map<String, dynamic> cache = box.read('$document-limit');
+        final lastModified = cache['last-modified'] as DateTime;
+        final List<NewsModel> newsCachedData = cache['data'];
+
+        if (DateTime.now().difference(lastModified).inMinutes <= 10) {
+          return newsCachedData;
+        }
       }
     }
 
-    final snapshot = await _db
-        .collection(collection)
-        .doc(document)
-        .collection('BaiBao')
-        .get();
+    final snapshot = isLimit
+        ? await _db
+            .collection(collection)
+            .doc(document)
+            .collection('BaiBao')
+            .limit(5)
+            .get()
+        : await _db
+            .collection(collection)
+            .doc(document)
+            .collection('BaiBao')
+            .get();
     final newsData =
         snapshot.docs.map((e) => NewsModel.fromSnapShot(e)).toList();
-
-    box.write(
-      document,
-      {
-        'last-modified': DateTime.now(),
-        'data': newsData,
-      },
-    );
+    if (!isLimit) {
+      box.write(
+        document,
+        {
+          'last-modified': DateTime.now(),
+          'data': newsData,
+        },
+      );
+    } else {
+      box.write(
+        '$document-limit',
+        {
+          'last-modified': DateTime.now(),
+          'data': newsData,
+        },
+      );
+    }
 
     return newsData;
   }
@@ -108,9 +137,7 @@ class NewsRepository extends GetxController {
   Future<List<NewsModel>> searchNews(String searchTerm) async {
     searchTerm = searchTerm.toLowerCase();
 
-    final snapshot = await _db
-        .collectionGroup('BaiBao')
-        .get();
+    final snapshot = await _db.collectionGroup('BaiBao').get();
 
     final filteredDocs = snapshot.docs.where((doc) {
       final newsContent = doc['news_content'] as List<dynamic>;
@@ -119,13 +146,15 @@ class NewsRepository extends GetxController {
       // Check if any 'content' field contains the searchTerm
       return newsContent.any((contentMap) {
         final contentType = contentMap['type'] as dynamic;
-        final content =  contentMap['content'] as dynamic;
-        return content.toString().toLowerCase().contains(searchTerm) && contentType.toString().contains('title');
+        final content = contentMap['content'] as dynamic;
+        return content.toString().toLowerCase().contains(searchTerm) &&
+            contentType.toString().contains('title');
       });
     }).toList();
 
     // Convert the filtered documents to a list of NewsModel
-    final newsData = filteredDocs.map((e) => NewsModel.fromSnapShot(e)).toList();
+    final newsData =
+        filteredDocs.map((e) => NewsModel.fromSnapShot(e)).toList();
 
     return newsData;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/models/photo_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/widget/img_gallery_scr.dart';
 
@@ -22,9 +23,6 @@ class NewsImg extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey), // Thêm đường viền giữa các mục
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -76,10 +74,18 @@ class NewsImg extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8.0),
-                Text(
-                  // 'Ngày đăng: ${imageData.dateSubmitted.day}/${imageData.dateSubmitted.month}/${imageData.dateSubmitted.year}',
-                  'Ngày đăng ${imageData.date}',
-                  style: const TextStyle(fontSize: 14),
+                Row(
+                  children: [
+                    const Icon(
+                      Iconsax.clock,
+                      size: 10,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      ' ${imageData.date}',
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  ],
                 ),
               ],
             ),

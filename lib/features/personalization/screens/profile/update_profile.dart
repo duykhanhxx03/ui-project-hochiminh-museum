@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/profile.dart';
@@ -20,12 +21,14 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sửa đổi thông tin'),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-            onPressed: () => Get.off(const ProfileScreen()),
-            icon: const Icon(Iconsax.arrow_left)),
+      appBar: const TAppBar(
+        title: Text(
+          'Thay đổi thông tin',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        showBackArrow: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -113,14 +116,14 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                                   //     MaterialPageRoute(builder: (context) => ProfileScreen()));
                                   Get.off(() => const ProfileScreen());
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: TColors.primary,
-                                  side: BorderSide.none,
-                                  shape: const StadiumBorder(),
-                                ),
+                                // style: ElevatedButton.styleFrom(
+                                //   backgroundColor: TColors.primary,
+                                //   side: BorderSide.none,
+                                //   shape: const StadiumBorder(),
+                                // ),
                                 child: const Text('Cập nhật',
                                     style: TextStyle(
-                                        color: TColors.black, fontSize: 18)),
+                                        color: TColors.light, fontSize: 18)),
                               ),
                             )
                           ],

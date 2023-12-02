@@ -13,29 +13,33 @@ class NewsDescriptionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: const TAppBar(
-          showBackArrow: true,
-        ),
-        body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FullNewsDescription(newsContent: newsContent),
-              const Divider(
-                thickness: 0.7,
-              ),
-              const Text(
-                "CÁC BÀI VIẾT KHÁC",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
+    return Scaffold(
+      appBar: const TAppBar(
+        title: Text(
+          'Nội dung bài viết',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
           ),
-        )),
+        ),
+        showBackArrow: true,
       ),
+      body: SingleChildScrollView(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FullNewsDescription(newsContent: newsContent),
+            const Divider(
+              thickness: 0.7,
+            ),
+            const Text(
+              "CÁC BÀI VIẾT KHÁC",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }

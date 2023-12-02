@@ -121,7 +121,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   TSettingsMenuTitle(
                     title: 'Thêm thư viện ảnh',
-                    icon: Iconsax.pen_add,
+                    icon: Iconsax.gallery_add,
                     subtitle: 'Đăng ảnh',
                     onPressed: () {
                       Get.to(const CreatePhotoAlbumScreen());
@@ -129,40 +129,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   TSettingsMenuTitle(
                     title: 'Thêm thư viện video',
-                    icon: Iconsax.pen_add,
+                    icon: Iconsax.video_add,
                     subtitle: 'Đăng video',
                     onPressed: () {
                       Get.to(const CreateVideoAlbumScreen());
                     },
                   ),
                   //Account settings
-                  const TSectionHeading(
-                    title: 'Cài đặt tài khoản',
-                    showActionButton: false,
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
-                  TSettingsMenuTitle(
-                    title: 'My address',
-                    icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
-                    onPressed: () {
-                      if (kDebugMode) {
-                        print((controller.getUserData() == null));
-                      }
-                    },
-                  ),
-                  TSettingsMenuTitle(
-                    title: 'My address',
-                    icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
-                    onPressed: () {},
-                  ),
-                  TSettingsMenuTitle(
-                    title: 'My address',
-                    icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
-                    onPressed: () {},
-                  ),
+                  // const TSectionHeading(
+                  //   title: 'Cài đặt tài khoản',
+                  //   showActionButton: false,
+                  // ),
+                  // const SizedBox(height: TSizes.spaceBtwItems),
+                  // TSettingsMenuTitle(
+                  //   title: 'My address',
+                  //   icon: Iconsax.safe_home,
+                  //   subtitle: 'abc abc abc abc',
+                  //   onPressed: () {
+                  //     if (kDebugMode) {
+                  //       print((controller.getUserData() == null));
+                  //     }
+                  //   },
+                  // ),
+                  // TSettingsMenuTitle(
+                  //   title: 'My address',
+                  //   icon: Iconsax.safe_home,
+                  //   subtitle: 'abc abc abc abc',
+                  //   onPressed: () {},
+                  // ),
+                  // TSettingsMenuTitle(
+                  //   title: 'My address',
+                  //   icon: Iconsax.safe_home,
+                  //   subtitle: 'abc abc abc abc',
+                  //   onPressed: () {},
+                  // ),
 
                   //System settings
                   const SizedBox(height: TSizes.spaceBtwSections),
@@ -173,7 +173,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(height: TSizes.spaceBtwItems),
                   TSettingsMenuTitle(
                     title: 'Dark mode',
-                    icon: Iconsax.safe_home,
+                    icon: Iconsax.moon,
                     subtitle: 'Thay đổi chế độ sáng tối',
                     onPressed: () {},
                     trailing: Switch(
@@ -193,7 +193,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   TSettingsMenuTitle(
                     title: 'Dark/ Light mode tự động',
-                    icon: Iconsax.safe_home,
+                    icon: Iconsax.autobrightness,
                     subtitle:
                         'Cài đặt giao diện sáng tối thích ứng với hệ thống',
                     onPressed: () {},
@@ -208,9 +208,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
 
                   TSettingsMenuTitle(
-                    title: 'My address',
-                    icon: Iconsax.safe_home,
-                    subtitle: 'abc abc abc abc',
+                    title: 'Thông báo ứng dụng',
+                    icon: Iconsax.notification,
+                    subtitle: 'Cài đặt thông báo ứng dụng',
                     onPressed: () {},
                     trailing: Switch(
                       value: false,
@@ -226,7 +226,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onPressed: () {
                           AuthenticationRepository.instance.logout();
                         },
-                        child: const Text('Logout')),
+                        child: const Text('Đăng xuất')),
                   ),
                   const SizedBox(height: TSizes.spaceBtwSections * 2.5),
                 ],

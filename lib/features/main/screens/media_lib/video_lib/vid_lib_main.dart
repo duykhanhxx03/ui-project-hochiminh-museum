@@ -5,7 +5,6 @@ import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/controllers/vid_lib_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/video_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/vid_list_view.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class VideoLibScreen extends StatefulWidget {
@@ -29,10 +28,8 @@ class _VideoLibScreen extends State<VideoLibScreen> {
               'Thư viện video',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: TColors.light,
               ),
             ),
-            backgroundColor: TColors.primary,
             showBackArrow: true,
           ),
           body: FutureBuilder(

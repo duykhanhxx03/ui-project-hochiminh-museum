@@ -8,28 +8,35 @@ import 'widgets/home_app_bar.dart';
 import 'widgets/home_slider.dart';
 import 'widgets/news_list.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const TPrimaryHeaderContainer(
+            TPrimaryHeaderContainer(
               child: Column(
                 children: [
-                  HomeAppBar(),
+                  const HomeAppBar(),
                   Padding(
-                    padding: EdgeInsets.all(TSizes.defaultSpace),
-                    child: HomeSlider(banners: [
-                      TImages.promoBanner1,
-                      TImages.promoBanner2,
-                      TImages.promoBanner3,
-                    ]),
+                    padding: const EdgeInsets.all(TSizes.defaultSpace),
+                    child: HomeSlider(
+                      banners: const [
+                        TImages.promoBanner2,
+                        TImages.promoBanner1,
+                        TImages.promoBanner3,
+                      ],
+                    ),
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                 ],
               ),
             ),

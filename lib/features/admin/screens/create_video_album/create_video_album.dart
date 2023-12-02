@@ -30,20 +30,23 @@ class _CreateVideoAlbumScreenState extends State<CreateVideoAlbumScreen> {
         title: const Text('Thêm thư viện video'),
         showBackArrow: true,
         actions: [
-          RoundedLoadingButton(
-            color: TColors.primary,
-            successColor: TColors.success,
-            errorColor: TColors.error,
-            width: TSizes.buttonWidth,
-            successIcon: Icons.check,
-            failedIcon: Icons.close,
-            controller: btnController,
-            onPressed: () {
-              upload(btnController);
-            },
-            child: const Text(
-              'Tải lên',
-              style: TextStyle(color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(right: TSizes.defaultSpace),
+            child: RoundedLoadingButton(
+              color: TColors.primary,
+              successColor: TColors.success,
+              errorColor: TColors.error,
+              width: TSizes.buttonWidth,
+              successIcon: Icons.check,
+              failedIcon: Icons.close,
+              controller: btnController,
+              onPressed: () {
+                upload(btnController);
+              },
+              child: const Text(
+                'Tải lên',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ],

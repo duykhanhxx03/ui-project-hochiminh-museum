@@ -9,6 +9,7 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_home
 import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_register/ticket_register_screen.dart';
 import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class CategoriesList extends StatelessWidget {
   CategoriesList({super.key});
@@ -71,7 +72,7 @@ class CategoriesList extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: Iconsax.receipt_search,
+                    icon: Iconsax.activity,
                   ),
                   SquaredButton(
                     label:
@@ -152,7 +153,7 @@ class CategoriesList extends StatelessWidget {
             label: 'Đăng ký tham quan',
             backgroundColor: Colors.redAccent,
             onTap: () {},
-            icon: Iconsax.book,
+            icon: Iconsax.document_upload,
           ),
           SquaredButton(
             label: 'Nghiên cứu',
@@ -270,7 +271,8 @@ class CategoriesList extends StatelessWidget {
             onTap: () {
               Get.to(const MuseumThreeDimensionScreen());
             },
-            icon: Iconsax.book,
+            icon: MdiIcons.video3D,
+            iconSize: 35,
           ),
           SquaredButton(
             label: 'Thư viện media',
@@ -285,7 +287,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () {
                       Get.to(const ImageLibScreen());
                     },
-                    icon: Iconsax.receipt_search,
+                    icon: Iconsax.gallery,
                   ),
                   SquaredButton(
                     label: 'Thư viện video',
@@ -293,12 +295,12 @@ class CategoriesList extends StatelessWidget {
                     onTap: () {
                       Get.to(const VideoLibScreen());
                     },
-                    icon: Iconsax.receipt_search,
+                    icon: Iconsax.video_play,
                   ),
                 ],
               );
             },
-            icon: Iconsax.book,
+            icon: Iconsax.gallery,
           ),
           SquaredButton(
             label: 'Giáo dục',
@@ -392,13 +394,13 @@ class CategoriesList extends StatelessWidget {
                 ),
               ]);
             },
-            icon: Iconsax.book,
+            icon: Iconsax.briefcase,
           ),
           SquaredButton(
             label: 'Hỗ trợ tham quan',
             backgroundColor: Colors.redAccent,
             onTap: () => Get.to(const TicketRegister()),
-            icon: Iconsax.book,
+            icon: Iconsax.message_question,
           ),
         ],
       ),

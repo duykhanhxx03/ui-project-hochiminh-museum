@@ -34,6 +34,7 @@ class NewsVid extends StatelessWidget {
       },
       isNetworkImage: true,
       date: 'Ngày đăng: ${videoData.date}',
+      isVideo: true,
     );
     // return Container(
     //   margin: const EdgeInsets.all(8.0),

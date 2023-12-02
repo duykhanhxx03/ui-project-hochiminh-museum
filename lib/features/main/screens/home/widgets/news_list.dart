@@ -11,11 +11,14 @@ class NewsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (_, index) => const GroupNews(),
-        itemCount: 4,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GroupNews(category: 'TinTucSuKien', subCategory: 'HDBaoTang'),
+          GroupNews(category: 'NghienCuu', subCategory: 'NghienCuuHCM'),
+          GroupNews(category: 'GiaoDuc', subCategory: 'NhungTamGuong'),
+        ],
       ),
     );
   }

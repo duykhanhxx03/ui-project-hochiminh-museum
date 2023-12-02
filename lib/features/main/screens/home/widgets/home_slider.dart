@@ -8,21 +8,29 @@ import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class HomeSlider extends StatelessWidget {
-  const HomeSlider({
+  HomeSlider({
     super.key,
     required this.banners,
   });
 
   final List<String> banners;
+  final controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeController());
     return Obx(
       () => Column(
         children: [
           CarouselSlider(
-            items: [...banners.map((e) => TRoundedImage(imageUrl: e)).toList()],
+            items: [
+              ...banners
+                  .map((e) => TRoundedImage(
+                        imageUrl: e,
+                        padding: const EdgeInsets.all(8.0),
+                        fit: BoxFit.cover,
+                      ))
+                  .toList()
+            ],
             options: CarouselOptions(
               onPageChanged: (index, reason) {
                 controller.updatePageIndicator(index);

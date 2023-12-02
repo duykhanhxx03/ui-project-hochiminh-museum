@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/video_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/widget/new_vid.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
 class VideoListView extends StatefulWidget {
   final List<VideoAlbumModel> videoDataList;
@@ -16,7 +17,7 @@ class VideoListView extends StatefulWidget {
 }
 
 class _VideoListViewState extends State<VideoListView> {
-  final int videosPerPage = 5;
+  final int videosPerPage = 6;
   int currentPage = 0;
 
   @override
@@ -67,16 +68,15 @@ class _VideoListViewState extends State<VideoListView> {
             margin: const EdgeInsets.symmetric(horizontal: 4.0),
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
-              border: Border.all(),
               color: currentPage == index
                   ? const Color.fromARGB(255, 202, 83, 83)
                   : const Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(12.0),
             ),
             child: Text(
               (index + 1).toString(),
-              style: const TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
+              style: TextStyle(
+                color: currentPage == index ? TColors.light : TColors.dark,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
