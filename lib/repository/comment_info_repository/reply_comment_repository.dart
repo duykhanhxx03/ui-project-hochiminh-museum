@@ -1,9 +1,7 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/comment_info_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/reply_comment_model.dart';
 
 class ReplyCommentRepository extends GetxController {
@@ -18,13 +16,13 @@ class ReplyCommentRepository extends GetxController {
         .collection('ReplyComment')
         .add(replyCommentModel.toJson())
         .catchError((error, stacktrace) {
-          () => Get.snackbar(
-        'Lỗi',
-        'Có gì đó không đúng, thử lại?',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.redAccent.withOpacity(0.1),
-        colorText: Colors.red,
-      );
+      () => Get.snackbar(
+            'Lỗi',
+            'Có gì đó không đúng, thử lại?',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.redAccent.withOpacity(0.1),
+            colorText: Colors.red,
+          );
       if (kDebugMode) {
         print(error.toString());
       }
@@ -32,10 +30,13 @@ class ReplyCommentRepository extends GetxController {
   }
 
   Future<List<ReplyCommentModel>> getAllReplyComment(String deThi) async {
-    final snapshot =
-    await _db.collection('KiemTra').doc(deThi).collection('ReplyComment').get();
+    final snapshot = await _db
+        .collection('KiemTra')
+        .doc(deThi)
+        .collection('ReplyComment')
+        .get();
     final replyCommentData =
-    snapshot.docs.map((e) => ReplyCommentModel.fromSnapShot(e)).toList();
+        snapshot.docs.map((e) => ReplyCommentModel.fromSnapShot(e)).toList();
     return replyCommentData;
   }
 }

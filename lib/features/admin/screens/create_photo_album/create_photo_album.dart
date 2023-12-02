@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -36,7 +37,9 @@ class _CreatePhotoAlbumScreenState extends State<CreatePhotoAlbumScreen> {
       btnController.success();
     } catch (error) {
       btnController.error();
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 

@@ -153,7 +153,25 @@ class CategoriesList extends StatelessWidget {
           SquaredButton(
             label: 'Đăng ký tham quan',
             backgroundColor: Colors.redAccent,
-            onTap: () {},
+            onTap: () {
+              _showBottomModal(
+                context,
+                [
+                  SquaredButton(
+                    label: 'Đăng ký tham quan',
+                    backgroundColor: Colors.lightBlue,
+                    onTap: () => Get.to(const TicketRegisterScreen()),
+                    icon: Iconsax.ticket,
+                  ),
+                  SquaredButton(
+                    label: 'Lịch sử mua vé',
+                    backgroundColor: Colors.lightBlue,
+                    onTap: () => Get.to(TicketOrderScreen()),
+                    icon: Iconsax.refresh,
+                  ),
+                ],
+              );
+            },
             icon: Iconsax.document_upload,
           ),
           SquaredButton(
@@ -400,25 +418,7 @@ class CategoriesList extends StatelessWidget {
           SquaredButton(
             label: 'Hỗ trợ tham quan',
             backgroundColor: Colors.redAccent,
-            onTap: () {
-              _showBottomModal(
-                context,
-                [
-                  SquaredButton(
-                    label: 'Đăng ký tham quan',
-                    backgroundColor: Colors.lightBlue,
-                    onTap: () => Get.to(const TicketRegisterScreen()),
-                    icon: Iconsax.ticket,
-                  ),
-                  SquaredButton(
-                    label: 'Lịch sử mua vé',
-                    backgroundColor: Colors.lightBlue,
-                    onTap: () => Get.to(TicketOrderScreen()),
-                    icon: Iconsax.refresh,
-                  ),
-                ],
-              );
-            },
+            onTap: () {},
             icon: Iconsax.book,
           ),
         ],

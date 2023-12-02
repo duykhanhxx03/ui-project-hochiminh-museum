@@ -55,7 +55,8 @@ class _CommentState extends State<Comment> {
     );
     controller.createReplyComment(newComment, deThi);
 
-    final List<ReplyCommentModel> replyCommentListResult = await controller.getAllReplyComment(deThi);
+    final List<ReplyCommentModel> replyCommentListResult =
+        await controller.getAllReplyComment(deThi);
 
     //print(replyCommentListResult);
     setState(() {
@@ -68,14 +69,13 @@ class _CommentState extends State<Comment> {
   }
 
   void initAllReplyComments() async {
-    final List<ReplyCommentModel> replyCommentListResult = await controller.getAllReplyComment(deThi);
+    final List<ReplyCommentModel> replyCommentListResult =
+        await controller.getAllReplyComment(deThi);
     replyCommentList = replyCommentListResult;
   }
 
   List<ReplyCommentModel> getReplyComments(String id) {
-    return replyCommentList
-        .where((comment) => comment.parentId == id)
-        .toList();
+    return replyCommentList.where((comment) => comment.parentId == id).toList();
   }
 
   @override
@@ -86,7 +86,7 @@ class _CommentState extends State<Comment> {
     return FutureBuilder(
         future: controllerUser.getUserDetails(widget.commentInfo.userId),
         builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               UserModel user = snapshot.data!;
               //print(user.toJson());
@@ -96,9 +96,7 @@ class _CommentState extends State<Comment> {
             }
           }
           return const CircularProgressIndicator();
-        }
-    );
-
+        });
   }
 
   Widget buildCommentWidget(UserModel user, bool isLiked) {
@@ -111,12 +109,12 @@ class _CommentState extends State<Comment> {
           CustomPaint(
             painter: replyCommentList.isNotEmpty
                 ? CommentConnector(
-              startX: 22,
-              startY: 50,
-              endX: 22,
-              endY: calculateEndY(),
-              curved: false,
-            )
+                    startX: 22,
+                    startY: 50,
+                    endX: 22,
+                    endY: calculateEndY(),
+                    curved: false,
+                  )
                 : null, // Trả về null khi không có phản hồi
             child: const CircleAvatar(
               backgroundColor: Colors.blueGrey,
@@ -156,7 +154,7 @@ class _CommentState extends State<Comment> {
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
-                                widget.commentInfo.FormattedDate,
+                                widget.commentInfo.formattedDate,
                                 style: const TextStyle(
                                   fontStyle: FontStyle.italic,
                                 ),
@@ -188,8 +186,9 @@ class _CommentState extends State<Comment> {
                         isLiked ? Icons.favorite : Icons.favorite_outline,
                         color: isLiked ? Colors.red : Colors.grey,
                       ),
-                      onPressed: () async{
-                        String? userIdEmail = _authRepo.firebaseUser.value?.email;
+                      onPressed: () async {
+                        String? userIdEmail =
+                            _authRepo.firebaseUser.value?.email;
                         widget.commentInfo.toggleLike(userIdEmail as String);
                         // CommentInfoModel commentInfoModel = CommentInfoModel(
                         //     id: id,
@@ -198,10 +197,14 @@ class _CommentState extends State<Comment> {
                         //     userLiked: userLiked,
                         //     date: date
                         // );
-                        await controllerCommentInfo.updateCommentUserLiked(deThi, widget.commentInfo.id, widget.commentInfo.userLiked);
+                        await controllerCommentInfo.updateCommentUserLiked(
+                            deThi,
+                            widget.commentInfo.id,
+                            widget.commentInfo.userLiked);
                         setState(() {
                           ///HERE TO CHANGE
-                          widget.commentInfo.userLiked = widget.commentInfo.userLiked;
+                          widget.commentInfo.userLiked =
+                              widget.commentInfo.userLiked;
                         });
                       },
                     ),
@@ -230,7 +233,7 @@ class _CommentState extends State<Comment> {
                   itemCount: getReplyComments(widget.commentInfo.id).length,
                   itemBuilder: (BuildContext context, int index) {
                     ReplyCommentModel replyComment =
-                    getReplyComments(widget.commentInfo.id)[index];
+                        getReplyComments(widget.commentInfo.id)[index];
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(
                           16, 0, 0, 0), // Thụt vào từ trái
@@ -264,34 +267,41 @@ class _CommentState extends State<Comment> {
                                   ),
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             FutureBuilder(
-                                              future: controllerUser.getUserDetails(replyComment.id),
+                                              future:
+                                                  controllerUser.getUserDetails(
+                                                      replyComment.id),
                                               builder: (context, snapshot) {
-                                                if(snapshot.connectionState == ConnectionState.done) {
+                                                if (snapshot.connectionState ==
+                                                    ConnectionState.done) {
                                                   if (snapshot.hasData) {
-                                                    UserModel userReply = snapshot.data!;
+                                                    UserModel userReply =
+                                                        snapshot.data!;
                                                     //print(user.toJson());
                                                     return Text(
                                                       ///HERE TO CHANGE
                                                       "${userReply.lastName} ${userReply.firstName}",
                                                       // để tạm ntn, sau sẽ lấy id của user đang login
                                                       style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                         fontSize: 18,
                                                         color: Color.fromARGB(
                                                             255, 0, 0, 0),
                                                       ),
                                                     );
-                                                  } else if (snapshot.hasError) {
-                                                    return Text('Error: ${snapshot.error}');
+                                                  } else if (snapshot
+                                                      .hasError) {
+                                                    return Text(
+                                                        'Error: ${snapshot.error}');
                                                   }
                                                 }
                                                 return const CircularProgressIndicator();
@@ -299,9 +309,9 @@ class _CommentState extends State<Comment> {
                                             ),
                                             Padding(
                                               padding:
-                                              const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: Text(
-                                                replyComment.FormattedDate,
+                                                replyComment.formattedDate,
                                                 style: const TextStyle(
                                                   fontStyle: FontStyle.italic,
                                                 ),
@@ -393,7 +403,7 @@ class _CommentState extends State<Comment> {
   double calculateEndY() {
     // Chiều cao của comment chính và các phản hồi
     double commentHeight =
-    calculateCommentHeight(widget.commentInfo.id, onlyComment: true);
+        calculateCommentHeight(widget.commentInfo.id, onlyComment: true);
 
     // Kiểm tra xem có phản hồi hay không
     if (replyCommentList.isNotEmpty) {

@@ -31,7 +31,7 @@ class CommentInfoModel {
     return userLiked.contains(userId);
   }
 
-  String get FormattedDate {
+  String get formattedDate {
     return DateFormat.yMd().format(date.toDate());
   }
 

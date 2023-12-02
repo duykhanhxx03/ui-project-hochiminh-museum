@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
@@ -24,7 +23,7 @@ class ReplyCommentModel {
     };
   }
 
-  String get FormattedDate {
+  String get formattedDate {
     return DateFormat.yMd().format(date.toDate());
   }
 

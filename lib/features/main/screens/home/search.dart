@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
@@ -23,7 +22,7 @@ class _MyHomePageState extends State<SearchScreen> {
 
     setState(() {
       newsListData = result;
-      print("Độ dài: ${newsListData.length}");
+      // print("Độ dài: ${newsListData.length}");
     });
   }
 

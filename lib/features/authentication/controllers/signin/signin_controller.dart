@@ -50,10 +50,8 @@ class SignInController extends GetxController {
   Future<void> googleSignIn() async {
     try {
       isGoogleLoading.value = true;
-      print('hihi');
       final auth = AuthenticationRepository.instance;
       await auth.signInWithGoogle();
-      print('hehe');
       isGoogleLoading.value = false;
 
       auth.setInitialScreen(auth.firebaseUser.value);
