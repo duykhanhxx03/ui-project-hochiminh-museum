@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/home/museum_three_dimension.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/3dmuseum/museum_three_dimension.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/home/widgets/squared_button.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/img_lib/image_lib_main.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/vid_lib_main.dart';

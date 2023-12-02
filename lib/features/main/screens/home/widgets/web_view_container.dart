@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewContainer extends StatefulWidget {
@@ -18,11 +19,14 @@ class _WebViewContainerState extends State<WebViewContainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Bảo tàng 3D",
+      appBar: const TAppBar(
+        title: Text(
+          'Bảo tàng 3D',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        backgroundColor: Colors.red,
+        showBackArrow: true,
       ),
       body: WebViewWidget(
         controller: WebViewController()
