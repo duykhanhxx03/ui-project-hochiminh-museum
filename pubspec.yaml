@@ -75,6 +75,8 @@ dependencies:
   google_sign_in: ^6.1.6
   flutter_facebook_auth: ^6.0.1
   material_design_icons_flutter: ^7.0.7296
+  comment_tree: ^0.3.0
+  flutter_painter: ^1.0.1
 
 dev_dependencies:
   flutter_test:

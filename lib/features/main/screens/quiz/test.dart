@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/data/comment_data.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/comment_info_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
 
 class TestExamScreen extends StatefulWidget {
@@ -28,12 +29,15 @@ class _TestExamScreenState extends State<TestExamScreen> {
   int totalTimeInSeconds = 30;
   bool isSubmit = false;
   int score = 0;
+  late String deThi;
 
   @override
   void initState() {
     super.initState();
     questions = widget.questions;
     title = widget.title;
+    deThi = title == 'Đề thi 1' ? "DeThi1" : "DeThi2";
+    // print(deThi);
     selectedAnswers = List.generate(questions.length, (index) => -1);
     checkIfTheAnswerIsTrueOfFalse =
         List.generate(questions.length, (index) => false);
@@ -112,6 +116,7 @@ class _TestExamScreenState extends State<TestExamScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CommentInfoController());
     int hours = totalTimeInSeconds ~/ 3600;
     int minutes = (totalTimeInSeconds % 3600) ~/ 60;
     int seconds = totalTimeInSeconds % 60;
@@ -258,18 +263,32 @@ class _TestExamScreenState extends State<TestExamScreen> {
             if (isSubmit)
               Container(
                 alignment: Alignment.bottomRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(const ReviewScreen());
-                  },
-                  child: const Text(
-                    ' Xem bình luận ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
+                child: FutureBuilder(
+                    future: controller.getAllComment(deThi),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          CommentListData.commentList1 = snapshot.data!;
+                          return ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => ReviewScreen(
+                                  commentList: CommentListData.commentList1,
+                                  deThi: deThi));
+                            },
+                            child: const Text(
+                              ' Xem bình luận ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        }
+                      }
+                      return const CircularProgressIndicator();
+                    }),
               ),
           ],
         ),
