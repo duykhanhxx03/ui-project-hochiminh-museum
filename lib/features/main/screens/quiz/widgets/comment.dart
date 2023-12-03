@@ -6,9 +6,9 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controlle
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/reply_comment_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/comment_info_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/reply_comment_model.dart';
-import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/widgets/comment_connector.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
 class Comment extends StatefulWidget {
   Comment({
@@ -39,7 +39,6 @@ class _CommentState extends State<Comment> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     deThi = widget.deThi;
     initAllReplyComments();
@@ -106,21 +105,13 @@ class _CommentState extends State<Comment> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Avatar
-          CustomPaint(
-            painter: replyCommentList.isNotEmpty
-                ? CommentConnector(
-                    startX: 22,
-                    startY: 50,
-                    endX: 22,
-                    endY: calculateEndY(),
-                    curved: false,
-                  )
-                : null, // Trả về null khi không có phản hồi
-            child: const CircleAvatar(
-              backgroundColor: Colors.blueGrey,
-              radius: 22,
-            ),
+
+          CircleAvatar(
+            backgroundColor: const Color.fromARGB(255, 124, 124, 124),
+            radius: 22,
+            backgroundImage: NetworkImage(user.avatar_imgURL),
           ),
+
           const SizedBox(width: 8),
 
           // Thông tin bình luận
@@ -216,14 +207,20 @@ class _CommentState extends State<Comment> {
                       style: TextButton.styleFrom(
                         alignment: Alignment.centerRight,
                         textStyle: const TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(255, 124, 123, 123),
-                            fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 124, 123, 123),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       onPressed: () {
                         showReplyModal(user);
                       },
-                      child: const Text('Reply'),
+                      child: Text(
+                        'Reply',
+                        style: TextStyle(
+                          color: TColors.primary.withOpacity(0.7),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -236,22 +233,35 @@ class _CommentState extends State<Comment> {
                         getReplyComments(widget.commentInfo.id)[index];
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(
-                          16, 0, 0, 0), // Thụt vào từ trái
+                        16,
+                        0,
+                        0,
+                        0,
+                      ), // Thụt vào từ trái
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomPaint(
-                            painter: CommentConnector(
-                              startX: -46,
-                              startY: 0,
-                              endX: endY,
-                              endY: 19,
-                              curved: true,
-                            ),
-                            child: const CircleAvatar(
-                              backgroundColor: Colors.blueGrey,
-                              radius: 18,
-                            ),
+                          FutureBuilder(
+                            future:
+                                controllerUser.getUserDetails(replyComment.id),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasData) {
+                                  UserModel userReply = snapshot.data!;
+                                  //print(user.toJson());
+                                  return CircleAvatar(
+                                    backgroundColor: Colors.blueGrey,
+                                    radius: 18,
+                                    backgroundImage:
+                                        NetworkImage(userReply.avatar_imgURL),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                }
+                              }
+                              return const CircularProgressIndicator();
+                            },
                           ),
                           const SizedBox(width: 8),
                           Expanded(
@@ -347,10 +357,10 @@ class _CommentState extends State<Comment> {
                 // reply
 
                 const Divider(
-                  thickness: 2,
+                  thickness: 1,
                   indent: 0,
                   endIndent: 10,
-                  color: Color.fromARGB(255, 167, 165, 165),
+                  color: Color.fromARGB(255, 197, 197, 197),
                 ),
               ],
             ),

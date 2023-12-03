@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_full_title.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/controllers/news_description_controller.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
-import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 // ignore: must_be_immutable
 class FullNewsDescription extends StatelessWidget {
@@ -85,18 +84,14 @@ class FullNewsDescription extends StatelessWidget {
           ui.add(
             Row(
               children: [
-                const Spacer(
-                  flex: 2,
-                ),
-                Flexible(
-                  flex: 7,
-                  child: Text(
-                    item['content'],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      height: 1,
-                    ),
+                const Spacer(),
+                Text(
+                  item['content'],
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    height: 1,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),

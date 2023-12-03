@@ -6,15 +6,17 @@ import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
 import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class TAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const TAppBar(
-      {super.key,
-      this.title,
-      this.showBackArrow = false,
-      this.leadingIcon,
-      this.leadingOnPress,
-      this.actions,
-      this.backOnPress,
-      this.backgroundColor});
+  const TAppBar({
+    super.key,
+    this.title,
+    this.showBackArrow = false,
+    this.leadingIcon,
+    this.leadingOnPress,
+    this.actions,
+    this.backOnPress,
+    this.backgroundColor,
+    this.isForceWhiteBackArrow,
+  });
 
   final Widget? title;
   final bool showBackArrow;
@@ -23,6 +25,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   final void Function()? backOnPress;
   final List<Widget>? actions;
   final Color? backgroundColor;
+  final bool? isForceWhiteBackArrow;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +37,11 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: backOnPress ?? () => Get.back(),
               icon: Icon(
                 Iconsax.arrow_left,
-                color: (THelperFunctions.isDarkMode(context)
+                color: (isForceWhiteBackArrow != null && isForceWhiteBackArrow!)
                     ? TColors.light
-                    : TColors.dark),
+                    : (THelperFunctions.isDarkMode(context)
+                        ? TColors.light
+                        : TColors.dark),
               ))
           : leadingIcon != null
               ? IconButton(

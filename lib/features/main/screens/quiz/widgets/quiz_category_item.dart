@@ -17,7 +17,7 @@ class QuizCategoryItem extends StatelessWidget {
     return ExpansionTile(
       title: Card(
         elevation: 0,
-        color: TColors.accent,
+        color: TColors.primary,
         child: Padding(
           padding: const EdgeInsets.all(TSizes.cardRadiusMd),
           child: Text(

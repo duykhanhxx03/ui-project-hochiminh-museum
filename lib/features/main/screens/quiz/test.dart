@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/data/comment_data.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/comment_info_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
 class TestExamScreen extends StatefulWidget {
   const TestExamScreen(
@@ -124,7 +126,10 @@ class _TestExamScreenState extends State<TestExamScreen> {
         '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: TAppBar(
+        isForceWhiteBackArrow: true,
+        showBackArrow: true,
+        backgroundColor: TColors.primary,
         title: Row(
           children: [
             Text(
@@ -140,25 +145,30 @@ class _TestExamScreenState extends State<TestExamScreen> {
               // 'Time: ${Duration(seconds: totalTimeInSeconds).toString()}',
               'Time: $formattedTime',
               style: const TextStyle(
-                color: Colors.white,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
                 fontSize: 14,
               ),
             ),
           ],
         ),
-        backgroundColor: Colors.red,
         actions: [
           if (!isSubmit)
             Padding(
-              padding: const EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16, bottom: 4),
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 133, 0, 29),
+                ),
                 onPressed: checkSubmit,
-                child: const Text(
-                  '    Nộp bài   ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Nộp bài',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
                   ),
                 ),
               ),

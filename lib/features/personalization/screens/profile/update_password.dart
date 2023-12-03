@@ -4,7 +4,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/profile.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/validators/validation.dart';
 
@@ -152,14 +151,9 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
                                       Get.off(() => const ProfileScreen());
                                     }
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: TColors.primary,
-                                    side: BorderSide.none,
-                                    shape: const StadiumBorder(),
+                                  child: const Text(
+                                    'Cập nhật mật khẩu',
                                   ),
-                                  child: const Text('Cập nhật mật khẩu',
-                                      style: TextStyle(
-                                          color: TColors.black, fontSize: 18)),
                                 ),
                               )
                             ],

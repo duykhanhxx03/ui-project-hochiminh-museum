@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/text_editor_screen.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/category_subcategory.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
@@ -88,13 +89,19 @@ class _ChooseCategoryAndSubCategoryState
             children: [
               const Spacer(),
               TextButton(
-                child: const Text('Đóng'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
+                style: TextButton.styleFrom(
+                  foregroundColor: TColors.primary,
+                ),
+                child: const Text('Đóng'),
               ),
               TextButton(
-                child: const Text('Tạo'),
+                style: TextButton.styleFrom(
+                  backgroundColor: TColors.primary,
+                  foregroundColor: TColors.light,
+                ),
                 onPressed: () {
                   Get.to(TextEditorScreen(
                     newsCategory:
@@ -105,6 +112,7 @@ class _ChooseCategoryAndSubCategoryState
                             _selectedNewsCategory, _selectedNewsSubCategory),
                   ));
                 },
+                child: const Text('Tạo'),
               ),
             ],
           ),

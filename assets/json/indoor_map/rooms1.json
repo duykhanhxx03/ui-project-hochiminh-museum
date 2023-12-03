@@ -11,7 +11,7 @@
 		},
 		{
 			"Room": "Cầu thang",
-			"Description": "Cầu thang tầng 1 lên tầng 2",
+			"Description": "",
 			"href": "#room_2",
 			"shape": "rect",
 			"alt": "Room #2, 70' x 70', Empty",

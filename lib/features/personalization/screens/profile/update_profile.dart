@@ -21,13 +21,16 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TAppBar(
-        title: Text(
+      appBar: TAppBar(
+        title: const Text(
           'Thay đổi thông tin',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
+        backOnPress: () {
+          Get.off(const ProfileScreen());
+        },
         showBackArrow: true,
       ),
       body: SingleChildScrollView(

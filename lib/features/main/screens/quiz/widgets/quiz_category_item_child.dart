@@ -28,6 +28,7 @@ class QuizCategoryItemChild extends StatelessWidget {
       child: ListTile(
         title: Card(
           color: isDark ? TColors.darkContainer : TColors.lightContainer,
+          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(TSizes.cardRadiusSm),
             child: Text(

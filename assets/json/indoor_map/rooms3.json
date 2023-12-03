@@ -19,7 +19,8 @@
 			"href": "#room_2"
 		},
 		{
-			"Room": "A",
+			"Room": "Tổ hợp hình tượng quê hương",
+			"image":"assets/images/indoor_map/tohophinhtuongquehuong.jpg",
 			"Description": "",
 			"title": "Room #1, 70' x 70', 1 x Troglodyte Zombie",
 			"coords": "481,427,550,450",
@@ -28,7 +29,8 @@
 			"href": "#room_3"
 		},
 		{
-			"Room": "B",
+			"Room": "Xô Viết Nghệ Tĩnh",
+			"image":"assets/images/indoor_map/xovietnghetinh.jpg",
 			"Description": "",
 			"title": "Room #1, 70' x 70', 1 x Troglodyte Zombie",
 			"coords": "399,576,423,599",
@@ -37,7 +39,8 @@
 			"href": "#room_4"
 		},
 		{
-			"Room": "C",
+			"Room": "Pác Bó cách mạng",
+			"image":"assets/images/indoor_map/pacbocachmang.jpg",
 			"Description": "",
 			"title": "Room #1, 70' x 70', 1 x Troglodyte Zombie",
 			"coords": "314,428,338,451",
@@ -55,7 +58,8 @@
 			"href": "#room_6"
 		},
 		{
-			"Room": "D",
+			"Room": "Việt Nam chiến đấu 1946 - 1954",
+			"image":"assets/images/indoor_map/vietnamchiendau.jpg",
 			"Description": "",
 			"title": "Room #1, 70' x 70', 1 x Troglodyte Zombie",
 			"coords": "315,298,339,321",
@@ -64,7 +68,8 @@
 			"href": "#room_7"
 		},
 		{
-			"Room": "E",
+			"Room": "Gian tưởng niệm Chủ tịch Hồ Chí Minh",
+			"image":"assets/images/indoor_map/giantuongniemhcm.jpg",
 			"Description": "",
 			"title": "Room #1, 70' x 70', 1 x Troglodyte Zombie",
 			"coords": "398,167,425,194",
@@ -73,7 +78,8 @@
 			"href": "#room_8"
 		},
 		{
-			"Room": "G",
+			"Room": "Kháng chiến chống Mỹ xâm lược và chiến thắng mùa xuân 1975",
+			"image":"assets/images/indoor_map/khangchienchongmy.jpg",
 			"Description": "",
 			"title": "Room #1, 70' x 70', 1 x Troglodyte Zombie",
 			"coords": "478,297,505,324",

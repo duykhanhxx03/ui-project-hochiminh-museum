@@ -177,6 +177,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     onPressed: () {},
                     trailing: Switch(
                       value: THelperFunctions.isDarkMode(context),
+                      activeColor: TColors.white,
+                      activeTrackColor: TColors.primary,
                       onChanged: _isThemeModeSystemSetting
                           ? null
                           : (value) {
@@ -197,6 +199,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         'Cài đặt giao diện sáng tối thích ứng với hệ thống',
                     onPressed: () {},
                     trailing: Switch(
+                      activeColor: TColors.white,
+                      activeTrackColor: TColors.primary,
                       value: _isThemeModeSystemSetting,
                       onChanged: (value) {
                         setState(() {
@@ -212,6 +216,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     subtitle: 'Cài đặt thông báo ứng dụng',
                     onPressed: () {},
                     trailing: Switch(
+                      activeColor: TColors.white,
+                      activeTrackColor: TColors.primary,
                       value: false,
                       onChanged: (value) {},
                     ),

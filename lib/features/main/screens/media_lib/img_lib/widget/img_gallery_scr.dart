@@ -105,21 +105,14 @@ class ImageDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 173, 7, 7),
-        leading: BackButton(
-          color: const Color.fromARGB(255, 255, 255, 255),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: const Text(
+      appBar: const TAppBar(
+        title: Text(
           'Thư viện ảnh',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
+        showBackArrow: true,
       ),
       body: PhotoViewGallery.builder(
         itemCount: imageDataList.photos.length,

@@ -28,7 +28,7 @@ class TTexts {
   static const String newPassword = "New Password";
   static const String username = "Username";
   static const String phoneNo = "Điện thoại";
-  static const String rememberMe = "Nhớ mật khẩu";
+  static const String rememberMe = "Nhớ tài khoản";
   static const String forgetPassword = "Quên mật khẩu?";
   static const String signIn = "Đăng nhập";
   static const String createAccount = "Tạo tài khoản";

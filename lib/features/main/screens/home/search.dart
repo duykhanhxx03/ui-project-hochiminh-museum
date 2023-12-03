@@ -32,42 +32,47 @@ class _MyHomePageState extends State<SearchScreen> {
       appBar: AppBar(
         title: const Text('Search Post'),
       ),
-      body: Column(
-        children: [
-          TextField(
-            decoration: const InputDecoration(
-              hintText: 'Tìm kiếm...',
+      body: Container(
+        margin: const EdgeInsets.symmetric(
+          horizontal: 12.0,
+        ),
+        child: Column(
+          children: [
+            TextField(
+              decoration: const InputDecoration(
+                hintText: 'Tìm kiếm...',
+              ),
+              onChanged: (value) {
+                searchFromFirebase(value);
+              },
             ),
-            onChanged: (value) {
-              searchFromFirebase(value);
-            },
-          ),
-          Align(
-            alignment: Alignment.centerLeft, // Align text to the left
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Số bài viết trùng khớp: ${newsListData.length}',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic)),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: newsListData.length,
-              shrinkWrap: true,
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemBuilder: (_, index) => InnoticeNews(
-                date: newsListData[index].date,
-                isNetworkImage: true,
-                onPressed: () => Get.to(NewsDescriptionScreen(
-                    newsContent: newsListData[index].newsContent)),
-                thumbnailUrl: newsListData[index].thumbnailUrl,
-                title: newsListData[index].title,
+            Align(
+              alignment: Alignment.centerLeft, // Align text to the left
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Số bài viết trùng khớp: ${newsListData.length}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic)),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: ListView.builder(
+                itemCount: newsListData.length,
+                shrinkWrap: true,
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemBuilder: (_, index) => InnoticeNews(
+                  date: newsListData[index].date,
+                  isNetworkImage: true,
+                  onPressed: () => Get.to(NewsDescriptionScreen(
+                      newsContent: newsListData[index].newsContent)),
+                  thumbnailUrl: newsListData[index].thumbnailUrl,
+                  title: newsListData[index].title,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

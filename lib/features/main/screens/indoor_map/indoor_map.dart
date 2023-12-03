@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/controllers/indoor_map_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/widgets/dropdown_button.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
@@ -96,8 +97,6 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
-
-    debugPrint('build');
     return Scaffold(
       appBar: TAppBar(
         title: IndoorMapDropdownMenu(changeFloor: _changeFloor),
@@ -137,28 +136,27 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                     alignment: AlignmentDirectional.topStart,
                     children: [
                       Image.asset(indoorMapController.currentMapUrl.value),
-                      Positioned(
-                        top: 50,
-                        left: 50,
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          color: Colors.red.shade700.withAlpha(150),
-                        ),
-                      ),
                     ],
                   )),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  bottom: (screenHeight -
-                          TDeviceUtils.getAppBarHeight() -
-                          TDeviceUtils.getBottomNavigationBarHeight()) /
-                      2),
-              child: Container(
-                width: 20,
-                height: 20,
-                color: Colors.amber.shade700.withAlpha(150),
+                bottom: (screenHeight -
+                        TDeviceUtils.getAppBarHeight() -
+                        TDeviceUtils.getBottomNavigationBarHeight()) /
+                    2,
+              ),
+              child: const Icon(
+                Icons.arrow_drop_down_outlined,
+                color: Color.fromARGB(255, 255, 17, 0),
+                size: 55,
+                shadows: [
+                  Shadow(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    blurRadius: 2,
+                    offset: Offset(2, 2),
+                  ),
+                ],
               ),
             ),
             FutureBuilder(
@@ -189,10 +187,11 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                               padding: const EdgeInsets.all(4),
                               margin: const EdgeInsets.only(bottom: 4),
                               decoration: BoxDecoration(
-                                color: TColors.lightContainer,
+                                color: TColors.white,
                                 border: Border.all(
                                   width: 5,
-                                  color: Colors.black,
+                                  color:
+                                      const Color.fromARGB(255, 101, 101, 101),
                                 ),
                               ),
                               child: InkWell(
@@ -217,24 +216,33 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                                   preventDuplicateOnPageChange = true;
                                 },
                                 child: Center(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        element['Room'],
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge!
-                                            .copyWith(
-                                              color: TColors.darkerGrey,
+                                  child: element['image'] == null
+                                      ? Column(
+                                          children: [
+                                            Text(
+                                              element['Room'],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .copyWith(
+                                                    color: const Color.fromARGB(
+                                                      255,
+                                                      101,
+                                                      101,
+                                                      101,
+                                                    ),
+                                                  ),
                                             ),
-                                      ),
-                                      const Divider(
-                                        height: 1.0,
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                      ),
-                                    ],
-                                  ),
+                                            const SizedBox(
+                                                height: TSizes.defaultSpace),
+                                          ],
+                                        )
+                                      : Image(
+                                          image: AssetImage(
+                                            element['image'],
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                               ),
                             ),

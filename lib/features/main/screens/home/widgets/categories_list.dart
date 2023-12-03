@@ -63,7 +63,7 @@ class CategoriesList extends StatelessWidget {
                 [
                   SquaredButton(
                     label: 'Hoạt động của bảo tàng Hồ Chí Minh',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: Colors.green,
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -78,7 +78,7 @@ class CategoriesList extends StatelessWidget {
                   SquaredButton(
                     label:
                         'Hoạt động của hệ thống các bảo tàng, di tích lưu niệm về chủ tích Hồ Chí Minh',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: Colors.red,
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -88,11 +88,11 @@ class CategoriesList extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: Iconsax.receipt_search,
+                    icon: Iconsax.activity,
                   ),
                   SquaredButton(
                     label: 'Hoạt động ngành di sản văn hóa',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: Colors.purple,
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -102,7 +102,7 @@ class CategoriesList extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: Iconsax.receipt_search,
+                    icon: Iconsax.activity,
                   ),
                   SquaredButton(
                     label: 'Hoạt động bảo tàng trên thế giới',
@@ -116,7 +116,7 @@ class CategoriesList extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: Iconsax.receipt_search,
+                    icon: Iconsax.activity,
                   ),
                 ],
               );

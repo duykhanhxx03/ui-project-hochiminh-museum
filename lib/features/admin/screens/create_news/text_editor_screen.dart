@@ -176,7 +176,7 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
                     upLoadImageToStorage(
                         editsIndex: editsIndex, uuid: uuid, type: 'gallery');
                   },
-                  child: const Text('Libary'),
+                  child: const Text('Library'),
                 ),
               ],
             ));
@@ -319,8 +319,9 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TAppBar(
+        showBackArrow: true,
         title: Text(
-          'TextEditor',
+          'Tạo bài viết',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         actions: [
@@ -333,6 +334,9 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
             icon: const Icon(Iconsax.eye),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 133, 0, 29),
+            ),
             onPressed: () {
               final DateTime now = DateTime.now();
               final DateFormat formatter = DateFormat('dd/MM/yyyy');
@@ -348,10 +352,17 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
               );
             },
             child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: TSizes.lg),
-              child: Text('Đăng bài'),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Đăng bài',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
             ),
-          )
+          ),
+          const SizedBox(width: 8)
         ],
       ),
       body: Obx(
