@@ -1,7 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/models/video_album_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/media_lib/video_lib/widget/ytb_vid_player.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/innotice_news.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class VideoDetailScreen extends StatefulWidget {
   final VideoAlbumModel video;
@@ -52,21 +56,14 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 173, 7, 7),
-        leading: BackButton(
-          color: const Color.fromARGB(255, 255, 255, 255),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: const Text(
+      appBar: const TAppBar(
+        title: Text(
           'Thư viện video',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
+        showBackArrow: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -89,19 +86,19 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
             const SizedBox(height: 16.0),
             // Hiển thị Player video
             VideoPlayerWidget(videoURL: widget.video.youtubeUrl),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: TSizes.spaceBtwItems),
             const Divider(
               thickness: 1,
               indent: 0,
               endIndent: 0,
-              color: Color.fromARGB(255, 107, 106, 106),
+              color: Color.fromARGB(255, 191, 191, 191),
             ),
             const SizedBox(height: 8.0),
 
             const Text(
               'Các video khác:',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: TSizes.lg,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -114,64 +111,21 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
                 itemCount: randomVideos.length,
                 itemBuilder: (context, index) {
                   final VideoAlbumModel videoData = randomVideos[index];
-                  return Container(
-                    margin: const EdgeInsetsDirectional.only(bottom: 8.0),
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => VideoDetailScreen(
-                                  video: videoData,
-                                  allVideos: widget.allVideos,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: 120,
-                            height: 90,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://img.youtube.com/vi/${videoData.youtubeUrl.split("/").last}/hqdefault.jpg',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
+                  return InnoticeNews(
+                    thumbnailUrl:
+                        'https://img.youtube.com/vi/${videoData.youtubeUrl.split("/").last}/hqdefault.jpg',
+                    title: videoData.title,
+                    onPressed: () {
+                      Get.to(
+                        () => VideoDetailScreen(
+                          video: videoData,
+                          allVideos: widget.allVideos,
                         ),
-                        const SizedBox(width: 8.0),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                videoData.title,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 8.0),
-                              Text(
-                                // 'Ngày đăng: ${videoData.dateSubmitted.day}/${videoData.dateSubmitted.month}/${videoData.dateSubmitted.year}',
-                                'Ngày đăng ${videoData.date}',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
+                    isNetworkImage: true,
+                    date: videoData.date,
+                    isVideo: true,
                   );
                 },
               ),
