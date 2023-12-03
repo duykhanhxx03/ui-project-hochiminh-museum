@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/texts/news_full_title.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/controllers/news_description_controller.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 // ignore: must_be_immutable
 class FullNewsDescription extends StatelessWidget {
@@ -72,22 +73,33 @@ class FullNewsDescription extends StatelessWidget {
                     //show no image available image on error loading
                   ),
                 ),
-                Text(item['image_descrtiption']),
+                Text(
+                  item['image_descrtiption'],
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           );
           break;
         case 'author':
           ui.add(
-            Row(children: [
-              const Spacer(),
-              Text(
-                item['content'],
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
+            Row(
+              children: [
+                const Spacer(
+                  flex: 2,
                 ),
-              ),
-            ]),
+                Flexible(
+                  flex: 7,
+                  child: Text(
+                    item['content'],
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      height: 1,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
           break;
         default:
@@ -107,20 +119,7 @@ class FullNewsDescription extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ...ui
-        // NewsFullTitle(fontSize: 20, title: news.title),
-        // const Divider(
-        //   thickness: 0.7,
-        // ),
-        // const SizedBox(
-        //   height: TSizes.spaceBtwElements,
-        // ),
-        // Text(
-        //   news.recap,
-        //   style: const TextStyle(fontWeight: FontWeight.w600),
-        // ),
-        // ImageWithDesWidget(image: news.listImage[0]),
-        // Text(news.content, textAlign: TextAlign.justify),
+        ...ui,
       ],
     );
   }

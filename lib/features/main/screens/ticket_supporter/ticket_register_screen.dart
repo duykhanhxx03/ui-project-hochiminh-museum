@@ -57,7 +57,7 @@ class _TicketRegisterScreenState extends State<TicketRegisterScreen> {
                   return Obx(
                     () => Container(
                       padding: const EdgeInsets.all(20),
-                      child: Column(
+                      child: ListView(
                         children: [
                           // Tiêu đề
                           const Text(
@@ -144,14 +144,12 @@ class _TicketRegisterScreenState extends State<TicketRegisterScreen> {
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Row(
                                     children: [
-                                      Expanded(
-                                        child: Text(
-                                          controller.dateRegister.value,
-                                          style: const TextStyle(
-                                              fontSize: 18,
-                                              decorationThickness: 2.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                      Text(
+                                        controller.dateRegister.value,
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            decorationThickness: 2.0,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Expanded(
                                           child: Row(

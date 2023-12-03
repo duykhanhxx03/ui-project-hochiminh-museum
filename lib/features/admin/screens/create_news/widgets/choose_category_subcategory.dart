@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/text_editor_screen.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/category_subcategory.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class ChooseCategoryAndSubCategory extends StatefulWidget {
   const ChooseCategoryAndSubCategory({super.key});
@@ -53,13 +54,21 @@ class _ChooseCategoryAndSubCategoryState
                 value: _selectedNewsCategory,
               ),
               DropdownButton<String>(
+                itemHeight: 60,
                 items: TCategorySubCategoryConstanst.getAvailableSubCategories(
                         _selectedNewsCategory)
                     .map((subCategory) {
                   return DropdownMenuItem<String>(
+                    alignment: Alignment.centerLeft,
                     key: ValueKey(subCategory),
                     value: subCategory,
-                    child: Text(subCategory),
+                    child: SizedBox(
+                      width: THelperFunctions.screenWidth() * 3 / 4,
+                      child: Text(
+                        subCategory,
+                        softWrap: true,
+                      ),
+                    ),
                   );
                 }).toList(),
                 onChanged: (subCategory) {
