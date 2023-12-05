@@ -3,11 +3,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/comment_info_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/comment_info_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/widgets/comment.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 
 class ReviewScreen extends StatefulWidget {
   ReviewScreen({super.key, required this.commentList, required this.deThi});
@@ -29,7 +30,6 @@ class _ReviewScreen extends State<ReviewScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     commentList = widget.commentList;
     deThi = widget.deThi;
     super.initState();
@@ -66,63 +66,73 @@ class _ReviewScreen extends State<ReviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: KeyboardDismisser(
-      child: Scaffold(
-        appBar: AppBar(
-            backgroundColor: const Color.fromARGB(255, 173, 7, 7),
-            leading: BackButton(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              onPressed: () {
-                Get.back();
-              },
-            ),
-            title: const Text(
-              'Thảo luận',
-              style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontWeight: FontWeight.bold,
+    return Scaffold(
+      appBar: const TAppBar(
+        title: Text(
+          'Thảo luận',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        showBackArrow: true,
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          // ignore: invalid_use_of_protected_member
+          (context as Element).reassemble();
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: commentList.length,
+                  itemBuilder: (context, index) {
+                    return Comment(
+                        commentInfo: commentList[index], deThi: deThi);
+                  },
+                ),
               ),
-            ),
-            centerTitle: true),
-        body: Column(
-          children: [
-            const SizedBox(height: 30),
-            Expanded(
-              child: ListView.builder(
-                itemCount: commentList.length,
-                itemBuilder: (context, index) {
-                  return Comment(commentInfo: commentList[index], deThi: deThi);
-                },
-              ),
-            ),
-            // const Divider(
-            //   thickness: 1,
-            //   color: Color.fromARGB(255, 167, 165, 165),
-            // ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: commentController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Type your comment...',
+              // const Divider(
+              //   thickness: 1,
+              //   color: Color.fromARGB(255, 167, 165, 165),
+              // ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: commentController,
+                        decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: TColors.darkerGrey,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(18)),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: TColors.darkerGrey,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(18)),
+                          ),
+                          hintText: 'Nhập bình luận của bạn',
+                        ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.send),
-                    onPressed: addComment,
-                  ),
-                ],
+                    IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: addComment,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

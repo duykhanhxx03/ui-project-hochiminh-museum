@@ -56,14 +56,14 @@ class CategoriesList extends StatelessWidget {
         children: [
           SquaredButton(
             label: 'Tin tức - Sự kiện',
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromARGB(255, 117, 14, 33),
             onTap: () {
               _showBottomModal(
                 context,
                 [
                   SquaredButton(
                     label: 'Hoạt động của bảo tàng Hồ Chí Minh',
-                    backgroundColor: Colors.green,
+                    backgroundColor: const Color.fromARGB(255, 117, 14, 33),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -78,7 +78,7 @@ class CategoriesList extends StatelessWidget {
                   SquaredButton(
                     label:
                         'Hoạt động của hệ thống các bảo tàng, di tích lưu niệm về chủ tích Hồ Chí Minh',
-                    backgroundColor: Colors.red,
+                    backgroundColor: const Color.fromARGB(255, 117, 14, 33),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -92,7 +92,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Hoạt động ngành di sản văn hóa',
-                    backgroundColor: Colors.purple,
+                    backgroundColor: const Color.fromARGB(255, 117, 14, 33),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -106,7 +106,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Hoạt động bảo tàng trên thế giới',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 117, 14, 33),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -125,24 +125,24 @@ class CategoriesList extends StatelessWidget {
           ),
           SquaredButton(
             label: 'Trưng bày',
-            backgroundColor: Colors.redAccent,
+            backgroundColor: const Color.fromARGB(255, 101, 114, 43),
             onTap: () {
               _showBottomModal(context, [
                 SquaredButton(
                   label: 'Trưng bày online',
-                  backgroundColor: Colors.redAccent,
+                  backgroundColor: const Color.fromARGB(255, 101, 114, 43),
                   onTap: () {},
                   icon: Iconsax.book,
                 ),
                 SquaredButton(
                   label: 'Trưng bày thường xuyên',
-                  backgroundColor: Colors.redAccent,
+                  backgroundColor: const Color.fromARGB(255, 101, 114, 43),
                   onTap: () {},
                   icon: Iconsax.book,
                 ),
                 SquaredButton(
                   label: 'Trưng bày chuyên đề',
-                  backgroundColor: Colors.redAccent,
+                  backgroundColor: const Color.fromARGB(255, 101, 114, 43),
                   onTap: () {},
                   icon: Iconsax.book,
                 ),
@@ -151,39 +151,38 @@ class CategoriesList extends StatelessWidget {
             icon: Iconsax.book,
           ),
           SquaredButton(
-            label: 'Đăng ký tham quan',
-            backgroundColor: Colors.redAccent,
-            onTap: () {
-              _showBottomModal(
-                context,
-                [
-                  SquaredButton(
-                    label: 'Đăng ký tham quan',
-                    backgroundColor: Colors.lightBlue,
-                    onTap: () => Get.to(const TicketRegisterScreen()),
-                    icon: Iconsax.ticket,
-                  ),
-                  SquaredButton(
-                    label: 'Lịch sử mua vé',
-                    backgroundColor: Colors.lightBlue,
-                    onTap: () => Get.to(TicketOrderScreen()),
-                    icon: Iconsax.refresh,
-                  ),
-                ],
-              );
-            },
-            icon: Iconsax.document_upload,
-          ),
+              label: 'Đăng ký tham quan',
+              backgroundColor: const Color.fromARGB(255, 117, 60, 60),
+              onTap: () {
+                _showBottomModal(
+                  context,
+                  [
+                    SquaredButton(
+                      label: 'Đăng ký tham quan',
+                      backgroundColor: const Color.fromARGB(255, 117, 60, 60),
+                      onTap: () => Get.to(const TicketRegisterScreen()),
+                      icon: Iconsax.ticket,
+                    ),
+                    SquaredButton(
+                      label: 'Lịch sử mua vé',
+                      backgroundColor: const Color.fromARGB(255, 117, 60, 60),
+                      onTap: () => Get.to(TicketOrderScreen()),
+                      icon: Iconsax.refresh,
+                    ),
+                  ],
+                );
+              },
+              icon: Iconsax.document_upload),
           SquaredButton(
             label: 'Nghiên cứu',
-            backgroundColor: Colors.lightBlue,
+            backgroundColor: const Color.fromARGB(255, 8, 98, 139),
             onTap: () {
               _showBottomModal(
                 context,
                 [
                   SquaredButton(
                     label: 'Nghiên cứu về Hồ Chí Minh',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 8, 98, 139),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -197,7 +196,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Chuyện kể về Hồ Chí Minh',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 8, 98, 139),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -211,7 +210,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Ấn phẩm về Hồ Chí Minh',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 8, 98, 139),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -225,7 +224,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Bộ sưu tập',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 8, 98, 139),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -239,7 +238,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Hiện vật kể chuyện',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 8, 98, 139),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -253,7 +252,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Hoạt động khoa học',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 8, 98, 139),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -267,7 +266,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Công bố khoa học',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 8, 98, 139),
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
@@ -286,7 +285,7 @@ class CategoriesList extends StatelessWidget {
           ),
           SquaredButton(
             label: 'Bảo tàng 3D',
-            backgroundColor: const Color.fromARGB(255, 206, 186, 9),
+            backgroundColor: const Color.fromARGB(255, 134, 123, 24),
             onTap: () {
               Get.to(const MuseumThreeDimensionScreen());
             },
@@ -295,14 +294,14 @@ class CategoriesList extends StatelessWidget {
           ),
           SquaredButton(
             label: 'Thư viện media',
-            backgroundColor: Colors.redAccent,
+            backgroundColor: const Color.fromARGB(255, 78, 60, 148),
             onTap: () {
               _showBottomModal(
                 context,
                 [
                   SquaredButton(
                     label: 'Thư viện ảnh',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 78, 60, 148),
                     onTap: () {
                       Navigator.pop(context);
                       Get.to(const ImageLibScreen());
@@ -311,7 +310,7 @@ class CategoriesList extends StatelessWidget {
                   ),
                   SquaredButton(
                     label: 'Thư viện video',
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: const Color.fromARGB(255, 78, 60, 148),
                     onTap: () {
                       Navigator.pop(context);
                       Get.to(const VideoLibScreen());
@@ -325,13 +324,13 @@ class CategoriesList extends StatelessWidget {
           ),
           SquaredButton(
             label: 'Giáo dục',
-            backgroundColor: Colors.yellow,
+            backgroundColor: const Color.fromARGB(255, 170, 74, 10),
             onTap: () {
               _showBottomModal(context, [
                 SquaredButton(
                   label:
                       'Học tập và làm theo tấm gương đạo đức, phong cách Hồ Chí Minh',
-                  backgroundColor: Colors.lightBlue,
+                  backgroundColor: const Color.fromARGB(255, 170, 74, 10),
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
@@ -345,7 +344,7 @@ class CategoriesList extends StatelessWidget {
                 ),
                 SquaredButton(
                   label: 'Kể chuyện tấm gương đạo đức Hồ Chí Minh',
-                  backgroundColor: Colors.lightBlue,
+                  backgroundColor: const Color.fromARGB(255, 170, 74, 10),
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
@@ -359,7 +358,7 @@ class CategoriesList extends StatelessWidget {
                 ),
                 SquaredButton(
                   label: 'Những tấm gương bình dị mà cao quý',
-                  backgroundColor: Colors.lightBlue,
+                  backgroundColor: const Color.fromARGB(255, 170, 74, 10),
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
@@ -373,7 +372,7 @@ class CategoriesList extends StatelessWidget {
                 ),
                 SquaredButton(
                   label: 'Phòng khám phá, trải nghiệm',
-                  backgroundColor: Colors.lightBlue,
+                  backgroundColor: const Color.fromARGB(255, 170, 74, 10),
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
@@ -387,7 +386,7 @@ class CategoriesList extends StatelessWidget {
                 ),
                 SquaredButton(
                   label: 'Bồi dưỡng nghiệp vụ thuyết minh',
-                  backgroundColor: Colors.lightBlue,
+                  backgroundColor: const Color.fromARGB(255, 170, 74, 10),
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
@@ -401,7 +400,7 @@ class CategoriesList extends StatelessWidget {
                 ),
                 SquaredButton(
                   label: 'Các hoạt động giáo dục khác',
-                  backgroundColor: Colors.lightBlue,
+                  backgroundColor: const Color.fromARGB(255, 170, 74, 10),
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
@@ -419,7 +418,7 @@ class CategoriesList extends StatelessWidget {
           ),
           SquaredButton(
             label: 'Hỗ trợ tham quan',
-            backgroundColor: Colors.redAccent,
+            backgroundColor: const Color.fromARGB(255, 75, 58, 10),
             onTap: () {},
             icon: Iconsax.book,
           ),

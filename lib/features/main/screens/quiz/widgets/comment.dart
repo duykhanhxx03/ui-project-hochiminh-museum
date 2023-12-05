@@ -9,6 +9,7 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/re
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class Comment extends StatefulWidget {
   Comment({
@@ -99,6 +100,7 @@ class _CommentState extends State<Comment> {
   }
 
   Widget buildCommentWidget(UserModel user, bool isLiked) {
+    final isDarkMode = THelperFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Row(
@@ -123,7 +125,7 @@ class _CommentState extends State<Comment> {
                 Container(
                   padding: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 236, 232, 232),
+                    color: isDarkMode ? TColors.darkerGrey : TColors.white,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
@@ -136,18 +138,21 @@ class _CommentState extends State<Comment> {
                           children: [
                             Text(
                               '${user.lastName} ${user.firstName}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                                fontSize: 18,
+                                color:
+                                    isDarkMode ? TColors.white : TColors.black,
+                                fontSize: 16,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
                                 widget.commentInfo.formattedDate,
-                                style: const TextStyle(
-                                  fontStyle: FontStyle.italic,
+                                style: TextStyle(
+                                  color: isDarkMode
+                                      ? TColors.white
+                                      : TColors.black,
                                 ),
                               ),
                             ),
@@ -160,9 +165,9 @@ class _CommentState extends State<Comment> {
                         padding: const EdgeInsets.all(4.0),
                         child: Text(
                           widget.commentInfo.content,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
-                            color: Color.fromARGB(255, 0, 0, 0),
+                            color: isDarkMode ? TColors.white : TColors.black,
                           ),
                         ),
                       ),
@@ -175,7 +180,9 @@ class _CommentState extends State<Comment> {
                     IconButton(
                       icon: Icon(
                         isLiked ? Icons.favorite : Icons.favorite_outline,
-                        color: isLiked ? Colors.red : Colors.grey,
+                        color: isLiked
+                            ? const Color.fromARGB(255, 244, 89, 54)
+                            : Colors.grey,
                       ),
                       onPressed: () async {
                         String? userIdEmail =
@@ -218,7 +225,9 @@ class _CommentState extends State<Comment> {
                       child: Text(
                         'Reply',
                         style: TextStyle(
-                          color: TColors.primary.withOpacity(0.7),
+                          color: isDarkMode
+                              ? TColors.white
+                              : TColors.primary.withOpacity(0.7),
                         ),
                       ),
                     ),
@@ -251,7 +260,7 @@ class _CommentState extends State<Comment> {
                                   UserModel userReply = snapshot.data!;
                                   //print(user.toJson());
                                   return CircleAvatar(
-                                    backgroundColor: Colors.blueGrey,
+                                    backgroundColor: Colors.white,
                                     radius: 18,
                                     backgroundImage:
                                         NetworkImage(userReply.avatar_imgURL),
@@ -271,8 +280,9 @@ class _CommentState extends State<Comment> {
                                 Container(
                                   padding: const EdgeInsets.all(4.0),
                                   decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 236, 232, 232),
+                                    color: isDarkMode
+                                        ? TColors.darkerGrey
+                                        : TColors.white,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Column(
@@ -300,12 +310,13 @@ class _CommentState extends State<Comment> {
                                                       ///HERE TO CHANGE
                                                       "${userReply.lastName} ${userReply.firstName}",
                                                       // để tạm ntn, sau sẽ lấy id của user đang login
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 18,
-                                                        color: Color.fromARGB(
-                                                            255, 0, 0, 0),
+                                                        fontSize: 16,
+                                                        color: isDarkMode
+                                                            ? TColors.white
+                                                            : TColors.black,
                                                       ),
                                                     );
                                                   } else if (snapshot
@@ -322,8 +333,10 @@ class _CommentState extends State<Comment> {
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
                                                 replyComment.formattedDate,
-                                                style: const TextStyle(
-                                                  fontStyle: FontStyle.italic,
+                                                style: TextStyle(
+                                                  color: isDarkMode
+                                                      ? TColors.white
+                                                      : TColors.black,
                                                 ),
                                               ),
                                             ),
@@ -334,9 +347,11 @@ class _CommentState extends State<Comment> {
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text(
                                           replyComment.content,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 15,
-                                            color: Color.fromARGB(255, 0, 0, 0),
+                                            color: isDarkMode
+                                                ? TColors.white
+                                                : TColors.black,
                                           ),
                                         ),
                                       ),
@@ -356,12 +371,12 @@ class _CommentState extends State<Comment> {
                 ),
                 // reply
 
-                const Divider(
-                  thickness: 1,
-                  indent: 0,
-                  endIndent: 10,
-                  color: Color.fromARGB(255, 197, 197, 197),
-                ),
+                // const Divider(
+                //   thickness: 1,
+                //   indent: 0,
+                //   endIndent: 10,
+                //   color: Color.fromARGB(255, 197, 197, 197),
+                // ),
               ],
             ),
           ),
@@ -386,8 +401,19 @@ class _CommentState extends State<Comment> {
                     autofocus: true,
                     controller: replyController,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Type your comment...',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: TColors.darkerGrey,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(18)),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: TColors.darkerGrey,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(18)),
+                      ),
+                      hintText: 'Nhập trả lời của bạn',
                     ),
                   ),
                 ),
@@ -408,32 +434,5 @@ class _CommentState extends State<Comment> {
         );
       },
     );
-  }
-
-  double calculateEndY() {
-    // Chiều cao của comment chính và các phản hồi
-    double commentHeight =
-        calculateCommentHeight(widget.commentInfo.id, onlyComment: true);
-
-    // Kiểm tra xem có phản hồi hay không
-    if (replyCommentList.isNotEmpty) {
-      endY = commentHeight;
-    }
-    // print(totalHeight);
-    return endY;
-  }
-
-  double calculateCommentHeight(String id, {bool onlyComment = false}) {
-    double commentHeight = 50;
-    double replyHeight = 89;
-    int numberOfReplies = getReplyComments(id).length;
-
-    // Tính toán vị trí dựa trên số lượng replies và kích thước của chúng
-    double totalHeight = commentHeight;
-    for (int i = 0; i < numberOfReplies; i++) {
-      totalHeight += replyHeight;
-    }
-
-    return totalHeight;
   }
 }

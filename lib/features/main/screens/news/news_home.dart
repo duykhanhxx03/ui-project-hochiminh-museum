@@ -97,6 +97,7 @@ class _NewsScreenState extends State<NewsScreen> {
                         ShimmerInnoticeNews(),
                         ShimmerInnoticeNews(),
                         ShimmerInnoticeNews(),
+                        ShimmerInnoticeNews(),
                       ],
                     );
                   },

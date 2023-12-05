@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 
 class ReplyCommentModel {
   final String id;
@@ -24,7 +23,20 @@ class ReplyCommentModel {
   }
 
   String get formattedDate {
-    return DateFormat.yMd().format(date.toDate());
+    final diff = DateTime.now().difference(date.toDate());
+    String result;
+    if (diff.inMinutes < 60) {
+      result = '${diff.inMinutes} phút';
+    } else if (diff.inHours <= 24) {
+      result = '${diff.inHours} giờ';
+    } else if (diff.inDays < 7) {
+      result = '${diff.inDays} ngày';
+    } else if (diff.inDays < 365) {
+      result = '${(diff.inDays / 7) as int} tuần';
+    } else {
+      result = '${(diff.inDays / 365) as int} năm';
+    }
+    return result;
   }
 
   factory ReplyCommentModel.fromSnapShot(
