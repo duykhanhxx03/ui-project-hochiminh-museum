@@ -44,200 +44,214 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            //Headers
-            TPrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  //Appbar
-                  TAppBar(
-                    title: Text(
-                      'Cài đặt',
-                      style:
-                          Theme.of(context).textTheme.headlineMedium!.copyWith(
-                                color: TColors.white,
-                              ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: TSizes.spaceBtwSections,
-                  ),
-                  //Profile picture
-                  FutureBuilder(
-                    future: controller.getUserData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          UserModel userModel = snapshot.data as UserModel;
-
-                          return SizedBox(
-                            height: 65,
-                            child: TUserProfileTitle(
-                              avatar_imgURL: userModel.avatar_imgURL,
-                              email: userModel.email,
-                              firstName: userModel.firstName,
-                              lastName: userModel.lastName,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          setState(() {});
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              //Headers
+              TPrimaryHeaderContainer(
+                child: Column(
+                  children: [
+                    //Appbar
+                    TAppBar(
+                      title: Text(
+                        'Cài đặt',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
+                              color: TColors.white,
                             ),
-                          );
-                        }
-                      }
-                      return const SizedBox(
-                        height: 65,
-                        child: Center(
-                          child: Center(child: CustomLoading()),
-                        ),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: TSizes.spaceBtwSections,
-                  ),
-                ],
-              ),
-            ),
-            //Body
-            Padding(
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
-              child: Column(
-                children: [
-                  //Admin settings
-                  const TSectionHeading(
-                    title: 'Admin',
-                    showActionButton: false,
-                  ),
-
-                  TSettingsMenuTitle(
-                    title: 'Viết báo',
-                    icon: Iconsax.pen_add,
-                    subtitle: 'Soạn thảo báo',
-                    onPressed: () {
-                      showNewsCreateCategoryOptions(
-                          context, const ChooseCategoryAndSubCategory());
-                    },
-                  ),
-                  TSettingsMenuTitle(
-                    title: 'Thêm thư viện ảnh',
-                    icon: Iconsax.gallery_add,
-                    subtitle: 'Đăng ảnh',
-                    onPressed: () {
-                      Get.to(const CreatePhotoAlbumScreen());
-                    },
-                  ),
-                  TSettingsMenuTitle(
-                    title: 'Thêm thư viện video',
-                    icon: Iconsax.video_add,
-                    subtitle: 'Đăng video',
-                    onPressed: () {
-                      Get.to(const CreateVideoAlbumScreen());
-                    },
-                  ),
-                  //Account settings
-                  // const TSectionHeading(
-                  //   title: 'Cài đặt tài khoản',
-                  //   showActionButton: false,
-                  // ),
-                  // const SizedBox(height: TSizes.spaceBtwItems),
-                  // TSettingsMenuTitle(
-                  //   title: 'My address',
-                  //   icon: Iconsax.safe_home,
-                  //   subtitle: 'abc abc abc abc',
-                  //   onPressed: () {
-                  //     if (kDebugMode) {
-                  //       print((controller.getUserData() == null));
-                  //     }
-                  //   },
-                  // ),
-                  // TSettingsMenuTitle(
-                  //   title: 'My address',
-                  //   icon: Iconsax.safe_home,
-                  //   subtitle: 'abc abc abc abc',
-                  //   onPressed: () {},
-                  // ),
-                  // TSettingsMenuTitle(
-                  //   title: 'My address',
-                  //   icon: Iconsax.safe_home,
-                  //   subtitle: 'abc abc abc abc',
-                  //   onPressed: () {},
-                  // ),
-
-                  //System settings
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                  const TSectionHeading(
-                    title: 'Cài đặt hệ thống',
-                    showActionButton: false,
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
-                  TSettingsMenuTitle(
-                    title: 'Dark mode',
-                    icon: Iconsax.moon,
-                    subtitle: 'Thay đổi chế độ sáng tối',
-                    onPressed: () {},
-                    trailing: Switch(
-                      value: THelperFunctions.isDarkMode(context),
-                      activeColor: TColors.white,
-                      activeTrackColor: TColors.primary,
-                      onChanged: _isThemeModeSystemSetting
-                          ? null
-                          : (value) {
-                              setState(() {
-                                controller.setCurrentTheme(
-                                  THelperFunctions.isDarkMode(context)
-                                      ? ThemeMode.light
-                                      : ThemeMode.dark,
-                                );
-                              });
-                            },
+                      ),
                     ),
-                  ),
-                  TSettingsMenuTitle(
-                    title: 'Dark/ Light mode tự động',
-                    icon: Iconsax.autobrightness,
-                    subtitle:
-                        'Cài đặt giao diện sáng tối thích ứng với hệ thống',
-                    onPressed: () {},
-                    trailing: Switch(
-                      activeColor: TColors.white,
-                      activeTrackColor: TColors.primary,
-                      value: _isThemeModeSystemSetting,
-                      onChanged: (value) {
-                        setState(() {
-                          _isThemeModeSystemSetting = value;
-                        });
+                    const SizedBox(
+                      height: TSizes.spaceBtwSections,
+                    ),
+                    //Profile picture
+                    FutureBuilder(
+                      future: controller.getUserData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.hasData) {
+                            UserModel userModel = snapshot.data as UserModel;
+
+                            return SizedBox(
+                              height: 65,
+                              child: TUserProfileTitle(
+                                avatar_imgURL: userModel.avatar_imgURL,
+                                email: userModel.email,
+                                firstName: userModel.firstName,
+                                lastName: userModel.lastName,
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return const SizedBox(
+                              height: 65,
+                              child: Center(
+                                child: Center(child: Text('error')),
+                              ),
+                            );
+                          }
+                        }
+                        return const SizedBox(
+                          height: 65,
+                          child: Center(
+                            child: Center(child: CustomLoading()),
+                          ),
+                        );
                       },
                     ),
-                  ),
 
-                  TSettingsMenuTitle(
-                    title: 'Thông báo ứng dụng',
-                    icon: Iconsax.notification,
-                    subtitle: 'Cài đặt thông báo ứng dụng',
-                    onPressed: () {},
-                    trailing: Switch(
-                      activeColor: TColors.white,
-                      activeTrackColor: TColors.primary,
-                      value: false,
-                      onChanged: (value) {},
+                    const SizedBox(
+                      height: TSizes.spaceBtwSections,
                     ),
-                  ),
-
-                  //Logout button
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                        onPressed: () {
-                          AuthenticationRepository.instance.logout();
-                        },
-                        child: const Text('Đăng xuất')),
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwSections * 2.5),
-                ],
+                  ],
+                ),
               ),
-            )
-          ],
+              //Body
+              Padding(
+                padding: const EdgeInsets.all(TSizes.defaultSpace),
+                child: Column(
+                  children: [
+                    //Admin settings
+                    const TSectionHeading(
+                      title: 'Admin',
+                      showActionButton: false,
+                    ),
+
+                    TSettingsMenuTitle(
+                      title: 'Viết báo',
+                      icon: Iconsax.pen_add,
+                      subtitle: 'Soạn thảo báo',
+                      onPressed: () {
+                        showNewsCreateCategoryOptions(
+                            context, const ChooseCategoryAndSubCategory());
+                      },
+                    ),
+                    TSettingsMenuTitle(
+                      title: 'Thêm thư viện ảnh',
+                      icon: Iconsax.gallery_add,
+                      subtitle: 'Đăng ảnh',
+                      onPressed: () {
+                        Get.to(const CreatePhotoAlbumScreen());
+                      },
+                    ),
+                    TSettingsMenuTitle(
+                      title: 'Thêm thư viện video',
+                      icon: Iconsax.video_add,
+                      subtitle: 'Đăng video',
+                      onPressed: () {
+                        Get.to(const CreateVideoAlbumScreen());
+                      },
+                    ),
+                    //Account settings
+                    // const TSectionHeading(
+                    //   title: 'Cài đặt tài khoản',
+                    //   showActionButton: false,
+                    // ),
+                    // const SizedBox(height: TSizes.spaceBtwItems),
+                    // TSettingsMenuTitle(
+                    //   title: 'My address',
+                    //   icon: Iconsax.safe_home,
+                    //   subtitle: 'abc abc abc abc',
+                    //   onPressed: () {
+                    //     if (kDebugMode) {
+                    //       print((controller.getUserData() == null));
+                    //     }
+                    //   },
+                    // ),
+                    // TSettingsMenuTitle(
+                    //   title: 'My address',
+                    //   icon: Iconsax.safe_home,
+                    //   subtitle: 'abc abc abc abc',
+                    //   onPressed: () {},
+                    // ),
+                    // TSettingsMenuTitle(
+                    //   title: 'My address',
+                    //   icon: Iconsax.safe_home,
+                    //   subtitle: 'abc abc abc abc',
+                    //   onPressed: () {},
+                    // ),
+
+                    //System settings
+                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const TSectionHeading(
+                      title: 'Cài đặt hệ thống',
+                      showActionButton: false,
+                    ),
+                    const SizedBox(height: TSizes.spaceBtwItems),
+                    TSettingsMenuTitle(
+                      title: 'Dark mode',
+                      icon: Iconsax.moon,
+                      subtitle: 'Thay đổi chế độ sáng tối',
+                      onPressed: () {},
+                      trailing: Switch(
+                        value: THelperFunctions.isDarkMode(context),
+                        activeColor: TColors.white,
+                        activeTrackColor: TColors.primary,
+                        onChanged: _isThemeModeSystemSetting
+                            ? null
+                            : (value) {
+                                setState(() {
+                                  controller.setCurrentTheme(
+                                    THelperFunctions.isDarkMode(context)
+                                        ? ThemeMode.light
+                                        : ThemeMode.dark,
+                                  );
+                                });
+                              },
+                      ),
+                    ),
+                    TSettingsMenuTitle(
+                      title: 'Dark/ Light mode tự động',
+                      icon: Iconsax.autobrightness,
+                      subtitle:
+                          'Cài đặt giao diện sáng tối thích ứng với hệ thống',
+                      onPressed: () {},
+                      trailing: Switch(
+                        activeColor: TColors.white,
+                        activeTrackColor: TColors.primary,
+                        value: _isThemeModeSystemSetting,
+                        onChanged: (value) {
+                          setState(() {
+                            _isThemeModeSystemSetting = value;
+                          });
+                        },
+                      ),
+                    ),
+
+                    TSettingsMenuTitle(
+                      title: 'Thông báo ứng dụng',
+                      icon: Iconsax.notification,
+                      subtitle: 'Cài đặt thông báo ứng dụng',
+                      onPressed: () {},
+                      trailing: Switch(
+                        activeColor: TColors.white,
+                        activeTrackColor: TColors.primary,
+                        value: false,
+                        onChanged: (value) {},
+                      ),
+                    ),
+
+                    //Logout button
+                    const SizedBox(height: TSizes.spaceBtwSections),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                          onPressed: () {
+                            AuthenticationRepository.instance.logout();
+                          },
+                          child: const Text('Đăng xuất')),
+                    ),
+                    const SizedBox(height: TSizes.spaceBtwSections * 2.5),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

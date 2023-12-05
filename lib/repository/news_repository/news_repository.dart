@@ -44,27 +44,27 @@ class NewsRepository extends GetxController {
     String document, {
     bool isLimit = false,
   }) async {
-    final box = GetStorage(collection);
+    // final box = GetStorage(collection);
     if (!isLimit) {
-      if (box.hasData(document)) {
-        Map<String, dynamic> cache = box.read(document);
-        final lastModified = cache['last-modified'] as DateTime;
-        final List<NewsModel> newsCachedData = cache['data'];
+      // if (box.hasData(document)) {
+      //   Map<String, dynamic> cache = box.read(document);
+      //   final lastModified = cache['last-modified'] as DateTime;
+      //   final List<NewsModel> newsCachedData = cache['data'];
 
-        if (DateTime.now().difference(lastModified).inMinutes <= 10) {
-          return newsCachedData;
-        }
-      }
+      //   if (DateTime.now().difference(lastModified).inMinutes <= 10) {
+      //     return newsCachedData;
+      //   }
+      // }
     } else {
-      if (box.hasData('$document-limit')) {
-        Map<String, dynamic> cache = box.read('$document-limit');
-        final lastModified = cache['last-modified'] as DateTime;
-        final List<NewsModel> newsCachedData = cache['data'];
+      // if (box.hasData('$document-limit')) {
+      //   Map<String, dynamic> cache = box.read('$document-limit');
+      //   final lastModified = cache['last-modified'] as DateTime;
+      //   final List<NewsModel> newsCachedData = cache['data'];
 
-        if (DateTime.now().difference(lastModified).inMinutes <= 10) {
-          return newsCachedData;
-        }
-      }
+      //   if (DateTime.now().difference(lastModified).inMinutes <= 10) {
+      //     return newsCachedData;
+      //   }
+      // }
     }
 
     final snapshot = isLimit
@@ -82,56 +82,57 @@ class NewsRepository extends GetxController {
     final newsData =
         snapshot.docs.map((e) => NewsModel.fromSnapShot(e)).toList();
     if (!isLimit) {
-      box.write(
-        document,
-        {
-          'last-modified': DateTime.now(),
-          'data': newsData,
-        },
-      );
+      // box.write(
+      //   document,
+      //   {
+      //     'last-modified': DateTime.now(),
+      //     'data': newsData,
+      //   },
+      // );
     } else {
-      box.write(
-        '$document-limit',
-        {
-          'last-modified': DateTime.now(),
-          'data': newsData,
-        },
-      );
+      // box.write(
+      //   '$document-limit',
+      //   {
+      //     'last-modified': DateTime.now(),
+      //     'data': newsData,
+      //   },
+      // );
     }
 
     return newsData;
   }
 
-  createNews(NewsModel newsModel, String collection, String document) async {
-    await _db
-        .collection(collection)
-        .doc(document)
-        .collection('BaiBao')
-        .add(newsModel.toJson())
-        .whenComplete(
-          () => Get.snackbar(
-            'Thành công',
-            'Bạn đã đăng báo thành công',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green.withOpacity(0.1),
-            colorText: Colors.green,
-          ),
-        )
-        // ignore: body_might_complete_normally_catch_error
-        .catchError(
-      (error, stacktrace) {
-        () => Get.snackbar(
-              'Lỗi',
-              'Có gì đó không đúng, thử lại?',
+  Future<void> createNews(
+      NewsModel newsModel, String collection, String document) async {
+    try {
+      await _db
+          .collection(collection)
+          .doc(document)
+          .collection('BaiBao')
+          .add(newsModel.toJson())
+          .whenComplete(
+            () => Get.snackbar(
+              'Thành công',
+              'Bạn đã đăng báo thành công',
               snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.redAccent.withOpacity(0.1),
-              colorText: Colors.red,
-            );
-        if (kDebugMode) {
-          print(error.toString());
-        }
-      },
-    );
+              backgroundColor: Colors.green.withOpacity(0.1),
+              colorText: Colors.green,
+            ),
+          );
+    } on FirebaseException catch (e) {
+      // Caught an exception from Firebase.
+      if (kDebugMode) {
+        print("Failed with error '${e.code}': ${e.message}");
+      }
+      Get.snackbar(
+        'Lỗi',
+        'Có gì đó không đúng, thử lại?',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      rethrow;
+    }
   }
 
   Future<List<NewsModel>> searchNews(String searchTerm) async {

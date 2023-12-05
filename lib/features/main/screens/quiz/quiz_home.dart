@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/loading/custom_loading.dart';
 import 'package:ui_project_hochiminh_museum/data/test_exam_data.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/test_exam_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/test.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
+import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
 import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 import 'widgets/quiz_category_item.dart';
 import 'widgets/quiz_category_item_child.dart';
@@ -83,7 +86,13 @@ class QuizHome extends StatelessWidget {
                   return Text('Error: ${snapshot.error}');
                 }
               }
-              return const CircularProgressIndicator();
+              return SizedBox(
+                height: TDeviceUtils.getScreenHeight() -
+                    TDeviceUtils.getAppBarHeight(),
+                child: const Center(
+                  child: CustomLoading(),
+                ),
+              );
             }),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/indoor_map/wid
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class IndoorMapScreen extends StatefulWidget {
   const IndoorMapScreen({super.key});
@@ -95,6 +96,7 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isDark = THelperFunctions.isDarkMode(context);
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -187,7 +189,7 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                               padding: const EdgeInsets.all(4),
                               margin: const EdgeInsets.only(bottom: 4),
                               decoration: BoxDecoration(
-                                color: TColors.white,
+                                color: isDark ? TColors.black : Colors.white,
                                 border: Border.all(
                                   width: 5,
                                   color:
@@ -225,12 +227,14 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
                                                   .textTheme
                                                   .titleLarge!
                                                   .copyWith(
-                                                    color: const Color.fromARGB(
-                                                      255,
-                                                      101,
-                                                      101,
-                                                      101,
-                                                    ),
+                                                    color: isDark
+                                                        ? TColors.white
+                                                        : const Color.fromARGB(
+                                                            255,
+                                                            101,
+                                                            101,
+                                                            101,
+                                                          ),
                                                   ),
                                             ),
                                             const SizedBox(

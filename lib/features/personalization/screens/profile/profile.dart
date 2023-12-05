@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                backgroundImage: NetworkImage(
+                                backgroundImage: CachedNetworkImageProvider(
                                   userAvatarURL,
                                 ),
                                 radius: 60,
@@ -71,6 +72,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .pickImage(source: ImageSource.gallery);
 
                                   if (pickedFile != null) {
+                                    SmartDialog.showLoading(
+                                      animationType: SmartAnimationType.scale,
+                                      builder: (_) => const CustomLoading(),
+                                    );
                                     String uniqueFileName =
                                         '${DateTime.now().millisecondsSinceEpoch}.jpg';
                                     // You might need to update the imageURL in the controller or wherever it is stored
@@ -100,10 +105,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         avatar_imgURL: userAvatarURL,
                                       );
 
-                                      SmartDialog.showLoading(
-                                        animationType: SmartAnimationType.scale,
-                                        builder: (_) => const CustomLoading(),
-                                      );
                                       await controller.updateUser(userData);
                                       setState(() {
                                         userAvatarURL = userAvatarURL;
@@ -115,15 +116,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       }
                                     }
                                   } else {
-                                    Get.snackbar('Thông báo', 'Không chọn ảnh',
+                                    Get.snackbar('Thông báo', 'Chưa chọn ảnh',
                                         snackPosition: SnackPosition.BOTTOM,
                                         backgroundColor:
-                                            Colors.green.withOpacity(0.1),
-                                        colorText: Colors.green,
+                                            Colors.red.withOpacity(0.1),
+                                        colorText: Colors.redAccent,
                                         duration: const Duration(seconds: 1));
                                   }
                                 },
-                                child: const Text('Đổi ảnh đại diện'),
+                                child: const Text(
+                                  'Đổi ảnh đại diện',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ),
                             ],
                           ),

@@ -6,6 +6,7 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_desc
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_home.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/innotice_news.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/notice_news.dart';
+import 'package:ui_project_hochiminh_museum/features/main/screens/news/widgets/news_home/shimmer_innotice_news.dart';
 import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/category_subcategory.dart';
 
@@ -102,7 +103,15 @@ class GroupNews extends StatelessWidget {
                     }
                   }
                 }
-                return const Center(child: CustomLoading());
+                return ListView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: const [
+                    ShimmerInnoticeNews(),
+                    ShimmerInnoticeNews(),
+                    ShimmerInnoticeNews(),
+                  ],
+                );
               },
             ),
             TextButton(

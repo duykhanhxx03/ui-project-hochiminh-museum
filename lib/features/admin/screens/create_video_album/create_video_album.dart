@@ -40,8 +40,22 @@ class _CreateVideoAlbumScreenState extends State<CreateVideoAlbumScreen> {
               successIcon: Icons.check,
               failedIcon: Icons.close,
               controller: btnController,
-              onPressed: () {
-                upload(btnController);
+              onPressed: () async {
+                if (controller.title.text == '' ||
+                    controller.youtubeUrl.text == '') {
+                  Get.snackbar(
+                    'Thông báo',
+                    'Chưa điền title và link video',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.red.withOpacity(0.1),
+                    colorText: Colors.redAccent,
+                    duration: const Duration(seconds: 2),
+                  );
+                  await Future.delayed(const Duration(milliseconds: 500));
+                  btnController.reset();
+                } else {
+                  upload(btnController);
+                }
               },
               child: const Text(
                 'Tải lên',

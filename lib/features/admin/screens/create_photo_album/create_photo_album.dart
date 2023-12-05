@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:iconsax/iconsax.dart';
@@ -63,8 +64,25 @@ class _CreatePhotoAlbumScreenState extends State<CreatePhotoAlbumScreen> {
               successIcon: Icons.check,
               failedIcon: Icons.close,
               controller: btnController,
-              onPressed: () {
-                upload(btnController);
+              onPressed: () async {
+                if (imageFileList.isEmpty ||
+                    controller.description.text == '' ||
+                    controller.title.text == '') {
+                  Get.snackbar(
+                    'Thông báo',
+                    controller.title.text == ''
+                        ? 'Chưa ghi tiêu đề.'
+                        : 'Chưa chọn ảnh',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.red.withOpacity(0.1),
+                    colorText: Colors.redAccent,
+                    duration: const Duration(seconds: 2),
+                  );
+                  await Future.delayed(const Duration(milliseconds: 500));
+                  btnController.reset();
+                } else {
+                  upload(btnController);
+                }
               },
               child: const Text(
                 'Tải lên',

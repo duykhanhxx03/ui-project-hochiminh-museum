@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/controllers/text_editor_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/widgets/image_editor.dart';
@@ -14,6 +15,7 @@ import 'package:ui_project_hochiminh_museum/features/admin/screens/create_news/w
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/models/news_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/news_description.dart';
 import 'package:ui_project_hochiminh_museum/repository/news_repository/news_repository.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
@@ -31,6 +33,8 @@ class TextEditorScreen extends StatefulWidget {
 
 class _TextEditorScreenState extends State<TextEditorScreen> {
   var textEditorController = Get.put(TextEditorController());
+  final RoundedLoadingButtonController btnController =
+      RoundedLoadingButtonController();
 
   String? url;
 
@@ -315,6 +319,28 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
     });
   }
 
+  Future<void> upload(RoundedLoadingButtonController btnController) async {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('dd/MM/yyyy');
+    final crl = Get.put(NewsRepository());
+    NewsModel model = NewsModel(
+      newsContent: textEditorController.getNewsContent(),
+      date: formatter.format(now),
+    );
+    try {
+      await crl.createNews(
+        model,
+        widget.newsCategory,
+        widget.subNewsCategory,
+      );
+      btnController.success();
+    } catch (e) {
+      btnController.error();
+      Future.delayed(const Duration(milliseconds: 500));
+      btnController.reset();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -333,35 +359,64 @@ class _TextEditorScreenState extends State<TextEditorScreen> {
             },
             icon: const Icon(Iconsax.eye),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 133, 0, 29),
-            ),
-            onPressed: () {
-              final DateTime now = DateTime.now();
-              final DateFormat formatter = DateFormat('dd/MM/yyyy');
-              final crl = Get.put(NewsRepository());
-              NewsModel model = NewsModel(
-                newsContent: textEditorController.getNewsContent(),
-                date: formatter.format(now),
-              );
-              crl.createNews(
-                model,
-                widget.newsCategory,
-                widget.subNewsCategory,
-              );
+          RoundedLoadingButton(
+            color: TColors.primary,
+            successColor: TColors.success,
+            errorColor: TColors.error,
+            width: TSizes.buttonWidth,
+            successIcon: Icons.check,
+            failedIcon: Icons.close,
+            controller: btnController,
+            onPressed: () async {
+              if (textEditorController.edits.length > 1) {
+                await upload(btnController);
+              } else {
+                Get.snackbar(
+                  'Thông báo',
+                  'Vui lòng điền thông tin trước khi đăng bài',
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.red.withOpacity(0.1),
+                  colorText: Colors.redAccent,
+                  duration: const Duration(seconds: 2),
+                );
+                await Future.delayed(const Duration(milliseconds: 500));
+                btnController.reset();
+              }
             },
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Đăng bài',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-              ),
+            child: const Text(
+              'Đăng bài',
+              style: TextStyle(color: Colors.white),
             ),
           ),
+          // ElevatedButton(
+          //   style: ElevatedButton.styleFrom(
+          //     backgroundColor: const Color.fromARGB(255, 133, 0, 29),
+          //   ),
+          //   onPressed: () {
+          //     final DateTime now = DateTime.now();
+          //     final DateFormat formatter = DateFormat('dd/MM/yyyy');
+          //     final crl = Get.put(NewsRepository());
+          //     NewsModel model = NewsModel(
+          //       newsContent: textEditorController.getNewsContent(),
+          //       date: formatter.format(now),
+          //     );
+          //     crl.createNews(
+          //       model,
+          //       widget.newsCategory,
+          //       widget.subNewsCategory,
+          //     );
+          //   },
+          //   child: const Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 20),
+          //     child: Text(
+          //       'Đăng bài',
+          //       style: TextStyle(
+          //         fontWeight: FontWeight.bold,
+          //         fontSize: 15,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(width: 8)
         ],
       ),

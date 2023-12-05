@@ -19,30 +19,35 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TPrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  const HomeAppBar(),
-                  Padding(
-                    padding: const EdgeInsets.all(TSizes.defaultSpace),
-                    child: HomeSlider(
-                      banners: const [
-                        TImages.promoBanner2,
-                        TImages.promoBanner1,
-                        TImages.promoBanner3,
-                      ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          (context as Element).reassemble();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TPrimaryHeaderContainer(
+                child: Column(
+                  children: [
+                    const HomeAppBar(),
+                    Padding(
+                      padding: const EdgeInsets.all(TSizes.defaultSpace),
+                      child: HomeSlider(
+                        banners: const [
+                          TImages.promoBanner2,
+                          TImages.promoBanner1,
+                          TImages.promoBanner3,
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
-                ],
+                    const SizedBox(height: TSizes.spaceBtwItems),
+                  ],
+                ),
               ),
-            ),
-            CategoriesList(),
-            const NewsList(),
-          ],
+              CategoriesList(),
+              const NewsList(),
+            ],
+          ),
         ),
       ),
     );
