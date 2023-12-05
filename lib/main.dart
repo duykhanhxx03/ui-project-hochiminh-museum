@@ -5,6 +5,7 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:ui_project_hochiminh_museum/app.dart';
+import 'package:ui_project_hochiminh_museum/dependency_injection.dart';
 import 'package:ui_project_hochiminh_museum/firebase_options.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 
@@ -59,6 +60,7 @@ Future<void> main() async {
     ),
   );
   runApp(const MyApp());
+  DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {

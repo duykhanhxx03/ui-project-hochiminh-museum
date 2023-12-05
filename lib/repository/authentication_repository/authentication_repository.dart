@@ -116,7 +116,7 @@ class AuthenticationRepository extends GetxController {
         : (
             user.emailVerified
                 ? Get.offAll(
-                    () => const NavigationMenu(),
+                    () => NavigationMenu(),
                   )
                 : Get.to(
                     () => VerifyEmailScreen(),

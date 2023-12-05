@@ -45,6 +45,7 @@ class _NewsScreenState extends State<NewsScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
+          // ignore: invalid_use_of_protected_member
           (context as Element).reassemble();
         },
         child: SingleChildScrollView(

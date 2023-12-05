@@ -20,9 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async {
-          (context as Element).reassemble();
-        },
+        // ignore: invalid_use_of_protected_member
+        onRefresh: () async => (context as Element).reassemble(),
         child: SingleChildScrollView(
           child: Column(
             children: [

@@ -78,6 +78,7 @@ dependencies:
   comment_tree: ^0.3.0
   flutter_painter: ^1.0.1
   shimmer: ^3.0.0
+  connectivity_plus: ^5.0.2
 
 dev_dependencies:
   flutter_test:

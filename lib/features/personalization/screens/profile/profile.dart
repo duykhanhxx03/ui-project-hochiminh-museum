@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: const Text('Hồ sơ'),
         showBackArrow: true,
         backOnPress: () => {
-          Get.off(() => const NavigationMenu(initialIndex: 3)),
+          Get.off(() => NavigationMenu(initialIndex: 3)),
         },
       ),
       body: SingleChildScrollView(

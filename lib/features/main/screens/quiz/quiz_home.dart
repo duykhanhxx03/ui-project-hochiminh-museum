@@ -7,7 +7,6 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controlle
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/test.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
-import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
 import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 import 'widgets/quiz_category_item.dart';
