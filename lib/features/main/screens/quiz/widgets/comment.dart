@@ -125,7 +125,9 @@ class _CommentState extends State<Comment> {
                 Container(
                   padding: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
-                    color: isDarkMode ? TColors.darkerGrey : TColors.white,
+                    color: isDarkMode
+                        ? TColors.darkerGrey
+                        : const Color.fromARGB(255, 232, 232, 232),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
@@ -282,7 +284,8 @@ class _CommentState extends State<Comment> {
                                   decoration: BoxDecoration(
                                     color: isDarkMode
                                         ? TColors.darkerGrey
-                                        : TColors.white,
+                                        : const Color.fromARGB(
+                                            255, 232, 232, 232),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Column(
