@@ -143,7 +143,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                         Text(
                                           DateFormat("dd-MM-yyyy").format(
                                               listNotifications[index]
-                                                  .timestamp),
+                                                  .timestamp!),
                                           style: const TextStyle(
                                               fontSize: 10,
                                               color: Colors.blueAccent),
@@ -151,7 +151,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                         Text(
                                           DateFormat("HH:mm").format(
                                               listNotifications[index]
-                                                  .timestamp),
+                                                  .timestamp!),
                                           style: const TextStyle(
                                               fontSize: 10,
                                               color: Colors.blueAccent),
