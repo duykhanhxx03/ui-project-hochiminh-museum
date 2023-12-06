@@ -3,7 +3,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/notifiactions_screen.dart';
-import 'package:ui_project_hochiminh_museum/features/notifications/notifications_controller.dart';
 
 class LocalNotification {
   static final FlutterLocalNotificationsPlugin _notiPlugin =
@@ -20,15 +19,17 @@ class LocalNotification {
     ));
     _notiPlugin.initialize(initialSettings,
         onDidReceiveNotificationResponse: (NotificationResponse details) {
-      Get.to(NotificationScreen());
+      Get.to(const NotificationScreen());
     });
   }
 
   static void showNotification(RemoteMessage message) {
     const NotificationDetails notificationDetails = NotificationDetails(
         android: AndroidNotificationDetails(
-            'com.example.testing_app', 'testing_app',
-            importance: Importance.max, priority: Priority.high));
+            'com.example.ui_project_hochiminh_museum',
+            'ui_project_hochiminh_museum',
+            importance: Importance.max,
+            priority: Priority.high));
 
     _notiPlugin.show(
       DateTime.now().microsecond,

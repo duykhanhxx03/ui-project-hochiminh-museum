@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
+import 'package:ui_project_hochiminh_museum/features/notifications/notifiactions_model.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/notifications_controller.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -15,12 +16,20 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  var listNotifications = Get.put(NotificationsController()).listNotification;
+  final controller = Get.put(NotificationsController());
 
+  late List<NotificationsMessageModel> listNotifications;
   reload() {
     setState(() {
       listNotifications = Get.put(NotificationsController()).listNotification;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    listNotifications = controller.listNotification;
+    Get.put(NotificationsController()).getListNotification();
   }
 
   @override
@@ -69,87 +78,95 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ],
               ),
             )
-          : ListView.separated(
-              separatorBuilder: (context, index) {
-                return const Divider();
+          : RefreshIndicator(
+              onRefresh: () async {
+                (context as Element).reassemble();
               },
-              itemCount: listNotifications.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey.shade300),
-                        child: Icon(
-                          Icons.notifications,
-                          size: 25,
-                          color: Colors.grey.shade700,
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                    text: listNotifications[index].title,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                          text:
-                                              "\n${listNotifications[index].body}",
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 12,
-                                              fontStyle: FontStyle.italic))
-                                    ]),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        DateFormat("dd-MM-yyyy").format(
-                                            listNotifications[index].timestamp),
-                                        style: const TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.blueAccent),
-                                      ),
-                                      Text(
-                                        DateFormat("HH:mm").format(
-                                            listNotifications[index].timestamp),
-                                        style: const TextStyle(
-                                            fontSize: 10,
-                                            color: Colors.blueAccent),
-                                      ),
-                                    ]),
-                              ),
-                            ],
+              child: ListView.separated(
+                physics: const AlwaysScrollableScrollPhysics(),
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+                itemCount: listNotifications.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 50,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.shade300),
+                          child: Icon(
+                            Icons.notifications,
+                            size: 25,
+                            color: Colors.grey.shade700,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  text: TextSpan(
+                                      text: listNotifications[index].title,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                            text:
+                                                "\n${listNotifications[index].body}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 12,
+                                                fontStyle: FontStyle.italic))
+                                      ]),
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          DateFormat("dd-MM-yyyy").format(
+                                              listNotifications[index]
+                                                  .timestamp),
+                                          style: const TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.blueAccent),
+                                        ),
+                                        Text(
+                                          DateFormat("HH:mm").format(
+                                              listNotifications[index]
+                                                  .timestamp),
+                                          style: const TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.blueAccent),
+                                        ),
+                                      ]),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
     );
   }

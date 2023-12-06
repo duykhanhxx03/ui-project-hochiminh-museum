@@ -18,7 +18,7 @@ Future<void> main() async {
       WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  LocalNotification.initialize();
+  await LocalNotification.initialize();
 
   //saves app config
   await GetStorage.init('app-setting-configs');
@@ -80,20 +80,25 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void handlePushNotification(message) {
+void handlePushNotification(message) async {
   List<NotificationsMessageModel> listNotifications =
-      GetStorage().read("app-notifications") ?? [];
+      GetStorage("app-notifications").read("notifications") ?? [];
   String title = message.notification!.title as String;
   String body = message.notification!.body as String;
   dynamic data = message.data;
+
+  print(listNotifications);
 
   listNotifications.insert(
       0,
       NotificationsMessageModel(
           title: title, body: body, data: data, timestamp: DateTime.now()));
-  GetStorage().write("app-notifications", listNotifications);
+  await GetStorage("app-notifications")
+      .write("notifications", listNotifications);
+
+  print(listNotifications);
 
   final controller = Get.put(NotificationsController());
-  controller.listNotification = listNotifications;
+  // controller.listNotification = listNotifications;
   LocalNotification.showNotification(message);
 }

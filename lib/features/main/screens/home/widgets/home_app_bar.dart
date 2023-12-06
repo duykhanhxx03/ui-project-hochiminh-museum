@@ -20,7 +20,10 @@ class HomeAppBar extends StatelessWidget {
           color: TColors.white,
           icon: const Icon(Iconsax.search_normal),
           onPressed: () {
-            Get.to(const SearchScreen());
+            Get.to(
+              const SearchScreen(),
+              transition: Transition.cupertino,
+            );
           },
         ),
         IconButton(

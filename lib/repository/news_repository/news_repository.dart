@@ -44,7 +44,7 @@ class NewsRepository extends GetxController {
     String document, {
     bool isLimit = false,
   }) async {
-    // Future.delayed(const Duration(seconds: 2));
+    Future.delayed(const Duration(seconds: 1000));
     // final box = GetStorage(collection);
     if (!isLimit) {
       // if (box.hasData(document)) {
