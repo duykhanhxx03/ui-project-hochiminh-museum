@@ -49,6 +49,7 @@ class _NewsScreenState extends State<NewsScreen> {
           (context as Element).reassemble();
         },
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.only(
               left: TSizes.defaultSpace,

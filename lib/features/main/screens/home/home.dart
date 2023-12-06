@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // ignore: invalid_use_of_protected_member
         onRefresh: () async => (context as Element).reassemble(),
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               TPrimaryHeaderContainer(

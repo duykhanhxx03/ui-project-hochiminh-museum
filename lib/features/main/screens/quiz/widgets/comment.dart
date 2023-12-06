@@ -95,7 +95,9 @@ class _CommentState extends State<Comment> {
               return Text('Error: ${snapshot.error}');
             }
           }
-          return const CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         });
   }
 
@@ -248,127 +250,146 @@ class _CommentState extends State<Comment> {
                         0,
                         0,
                         0,
-                      ), // Thụt vào từ trái
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          FutureBuilder(
-                            future:
-                                controllerUser.getUserDetails(replyComment.id),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                if (snapshot.hasData) {
-                                  UserModel userReply = snapshot.data!;
-                                  //print(user.toJson());
-                                  return CircleAvatar(
+                      ),
+                      child: FutureBuilder(
+                        future: controllerUser.getUserDetails(replyComment.id),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasData) {
+                              UserModel userReply = snapshot.data!;
+                              //print(user.toJson());
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
                                     backgroundColor: Colors.white,
                                     radius: 18,
                                     backgroundImage:
                                         NetworkImage(userReply.avatar_imgURL),
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                }
-                              }
-                              return const CircularProgressIndicator();
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(4.0),
-                                  decoration: BoxDecoration(
-                                    color: isDarkMode
-                                        ? TColors.darkerGrey
-                                        : const Color.fromARGB(
-                                            255, 232, 232, 232),
-                                    borderRadius: BorderRadius.circular(12),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            FutureBuilder(
-                                              future:
-                                                  controllerUser.getUserDetails(
-                                                      replyComment.id),
-                                              builder: (context, snapshot) {
-                                                if (snapshot.connectionState ==
-                                                    ConnectionState.done) {
-                                                  if (snapshot.hasData) {
-                                                    UserModel userReply =
-                                                        snapshot.data!;
-                                                    //print(user.toJson());
-                                                    return Text(
-                                                      ///HERE TO CHANGE
-                                                      "${userReply.lastName} ${userReply.firstName}",
-                                                      // để tạm ntn, sau sẽ lấy id của user đang login
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 16,
-                                                        color: isDarkMode
-                                                            ? TColors.white
-                                                            : TColors.black,
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(4.0),
+                                          decoration: BoxDecoration(
+                                            color: isDarkMode
+                                                ? TColors.darkerGrey
+                                                : const Color.fromARGB(
+                                                    255, 232, 232, 232),
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    FutureBuilder(
+                                                      future: controllerUser
+                                                          .getUserDetails(
+                                                              replyComment.id),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .done) {
+                                                          if (snapshot
+                                                              .hasData) {
+                                                            UserModel
+                                                                userReply =
+                                                                snapshot.data!;
+                                                            //print(user.toJson());
+                                                            return Text(
+                                                              ///HERE TO CHANGE
+                                                              "${userReply.lastName} ${userReply.firstName}",
+                                                              // để tạm ntn, sau sẽ lấy id của user đang login
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16,
+                                                                color: isDarkMode
+                                                                    ? TColors
+                                                                        .white
+                                                                    : TColors
+                                                                        .black,
+                                                              ),
+                                                            );
+                                                          } else if (snapshot
+                                                              .hasError) {
+                                                            return Text(
+                                                                'Error: ${snapshot.error}');
+                                                          }
+                                                        }
+                                                        return const Center(
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        );
+                                                      },
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                        replyComment
+                                                            .formattedDate,
+                                                        style: TextStyle(
+                                                          color: isDarkMode
+                                                              ? TColors.white
+                                                              : TColors.black,
+                                                        ),
                                                       ),
-                                                    );
-                                                  } else if (snapshot
-                                                      .hasError) {
-                                                    return Text(
-                                                        'Error: ${snapshot.error}');
-                                                  }
-                                                }
-                                                return const CircularProgressIndicator();
-                                              },
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                replyComment.formattedDate,
-                                                style: TextStyle(
-                                                  color: isDarkMode
-                                                      ? TColors.white
-                                                      : TColors.black,
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          replyComment.content,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: isDarkMode
-                                                ? TColors.white
-                                                : TColors.black,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Text(
+                                                  replyComment.content,
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: isDarkMode
+                                                        ? TColors.white
+                                                        : TColors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        const SizedBox(
+                                          height: 8.0,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 8.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                                ],
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      ), // Thụt vào từ trái
                     );
                   },
                 ),

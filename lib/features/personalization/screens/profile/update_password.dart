@@ -4,7 +4,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
-import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/profile.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/validators/validation.dart';
 

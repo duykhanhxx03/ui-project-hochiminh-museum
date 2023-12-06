@@ -17,6 +17,7 @@ class NewsImagePreview extends StatelessWidget {
       () => ImageGalleryScreen(
         imageData: imageData,
       ),
+      transition: Transition.cupertino,
     );
   }
 

@@ -15,6 +15,7 @@ import 'package:ui_project_hochiminh_museum/features/personalization/controllers
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/update_password.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/update_profile.dart';
 import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 import 'widgets/profile_menu.dart';
@@ -66,6 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Column(
                             children: [
                               CircleAvatar(
+                                backgroundColor: TColors.white,
                                 backgroundImage: CachedNetworkImageProvider(
                                   userAvatarURL,
                                 ),

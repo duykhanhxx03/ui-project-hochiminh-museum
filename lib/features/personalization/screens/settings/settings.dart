@@ -54,6 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           setState(() {});
         },
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               //Headers
@@ -82,6 +83,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasData) {
                             UserModel userModel = snapshot.data as UserModel;
+                            controller.isAdmin.value =
+                                userModel.isAdmin ?? false;
 
                             return SizedBox(
                               height: 65,
@@ -120,140 +123,156 @@ class _SettingsScreenState extends State<SettingsScreen> {
               //Body
               Padding(
                 padding: const EdgeInsets.all(TSizes.defaultSpace),
-                child: Column(
-                  children: [
-                    //Admin settings
-                    const TSectionHeading(
-                      title: 'Admin',
-                      showActionButton: false,
-                    ),
+                child: Obx(
+                  () => Column(
+                    children: [
+                      if (controller.isAdmin.value)
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            //Admin settings,
+                            const TSectionHeading(
+                              title: 'Admin',
+                              showActionButton: false,
+                            ),
 
-                    TSettingsMenuTitle(
-                      title: 'Viết báo',
-                      icon: Iconsax.pen_add,
-                      subtitle: 'Soạn thảo báo',
-                      onPressed: () {
-                        showNewsCreateCategoryOptions(
-                            context, const ChooseCategoryAndSubCategory());
-                      },
-                    ),
-                    TSettingsMenuTitle(
-                      title: 'Thêm thư viện ảnh',
-                      icon: Iconsax.gallery_add,
-                      subtitle: 'Đăng ảnh',
-                      onPressed: () {
-                        Get.to(() => const CreatePhotoAlbumScreen());
-                      },
-                    ),
-                    TSettingsMenuTitle(
-                      title: 'Thêm thư viện video',
-                      icon: Iconsax.video_add,
-                      subtitle: 'Đăng video',
-                      onPressed: () {
-                        Get.to(() => const CreateVideoAlbumScreen());
-                      },
-                    ),
-                    //Account settings
-                    // const TSectionHeading(
-                    //   title: 'Cài đặt tài khoản',
-                    //   showActionButton: false,
-                    // ),
-                    // const SizedBox(height: TSizes.spaceBtwItems),
-                    // TSettingsMenuTitle(
-                    //   title: 'My address',
-                    //   icon: Iconsax.safe_home,
-                    //   subtitle: 'abc abc abc abc',
-                    //   onPressed: () {
-                    //     if (kDebugMode) {
-                    //       print((controller.getUserData() == null));
-                    //     }
-                    //   },
-                    // ),
-                    // TSettingsMenuTitle(
-                    //   title: 'My address',
-                    //   icon: Iconsax.safe_home,
-                    //   subtitle: 'abc abc abc abc',
-                    //   onPressed: () {},
-                    // ),
-                    // TSettingsMenuTitle(
-                    //   title: 'My address',
-                    //   icon: Iconsax.safe_home,
-                    //   subtitle: 'abc abc abc abc',
-                    //   onPressed: () {},
-                    // ),
-
-                    //System settings
-                    const SizedBox(height: TSizes.spaceBtwSections),
-                    const TSectionHeading(
-                      title: 'Cài đặt hệ thống',
-                      showActionButton: false,
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwItems),
-                    TSettingsMenuTitle(
-                      title: 'Dark mode',
-                      icon: Iconsax.moon,
-                      subtitle: 'Thay đổi chế độ sáng tối',
-                      onPressed: () {},
-                      trailing: Switch(
-                        value: THelperFunctions.isDarkMode(context),
-                        activeColor: TColors.white,
-                        activeTrackColor: TColors.primary,
-                        onChanged: _isThemeModeSystemSetting
-                            ? null
-                            : (value) {
-                                setState(() {
-                                  controller.setCurrentTheme(
-                                    THelperFunctions.isDarkMode(context)
-                                        ? ThemeMode.light
-                                        : ThemeMode.dark,
-                                  );
-                                });
+                            TSettingsMenuTitle(
+                              title: 'Viết báo',
+                              icon: Iconsax.pen_add,
+                              subtitle: 'Soạn thảo báo',
+                              onPressed: () {
+                                showNewsCreateCategoryOptions(context,
+                                    const ChooseCategoryAndSubCategory());
                               },
-                      ),
-                    ),
-                    TSettingsMenuTitle(
-                      title: 'Dark/ Light mode tự động',
-                      icon: Iconsax.autobrightness,
-                      subtitle:
-                          'Cài đặt giao diện sáng tối thích ứng với hệ thống',
-                      onPressed: () {},
-                      trailing: Switch(
-                        activeColor: TColors.white,
-                        activeTrackColor: TColors.primary,
-                        value: _isThemeModeSystemSetting,
-                        onChanged: (value) {
-                          setState(() {
-                            _isThemeModeSystemSetting = value;
-                          });
-                        },
-                      ),
-                    ),
+                            ),
+                            TSettingsMenuTitle(
+                              title: 'Thêm thư viện ảnh',
+                              icon: Iconsax.gallery_add,
+                              subtitle: 'Đăng ảnh',
+                              onPressed: () {
+                                Get.to(
+                                  () => const CreatePhotoAlbumScreen(),
+                                  transition: Transition.cupertino,
+                                );
+                              },
+                            ),
+                            TSettingsMenuTitle(
+                              title: 'Thêm thư viện video',
+                              icon: Iconsax.video_add,
+                              subtitle: 'Đăng video',
+                              onPressed: () {
+                                Get.to(
+                                  () => const CreateVideoAlbumScreen(),
+                                  transition: Transition.cupertino,
+                                );
+                              },
+                            ),
+                            const SizedBox(height: TSizes.spaceBtwSections),
+                          ],
+                        ),
 
-                    TSettingsMenuTitle(
-                      title: 'Thông báo ứng dụng',
-                      icon: Iconsax.notification,
-                      subtitle: 'Cài đặt thông báo ứng dụng',
-                      onPressed: () {},
-                      trailing: Switch(
-                        activeColor: TColors.white,
-                        activeTrackColor: TColors.primary,
-                        value: false,
-                        onChanged: (value) {},
-                      ),
-                    ),
+                      //Account settings
+                      // const TSectionHeading(
+                      //   title: 'Cài đặt tài khoản',
+                      //   showActionButton: false,
+                      // ),
+                      // const SizedBox(height: TSizes.spaceBtwItems),
+                      // TSettingsMenuTitle(
+                      //   title: 'My address',
+                      //   icon: Iconsax.safe_home,
+                      //   subtitle: 'abc abc abc abc',
+                      //   onPressed: () {
+                      //     if (kDebugMode) {
+                      //       print((controller.getUserData() == null));
+                      //     }
+                      //   },
+                      // ),
+                      // TSettingsMenuTitle(
+                      //   title: 'My address',
+                      //   icon: Iconsax.safe_home,
+                      //   subtitle: 'abc abc abc abc',
+                      //   onPressed: () {},
+                      // ),
+                      // TSettingsMenuTitle(
+                      //   title: 'My address',
+                      //   icon: Iconsax.safe_home,
+                      //   subtitle: 'abc abc abc abc',
+                      //   onPressed: () {},
+                      // ),
 
-                    //Logout button
-                    const SizedBox(height: TSizes.spaceBtwSections),
-                    SizedBox(
-                      width: double.infinity,
-                      child: OutlinedButton(
-                          onPressed: () {
-                            AuthenticationRepository.instance.logout();
+                      //System settings
+
+                      const TSectionHeading(
+                        title: 'Cài đặt hệ thống',
+                        showActionButton: false,
+                      ),
+                      const SizedBox(height: TSizes.spaceBtwItems),
+                      TSettingsMenuTitle(
+                        title: 'Dark mode',
+                        icon: Iconsax.moon,
+                        subtitle: 'Thay đổi chế độ sáng tối',
+                        onPressed: () {},
+                        trailing: Switch(
+                          value: THelperFunctions.isDarkMode(context),
+                          activeColor: TColors.white,
+                          activeTrackColor: TColors.primary,
+                          onChanged: _isThemeModeSystemSetting
+                              ? null
+                              : (value) {
+                                  setState(() {
+                                    controller.setCurrentTheme(
+                                      THelperFunctions.isDarkMode(context)
+                                          ? ThemeMode.light
+                                          : ThemeMode.dark,
+                                    );
+                                  });
+                                },
+                        ),
+                      ),
+                      TSettingsMenuTitle(
+                        title: 'Dark/ Light mode tự động',
+                        icon: Iconsax.autobrightness,
+                        subtitle:
+                            'Cài đặt giao diện sáng tối thích ứng với hệ thống',
+                        onPressed: () {},
+                        trailing: Switch(
+                          activeColor: TColors.white,
+                          activeTrackColor: TColors.primary,
+                          value: _isThemeModeSystemSetting,
+                          onChanged: (value) {
+                            setState(() {
+                              _isThemeModeSystemSetting = value;
+                            });
                           },
-                          child: const Text('Đăng xuất')),
-                    ),
-                    const SizedBox(height: TSizes.spaceBtwSections * 2.5),
-                  ],
+                        ),
+                      ),
+
+                      TSettingsMenuTitle(
+                        title: 'Thông báo ứng dụng',
+                        icon: Iconsax.notification,
+                        subtitle: 'Cài đặt thông báo ứng dụng',
+                        onPressed: () {},
+                        trailing: Switch(
+                          activeColor: TColors.white,
+                          activeTrackColor: TColors.primary,
+                          value: false,
+                          onChanged: (value) {},
+                        ),
+                      ),
+
+                      //Logout button
+                      const SizedBox(height: TSizes.spaceBtwSections),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton(
+                            onPressed: () {
+                              AuthenticationRepository.instance.logout();
+                            },
+                            child: const Text('Đăng xuất')),
+                      ),
+                      const SizedBox(height: TSizes.spaceBtwSections * 2.5),
+                    ],
+                  ),
                 ),
               )
             ],

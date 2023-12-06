@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -13,6 +14,7 @@ class SettingsController extends GetxController {
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
   final _darkLight = Get.put(DarkLightModeController());
+  RxBool isAdmin = false.obs;
 
   getUserData() async {
     final email = _authRepo.firebaseUser.value?.email;

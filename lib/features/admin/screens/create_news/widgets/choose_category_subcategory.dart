@@ -103,14 +103,18 @@ class _ChooseCategoryAndSubCategoryState
                   foregroundColor: TColors.light,
                 ),
                 onPressed: () {
-                  Get.to(TextEditorScreen(
-                    newsCategory:
-                        TCategorySubCategoryConstanst.getNewsCategoryDBName(
-                            _selectedNewsCategory),
-                    subNewsCategory:
-                        TCategorySubCategoryConstanst.getSubNewsCategoryDBName(
-                            _selectedNewsCategory, _selectedNewsSubCategory),
-                  ));
+                  Navigator.pop(context);
+                  Get.to(
+                    TextEditorScreen(
+                      newsCategory:
+                          TCategorySubCategoryConstanst.getNewsCategoryDBName(
+                              _selectedNewsCategory),
+                      subNewsCategory: TCategorySubCategoryConstanst
+                          .getSubNewsCategoryDBName(
+                              _selectedNewsCategory, _selectedNewsSubCategory),
+                    ),
+                    transition: Transition.cupertino,
+                  );
                 },
                 child: const Text('Tạo'),
               ),
