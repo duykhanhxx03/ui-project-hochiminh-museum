@@ -3,6 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/notifiactions_screen.dart';
+import 'package:ui_project_hochiminh_museum/features/notifications/notifications_controller.dart';
 
 class LocalNotification {
   static final FlutterLocalNotificationsPlugin _notiPlugin =

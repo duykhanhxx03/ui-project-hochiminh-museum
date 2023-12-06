@@ -26,7 +26,7 @@ class HomeAppBar extends StatelessWidget {
         IconButton(
           color: TColors.white,
           icon: const Icon(Iconsax.notification),
-          onPressed: () => Get.to(NotificationScreen()),
+          onPressed: () => Get.to(const NotificationScreen()),
         ),
       ],
       showBackArrow: false,

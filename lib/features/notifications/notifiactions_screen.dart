@@ -6,7 +6,7 @@ import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/notifications_controller.dart';
 
 class NotificationScreen extends StatefulWidget {
-  NotificationScreen({
+  const NotificationScreen({
     super.key,
   });
 
@@ -25,6 +25,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    reload();
     return Scaffold(
       appBar: TAppBar(
         title: Row(
@@ -120,7 +121,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     ]),
                               ),
                               Container(
-                                margin: const EdgeInsets.only(top: 5),
+                                margin: const EdgeInsets.only(top: 10),
                                 child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -128,12 +129,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       Text(
                                         DateFormat("dd-MM-yyyy").format(
                                             listNotifications[index].timestamp),
-                                        style: const TextStyle(fontSize: 10),
+                                        style: const TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.blueAccent),
                                       ),
                                       Text(
                                         DateFormat("HH:mm").format(
                                             listNotifications[index].timestamp),
-                                        style: const TextStyle(fontSize: 10),
+                                        style: const TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.blueAccent),
                                       ),
                                     ]),
                               ),
