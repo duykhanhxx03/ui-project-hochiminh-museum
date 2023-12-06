@@ -19,7 +19,7 @@ class LocalNotification {
     ));
     _notiPlugin.initialize(initialSettings,
         onDidReceiveNotificationResponse: (NotificationResponse details) {
-      Get.to(const NotificationScreen());
+      Get.to(NotificationScreen());
     });
   }
 
