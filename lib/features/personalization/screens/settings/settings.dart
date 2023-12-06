@@ -41,6 +41,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  void didPop() {
+    // ignore: invalid_use_of_protected_member
+    (context as Element).reassemble();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,6 +90,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 email: userModel.email,
                                 firstName: userModel.firstName,
                                 lastName: userModel.lastName,
+                                didPop: didPop,
                               ),
                             );
                           } else if (snapshot.hasError) {
@@ -136,7 +142,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       icon: Iconsax.gallery_add,
                       subtitle: 'Đăng ảnh',
                       onPressed: () {
-                        Get.to(const CreatePhotoAlbumScreen());
+                        Get.to(() => const CreatePhotoAlbumScreen());
                       },
                     ),
                     TSettingsMenuTitle(
@@ -144,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       icon: Iconsax.video_add,
                       subtitle: 'Đăng video',
                       onPressed: () {
-                        Get.to(const CreateVideoAlbumScreen());
+                        Get.to(() => const CreateVideoAlbumScreen());
                       },
                     ),
                     //Account settings

@@ -19,20 +19,22 @@ class NetworkConnectivityController extends GetxController {
   void _updateConnectionStatus(ConnectivityResult connectivityResult) {
     if (connectivityResult == ConnectivityResult.none) {
       Get.rawSnackbar(
-          messageText: const Text(
-            'Vui lòng kiểm tra lại kết nối',
-            style: TextStyle(color: Colors.white, fontSize: 14),
-          ),
-          isDismissible: false,
-          duration: const Duration(days: 1),
-          backgroundColor: TColors.error,
-          icon: const Icon(
-            Iconsax.global_refresh,
-            color: Colors.white,
-            size: 25,
-          ),
-          margin: const EdgeInsets.only(bottom: 80), //80 is BottomNavbar
-          snackStyle: SnackStyle.GROUNDED);
+        messageText: const Text(
+          'Vui lòng kiểm tra lại kết nối',
+          style: TextStyle(color: Colors.white, fontSize: 14),
+        ),
+        isDismissible: false,
+        duration: const Duration(days: 1),
+        backgroundColor: TColors.error,
+        icon: const Icon(
+          Iconsax.global_refresh,
+          color: Colors.white,
+          size: 25,
+        ),
+        margin: const EdgeInsets.only(bottom: 80), //80 is BottomNavbar
+        snackStyle: SnackStyle.GROUNDED,
+        animationDuration: const Duration(seconds: 1),
+      );
     } else {
       if (Get.isSnackbarOpen) {
         Get.closeCurrentSnackbar();

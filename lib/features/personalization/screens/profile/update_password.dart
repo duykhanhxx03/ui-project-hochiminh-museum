@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/profile.dart';
@@ -8,7 +9,10 @@ import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'package:ui_project_hochiminh_museum/utils/validators/validation.dart';
 
 class PasswordUpdateScreen extends StatefulWidget {
-  const PasswordUpdateScreen({Key? key}) : super(key: key);
+  const PasswordUpdateScreen({Key? key, required this.didPop})
+      : super(key: key);
+
+  final void Function() didPop;
 
   @override
   State<PasswordUpdateScreen> createState() => _PasswordUpdateScreenState();
@@ -21,12 +25,9 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Đổi mật khẩu'),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-            onPressed: () => Get.off(const ProfileScreen()),
-            icon: const Icon(Iconsax.arrow_left)),
+      appBar: const TAppBar(
+        title: Text('Đổi mật khẩu'),
+        showBackArrow: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -148,7 +149,10 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
                                           .updatePassword(userModel);
                                       // Navigator.pop(context,
                                       //     MaterialPageRoute(builder: (context) => ProfileScreen()));
-                                      Get.off(() => const ProfileScreen());
+
+                                      widget.didPop();
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.pop(context);
                                     }
                                   },
                                   child: const Text(

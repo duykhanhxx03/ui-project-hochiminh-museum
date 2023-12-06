@@ -12,12 +12,15 @@ class TUserProfileTitle extends StatefulWidget {
     required this.firstName,
     required this.email,
     required this.avatar_imgURL,
+    required this.didPop,
   });
 
   final String lastName;
   final String firstName;
   final String email;
   final String avatar_imgURL;
+
+  final void Function() didPop;
 
   @override
   State<TUserProfileTitle> createState() => _TUserProfileTitleState();
@@ -46,7 +49,12 @@ class _TUserProfileTitleState extends State<TUserProfileTitle> {
             ),
       ),
       trailing: IconButton(
-        onPressed: () => Get.off(const ProfileScreen()),
+        onPressed: () async {
+          await Get.to(
+            () => ProfileScreen(didPop: widget.didPop),
+            transition: Transition.cupertino,
+          );
+        },
         icon: const Icon(
           Iconsax.edit,
           color: TColors.white,

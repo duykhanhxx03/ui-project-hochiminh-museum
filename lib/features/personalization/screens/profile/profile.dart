@@ -20,7 +20,8 @@ import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 import 'widgets/profile_menu.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({super.key, required this.didPop});
+  void Function() didPop;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -32,14 +33,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   late String userAvatarURL;
 
+  void didPop() {
+    (context as Element).reassemble();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TAppBar(
         title: const Text('Hồ sơ'),
         showBackArrow: true,
-        backOnPress: () => {
-          Get.off(() => NavigationMenu(initialIndex: 3)),
+        backOnPress: () {
+          widget.didPop();
+          Get.back();
         },
       ),
       body: SingleChildScrollView(
@@ -185,7 +191,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Center(
                           child: TextButton(
                             onPressed: () {
-                              Get.off(() => const ProfileUpdateScreen());
+                              Get.to(
+                                () => ProfileUpdateScreen(
+                                  didPop: didPop,
+                                ),
+                                transition: Transition.cupertino,
+                              );
                             },
                             child: const Text(
                               'Sửa đổi thông tin',
@@ -201,7 +212,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Center(
                             child: TextButton(
                               onPressed: () {
-                                Get.off(() => const PasswordUpdateScreen());
+                                Get.to(
+                                  () => PasswordUpdateScreen(
+                                    didPop: didPop,
+                                  ),
+                                  transition: Transition.cupertino,
+                                );
                               },
                               child: const Text(
                                 'Đổi mật khẩu',

@@ -80,7 +80,9 @@ class _NewsScreenState extends State<NewsScreen> {
                               onPressed: () {
                                 Get.to(
                                   NewsDescriptionScreen(
-                                      newsContent: newsList[index].newsContent),
+                                    newsContent: newsList[index].newsContent,
+                                  ),
+                                  transition: Transition.cupertino,
                                 );
                               },
                               thumbnailUrl: newsList[index].thumbnailUrl,

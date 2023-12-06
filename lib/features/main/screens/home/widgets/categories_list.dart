@@ -71,6 +71,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'TinTucSuKien',
                           subCategory: 'HDBaoTang',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.activity,
@@ -86,6 +87,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'TinTucSuKien',
                           subCategory: 'HDHeThongCacBT_DTLuuNiemHCM',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.activity,
@@ -100,6 +102,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'TinTucSuKien',
                           subCategory: 'HDNganhDSVH',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.activity,
@@ -114,6 +117,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'TinTucSuKien',
                           subCategory: 'HDBaoTangTrenTG',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.activity,
@@ -160,13 +164,19 @@ class CategoriesList extends StatelessWidget {
                     SquaredButton(
                       label: 'Đăng ký tham quan',
                       backgroundColor: const Color.fromARGB(255, 117, 60, 60),
-                      onTap: () => Get.to(const TicketRegisterScreen()),
+                      onTap: () => Get.to(
+                        const TicketRegisterScreen(),
+                        transition: Transition.cupertino,
+                      ),
                       icon: Iconsax.ticket,
                     ),
                     SquaredButton(
                       label: 'Lịch sử mua vé',
                       backgroundColor: const Color.fromARGB(255, 117, 60, 60),
-                      onTap: () => Get.to(TicketOrderScreen()),
+                      onTap: () => Get.to(
+                        TicketOrderScreen(),
+                        transition: Transition.cupertino,
+                      ),
                       icon: Iconsax.refresh,
                     ),
                   ],
@@ -190,6 +200,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'NghienCuu',
                           subCategory: 'NghienCuuHCM',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.receipt_search,
@@ -204,6 +215,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'NghienCuu',
                           subCategory: 'ChuyenKeHCM',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.receipt_search,
@@ -218,6 +230,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'NghienCuu',
                           subCategory: 'AnPhamHCM',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.receipt_search,
@@ -232,6 +245,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'NghienCuu',
                           subCategory: 'BoSuuTap',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.receipt_search,
@@ -246,6 +260,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'NghienCuu',
                           subCategory: 'HienVatKeChuyen',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.receipt_search,
@@ -260,6 +275,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'NghienCuu',
                           subCategory: 'HDKhoaHoc',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.receipt_search,
@@ -274,6 +290,7 @@ class CategoriesList extends StatelessWidget {
                           category: 'NghienCuu',
                           subCategory: 'CongBoKH',
                         ),
+                        transition: Transition.cupertino,
                       );
                     },
                     icon: Iconsax.receipt_search,
@@ -287,7 +304,10 @@ class CategoriesList extends StatelessWidget {
             label: 'Bảo tàng 3D',
             backgroundColor: const Color.fromARGB(255, 134, 123, 24),
             onTap: () {
-              Get.to(const MuseumThreeDimensionScreen());
+              Get.to(
+                () => const MuseumThreeDimensionScreen(),
+                transition: Transition.cupertino,
+              );
             },
             icon: MdiIcons.video3D,
             iconSize: 35,
@@ -304,7 +324,10 @@ class CategoriesList extends StatelessWidget {
                     backgroundColor: const Color.fromARGB(255, 78, 60, 148),
                     onTap: () {
                       Navigator.pop(context);
-                      Get.to(const ImageLibScreen());
+                      Get.to(
+                        () => const ImageLibScreen(),
+                        transition: Transition.cupertino,
+                      );
                     },
                     icon: Iconsax.gallery,
                   ),
@@ -313,7 +336,10 @@ class CategoriesList extends StatelessWidget {
                     backgroundColor: const Color.fromARGB(255, 78, 60, 148),
                     onTap: () {
                       Navigator.pop(context);
-                      Get.to(const VideoLibScreen());
+                      Get.to(
+                        () => const VideoLibScreen(),
+                        transition: Transition.cupertino,
+                      );
                     },
                     icon: Iconsax.video_play,
                   ),
@@ -338,6 +364,7 @@ class CategoriesList extends StatelessWidget {
                         category: 'GiaoDuc',
                         subCategory: 'HocTapTheoTamGuongHCM',
                       ),
+                      transition: Transition.cupertino,
                     );
                   },
                   icon: Iconsax.receipt_search,
@@ -352,6 +379,7 @@ class CategoriesList extends StatelessWidget {
                         category: 'GiaoDuc',
                         subCategory: 'KeChuyenHCM',
                       ),
+                      transition: Transition.cupertino,
                     );
                   },
                   icon: Iconsax.receipt_search,
@@ -366,6 +394,7 @@ class CategoriesList extends StatelessWidget {
                         category: 'GiaoDuc',
                         subCategory: 'NhungTamGuong',
                       ),
+                      transition: Transition.cupertino,
                     );
                   },
                   icon: Iconsax.receipt_search,
@@ -380,6 +409,7 @@ class CategoriesList extends StatelessWidget {
                         category: 'GiaoDuc',
                         subCategory: 'PhongKhamPha',
                       ),
+                      transition: Transition.cupertino,
                     );
                   },
                   icon: Iconsax.receipt_search,
@@ -394,6 +424,7 @@ class CategoriesList extends StatelessWidget {
                         category: 'GiaoDuc',
                         subCategory: 'BoiDuongNghiepVu',
                       ),
+                      transition: Transition.cupertino,
                     );
                   },
                   icon: Iconsax.receipt_search,
@@ -408,6 +439,7 @@ class CategoriesList extends StatelessWidget {
                         category: 'GiaoDuc',
                         subCategory: 'CacHoatDongKhac',
                       ),
+                      transition: Transition.cupertino,
                     );
                   },
                   icon: Iconsax.receipt_search,

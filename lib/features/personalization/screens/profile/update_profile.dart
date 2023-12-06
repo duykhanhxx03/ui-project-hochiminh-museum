@@ -4,12 +4,13 @@ import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
-import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/profile.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class ProfileUpdateScreen extends StatefulWidget {
-  const ProfileUpdateScreen({Key? key}) : super(key: key);
+  const ProfileUpdateScreen({Key? key, required this.didPop}) : super(key: key);
+
+  final void Function() didPop;
 
   @override
   State<ProfileUpdateScreen> createState() => _ProfileUpdateScreenState();
@@ -21,16 +22,13 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TAppBar(
-        title: const Text(
+      appBar: const TAppBar(
+        title: Text(
           'Thay đổi thông tin',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        backOnPress: () {
-          Get.off(const ProfileScreen());
-        },
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -117,7 +115,10 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                                   await controller1.updateUser(userData);
                                   // Navigator.pop(context,
                                   //     MaterialPageRoute(builder: (context) => ProfileScreen()));
-                                  Get.off(() => const ProfileScreen());
+                                  // ignore: use_build_context_synchronously
+                                  widget.didPop();
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.pop(context);
                                 },
                                 // style: ElevatedButton.styleFrom(
                                 //   backgroundColor: TColors.primary,
