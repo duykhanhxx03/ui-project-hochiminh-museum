@@ -15,9 +15,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with AutomaticKeepAliveClientMixin<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    print('keke home');
     return Scaffold(
       body: RefreshIndicator(
         // ignore: invalid_use_of_protected_member
@@ -52,4 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

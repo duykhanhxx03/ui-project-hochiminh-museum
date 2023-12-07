@@ -25,7 +25,8 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenState extends State<SettingsScreen>
+    with AutomaticKeepAliveClientMixin<SettingsScreen> {
   final controller = Get.put(SettingsController());
 
   late bool _isThemeModeSystemSetting =
@@ -47,7 +48,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(DateTime.now());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
@@ -260,4 +269,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

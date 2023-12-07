@@ -19,7 +19,9 @@ class IndoorMapScreen extends StatefulWidget {
 }
 
 class _IndoorMapScreenState extends State<IndoorMapScreen>
-    with TickerProviderStateMixin {
+    with
+        TickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<IndoorMapScreen> {
   TransformationController transformationController =
       TransformationController();
   double screenWidth = 0;
@@ -273,4 +275,7 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

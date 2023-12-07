@@ -8,20 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class NavigationMenu extends StatelessWidget {
-  NavigationMenu({super.key, this.initialIndex});
+import 'navigation_controller.dart';
 
-  final int? initialIndex;
+class NavigationMenu extends StatelessWidget {
+  NavigationMenu({super.key});
+
+  NavigationController controller = Get.put(NavigationController());
 
   @override
   Widget build(BuildContext context) {
-    late NavigationController controller = Get.put(NavigationController());
-
-    if (initialIndex != null) {
-      controller = Get.put(NavigationController(initialIndex: initialIndex));
-    }
-
     final darkMode = THelperFunctions.isDarkMode(context);
+    print('keke');
 
     return Scaffold(
       bottomNavigationBar: Obx(
@@ -48,23 +45,4 @@ class NavigationMenu extends StatelessWidget {
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );
   }
-}
-
-class NavigationController extends GetxController {
-  late Rx<int> selectedIndex;
-
-  NavigationController({int? initialIndex}) {
-    if (initialIndex != null) {
-      selectedIndex = initialIndex.obs;
-    } else {
-      selectedIndex = 0.obs;
-    }
-  }
-
-  final screens = [
-    const HomeScreen(),
-    const IndoorMapScreen(),
-    const QuizHome(),
-    const SettingsScreen(),
-  ];
 }
