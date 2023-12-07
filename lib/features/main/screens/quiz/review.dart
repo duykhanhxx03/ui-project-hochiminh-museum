@@ -77,61 +77,54 @@ class _ReviewScreen extends State<ReviewScreen> {
         ),
         showBackArrow: true,
       ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          // ignore: invalid_use_of_protected_member
-          (context as Element).reassemble();
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: commentList.length,
-                  itemBuilder: (context, index) {
-                    return Comment(
-                        commentInfo: commentList[index], deThi: deThi);
-                  },
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: commentList.length,
+                itemBuilder: (context, index) {
+                  return Comment(commentInfo: commentList[index], deThi: deThi);
+                },
               ),
-              // const Divider(
-              //   thickness: 1,
-              //   color: Color.fromARGB(255, 167, 165, 165),
-              // ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: commentController,
-                        decoration: const InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: TColors.darkerGrey,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(18)),
+            ),
+            // const Divider(
+            //   thickness: 1,
+            //   color: Color.fromARGB(255, 167, 165, 165),
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: commentController,
+                      decoration: const InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: TColors.darkerGrey,
                           ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: TColors.darkerGrey,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(18)),
-                          ),
-                          hintText: 'Nhập bình luận của bạn',
+                          borderRadius: BorderRadius.all(Radius.circular(18)),
                         ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: TColors.darkerGrey,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(18)),
+                        ),
+                        hintText: 'Nhập bình luận của bạn',
                       ),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.send),
-                      onPressed: addComment,
-                    ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.send),
+                    onPressed: addComment,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

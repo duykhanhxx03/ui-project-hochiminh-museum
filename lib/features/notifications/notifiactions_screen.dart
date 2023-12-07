@@ -111,6 +111,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 },
                 itemCount: notificationsList.length,
                 itemBuilder: (context, index) {
+                  final isDark = THelperFunctions.isDarkMode(context);
                   return Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
@@ -141,19 +142,25 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   overflow: TextOverflow.ellipsis,
                                   text: TextSpan(
                                       text: notificationsList[index].title,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 16,
-                                        color: Colors.black,
+                                        color: isDark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontWeight: FontWeight.bold,
                                       ),
                                       children: [
                                         TextSpan(
                                             text:
                                                 "\n${notificationsList[index].body}",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 12,
-                                                fontStyle: FontStyle.italic))
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 12,
+                                              color: isDark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontStyle: FontStyle.italic,
+                                            ))
                                       ]),
                                 ),
                                 Container(

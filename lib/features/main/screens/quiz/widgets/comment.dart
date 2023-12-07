@@ -9,6 +9,7 @@ import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/models/re
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/device/device_utility.dart';
 import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 // ignore: must_be_immutable
@@ -415,7 +416,11 @@ class _CommentState extends State<Comment> {
       context: context,
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.only(
+            left: 10,
+            right: 10,
+            bottom: TDeviceUtils.getKeyboardHeight() + 10,
+          ),
           child: SizedBox(
             width: double.infinity,
             child: Row(
