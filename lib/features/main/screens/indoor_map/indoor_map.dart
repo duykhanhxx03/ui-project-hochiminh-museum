@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
@@ -103,6 +104,9 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
       appBar: TAppBar(
         title: IndoorMapDropdownMenu(changeFloor: _changeFloor),
         leadingIcon: Iconsax.map,
+        leadingOnPress: () async {
+          await Clipboard.setData(const ClipboardData(text: "your text"));
+        },
       ),
       body: Obx(
         () => Stack(

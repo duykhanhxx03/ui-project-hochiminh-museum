@@ -27,9 +27,14 @@ Future<void> main() async {
   await GetStorage.init('app-setting-configs');
   await GetStorage.init("app-notifications");
 
+  print("OPEN APP ${GetStorage("app-notifications").read("notifications")}");
+
   FirebaseMessaging.onMessage.listen((message) {
     handlePushNotification(message);
   });
+
+  // Xoa storage de check storage khi null
+  // GetStorage("app-notifications").remove("notifications");
 
   final initList = {
     'TinTucSuKien': [
