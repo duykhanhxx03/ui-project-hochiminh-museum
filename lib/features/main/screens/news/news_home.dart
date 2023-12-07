@@ -12,7 +12,7 @@ import 'widgets/news_home/shimmer_innotice_news.dart';
 
 // ignore: must_be_immutable
 class NewsScreen extends StatefulWidget {
-  NewsScreen({
+  const NewsScreen({
     super.key,
     required this.category,
     required this.subCategory,

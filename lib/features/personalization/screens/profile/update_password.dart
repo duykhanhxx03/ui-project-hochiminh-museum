@@ -140,7 +140,9 @@ class _PasswordUpdateScreenState extends State<PasswordUpdateScreen> {
                                         email: userModel.email,
                                         phoneNumber: userModel.phoneNumber,
                                         password: newPassword.text.trim(),
-                                        avatar_imgURL: userModel.avatar_imgURL,
+                                        profileImageUrl:
+                                            userModel.profileImageUrl,
+                                        isAdmin: userModel.isAdmin,
                                       );
 
                                       await controller1.updateUser(userData);

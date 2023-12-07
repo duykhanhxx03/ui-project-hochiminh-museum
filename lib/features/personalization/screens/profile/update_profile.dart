@@ -109,7 +109,8 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
                                     lastName: lastName.text.trim(),
                                     email: email.text.trim(),
                                     phoneNumber: phoneNumber.text.trim(),
-                                    avatar_imgURL: userModel.avatar_imgURL,
+                                    profileImageUrl: userModel.profileImageUrl,
+                                    isAdmin: userModel.isAdmin,
                                   );
 
                                   await controller1.updateUser(userData);

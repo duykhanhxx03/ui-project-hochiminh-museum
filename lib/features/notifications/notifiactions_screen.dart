@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/notifiactions_model.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({
@@ -49,37 +50,59 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ],
             ),
             IconButton(
-                onPressed: () => reload(), icon: const Icon(Iconsax.refresh)),
+              onPressed: () {
+                final box = GetStorage("app-notifications");
+                box.remove('notifications');
+                reload();
+              },
+              icon: const Icon(Iconsax.broom),
+            ),
           ],
         ),
         showBackArrow: true,
       ),
       body: notificationsList.isEmpty
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+          ? RefreshIndicator(
+              onRefresh: () async {
+                reload();
+              },
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 children: [
-                  Container(
-                    height: 130,
-                    width: 130,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.grey.shade300),
-                    child: Icon(
-                      Icons.notifications_off,
-                      size: 100,
-                      color: Colors.grey.shade700,
+                  Center(
+                    child: SizedBox(
+                      height: THelperFunctions.screenHeight() - 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 130,
+                            width: 130,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey.shade300),
+                            child: Icon(
+                              Icons.notifications_off,
+                              size: 100,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Text("Bạn không có thông báo nào cả"),
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text("Bạn không có thông báo nào cả"),
                 ],
               ),
             )
           : RefreshIndicator(
               onRefresh: () async {
-                (context as Element).reassemble();
+                // (context as Element).reassemble();
+                reload();
               },
               child: ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(),

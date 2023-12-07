@@ -11,6 +11,7 @@ import 'package:ui_project_hochiminh_museum/repository/authentication_repository
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
+// ignore: must_be_immutable
 class Comment extends StatefulWidget {
   Comment({
     super.key,
@@ -113,7 +114,7 @@ class _CommentState extends State<Comment> {
           CircleAvatar(
             backgroundColor: const Color.fromARGB(255, 124, 124, 124),
             radius: 22,
-            backgroundImage: NetworkImage(user.avatar_imgURL),
+            backgroundImage: NetworkImage(user.profileImageUrl),
           ),
 
           const SizedBox(width: 8),
@@ -266,7 +267,7 @@ class _CommentState extends State<Comment> {
                                     backgroundColor: Colors.white,
                                     radius: 18,
                                     backgroundImage:
-                                        NetworkImage(userReply.avatar_imgURL),
+                                        NetworkImage(userReply.profileImageUrl),
                                   ),
                                   const SizedBox(width: 8),
                                   Expanded(

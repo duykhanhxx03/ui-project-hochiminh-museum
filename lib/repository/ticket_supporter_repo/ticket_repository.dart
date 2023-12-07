@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/ticket_supporter/models/ticket_model.dart';
+import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
+import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
 
 class TicketRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
@@ -20,6 +22,7 @@ class TicketRepository extends GetxController {
             colorText: Colors.green,
           ),
         )
+        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stacktrace) {
       () => Get.snackbar(
             'Lỗi',
@@ -35,7 +38,15 @@ class TicketRepository extends GetxController {
   }
 
   Future<List<TicketModel>> queryAllTickets() async {
-    final snapshot = await _db.collection('DangKyThamQuan').get();
+    final auth = Get.put(AuthenticationRepository());
+    final user = Get.put(UserRepository());
+    final userModel =
+        await user.getUserDetails(auth.firebaseUser.value!.email!);
+
+    final snapshot = await _db
+        .collection('DangKyThamQuan')
+        .where('userId', isEqualTo: userModel.id)
+        .get();
     final ticketData =
         snapshot.docs.map((e) => TicketModel.fromSnapShot(e)).toList();
     return ticketData;

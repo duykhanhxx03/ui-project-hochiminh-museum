@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:ui_project_hochiminh_museum/features/authentication/models/user_model.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/global_settings/controllers/dark_light_mode_controller.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/user_repository.dart';
@@ -15,6 +11,22 @@ class SettingsController extends GetxController {
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
   final _darkLight = Get.put(DarkLightModeController());
+  final box = GetStorage("app-notifications");
+
+  bool isOnNotification = false;
+  @override
+  void onInit() {
+    super.onInit();
+    box.writeIfNull('isOffNotification', false);
+    isOnNotification = box.read('isOffNotification');
+  }
+
+  void toggleNotification(bool value) {
+    box.writeIfNull('isOffNotification', false);
+    isOnNotification = box.read('isOffNotification');
+    isOnNotification = value;
+    box.write('isOffNotification', isOnNotification);
+  }
 
   getUserData() async {
     final email = _authRepo.firebaseUser.value?.email;

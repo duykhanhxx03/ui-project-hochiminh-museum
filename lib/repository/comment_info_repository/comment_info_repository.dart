@@ -15,6 +15,7 @@ class CommentInfoRepository extends GetxController {
         .doc(deThi)
         .collection('CommentInfo')
         .add(commentInfoModel.toJson())
+        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stacktrace) {
       () => Get.snackbar(
             'Lỗi',

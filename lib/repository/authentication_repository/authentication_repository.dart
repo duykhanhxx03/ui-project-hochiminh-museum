@@ -63,20 +63,26 @@ class AuthenticationRepository extends GetxController {
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
+      if (googleAuth?.accessToken == null && googleAuth?.idToken == null) {
+        throw const EmailAndPasswordFailure(
+            "Bạn phải chọn tài khoản để tiếp tục");
+      }
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+
       // Once signed in, return the UserCredential
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       final ex = EmailAndPasswordFailure.fromCode(e.code);
       throw ex.message;
+    } on EmailAndPasswordFailure catch (e) {
+      throw e.message;
     } catch (err) {
-      const ex = EmailAndPasswordFailure();
-      throw ex.message;
+      throw err.toString();
     }
   }
 

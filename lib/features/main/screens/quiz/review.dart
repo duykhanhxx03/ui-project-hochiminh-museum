@@ -60,6 +60,7 @@ class _ReviewScreen extends State<ReviewScreen> {
 
       //commentList.add(newComment);
       commentController.clear();
+      // ignore: use_build_context_synchronously
       FocusScope.of(context).unfocus();
     }
   }

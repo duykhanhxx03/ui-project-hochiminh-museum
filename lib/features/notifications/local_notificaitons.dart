@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -12,7 +13,9 @@ class LocalNotification {
     await FirebaseMessaging.instance.requestPermission();
     await FirebaseMessaging.instance.getInitialMessage();
     final token = await FirebaseMessaging.instance.getToken();
-    print("Token: ${token}");
+    if (kDebugMode) {
+      print("Token: $token");
+    }
     const InitializationSettings initialSettings = InitializationSettings(
         android: AndroidInitializationSettings(
       '@mipmap/ic_launcher',

@@ -6,7 +6,6 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/utils.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/news/models/news_model.dart';
 
 class NewsRepository extends GetxController {

@@ -93,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                                 SizedBox(
                                   height: 65,
                                   child: TUserProfileTitle(
-                                    avatar_imgURL: userModel.avatar_imgURL,
+                                    profileImageUrl: userModel.profileImageUrl,
                                     email: userModel.email,
                                     firstName: userModel.firstName,
                                     lastName: userModel.lastName,
@@ -202,13 +202,11 @@ class _SettingsScreenState extends State<SettingsScreen>
                         onChanged: _isThemeModeSystemSetting
                             ? null
                             : (value) {
-                                setState(() {
-                                  controller.setCurrentTheme(
-                                    THelperFunctions.isDarkMode(context)
-                                        ? ThemeMode.light
-                                        : ThemeMode.dark,
-                                  );
-                                });
+                                controller.setCurrentTheme(
+                                  THelperFunctions.isDarkMode(context)
+                                      ? ThemeMode.light
+                                      : ThemeMode.dark,
+                                );
                               },
                       ),
                     ),
@@ -238,8 +236,12 @@ class _SettingsScreenState extends State<SettingsScreen>
                       trailing: Switch(
                         activeColor: TColors.white,
                         activeTrackColor: TColors.primary,
-                        value: false,
-                        onChanged: (value) {},
+                        value: controller.isOnNotification,
+                        onChanged: (value) {
+                          setState(() {
+                            controller.toggleNotification(value);
+                          });
+                        },
                       ),
                     ),
                     //Logout button
@@ -247,10 +249,21 @@ class _SettingsScreenState extends State<SettingsScreen>
                     SizedBox(
                       width: double.infinity,
                       child: OutlinedButton(
-                          onPressed: () {
-                            AuthenticationRepository.instance.logout();
-                          },
-                          child: const Text('Đăng xuất')),
+                        onPressed: () {
+                          Get.defaultDialog(
+                              title: "Bạn muốn đăng xuất?",
+                              content: Container(),
+                              textConfirm: "Đăng xuất",
+                              confirmTextColor: TColors.white,
+                              textCancel: "Huỷ",
+                              buttonColor: TColors.primary,
+                              cancelTextColor: TColors.black,
+                              onConfirm: () {
+                                AuthenticationRepository.instance.logout();
+                              });
+                        },
+                        child: const Text('Đăng xuất'),
+                      ),
                     ),
                     const SizedBox(height: TSizes.spaceBtwSections * 2.5),
                   ],

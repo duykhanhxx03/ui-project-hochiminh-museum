@@ -24,6 +24,7 @@ class TestExamRepository extends GetxController {
             colorText: Colors.green,
           ),
         )
+        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stacktrace) {
       () => Get.snackbar(
             'Lỗi',

@@ -8,6 +8,7 @@ import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/controllers/comment_info_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/review.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
+import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 class TestExamScreen extends StatefulWidget {
   const TestExamScreen(
@@ -59,23 +60,36 @@ class _TestExamScreenState extends State<TestExamScreen> {
   void checkSubmit() {
     if (!isSubmit) {
       if (selectedAnswers.contains(-1)) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Lỗi'),
-              content: const Text(
-                  'Vui lòng trả lời hết các câu hỏi trước khi nộp bài.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Đóng'),
-                ),
-              ],
-            );
-          },
+        // showDialog(
+        //   context: context,
+        //   builder: (BuildContext context) {
+        //     return AlertDialog(
+        //       title: const Text('Lỗi'),
+        //       content: const Text(
+        //           'Vui lòng trả lời hết các câu hỏi trước khi nộp bài.'),
+        //       actions: [
+        // TextButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        //   child: const Text('Đóng'),
+        // ),
+        //       ],
+        //     );
+        //   },
+        // );
+        Get.defaultDialog(
+          title: "Lỗi",
+          content: const Text(
+            "Vui lòng trả lời hết câu hỏi trước khi nộp bài",
+            textAlign: TextAlign.start,
+          ),
+          contentPadding: const EdgeInsets.all(TSizes.defaultSpace),
+          textCancel: "Đóng",
+          cancelTextColor: TColors.primary,
+          buttonColor: TColors.primary,
+
+          // textCancel: "Đóng",
         );
       } else {
         submitQuiz();
@@ -94,25 +108,43 @@ class _TestExamScreenState extends State<TestExamScreen> {
       }
     }
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Kết quả'),
-          content: Text('Điểm của bạn: $score/${questions.length}'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  isSubmit = true;
-                });
-                Navigator.of(context).pop();
-              },
-              child: const Text('Đóng'),
-            ),
-          ],
-        );
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       title: const Text('Kết quả'),
+    //       content: Text('Điểm của bạn: $score/${questions.length}'),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () {
+    //             setState(() {
+    //               isSubmit = true;
+    //             });
+    //             Navigator.of(context).pop();
+    //           },
+    //           child: const Text('Đóng'),
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
+    Get.defaultDialog(
+      title: "Kết quả",
+      content: Text(
+        'Điểm của bạn: $score/${questions.length}',
+        textAlign: TextAlign.start,
+      ),
+      contentPadding: const EdgeInsets.all(TSizes.defaultSpace),
+      textCancel: "Đóng",
+      onCancel: () {
+        setState(() {
+          isSubmit = true;
+        });
       },
+      cancelTextColor: TColors.primary,
+      buttonColor: TColors.primary,
+
+      // textCancel: "Đóng",
     );
   }
 

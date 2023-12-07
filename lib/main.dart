@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get_core/get_core.dart';
@@ -13,6 +14,7 @@ import 'package:ui_project_hochiminh_museum/app.dart';
 import 'package:ui_project_hochiminh_museum/dependency_injection.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/local_notificaitons.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/notifiactions_model.dart';
+import 'package:ui_project_hochiminh_museum/features/personalization/controllers/settings_controller.dart';
 import 'package:ui_project_hochiminh_museum/firebase_options.dart';
 import 'package:ui_project_hochiminh_museum/repository/authentication_repository/authentication_repository.dart';
 
@@ -27,7 +29,9 @@ Future<void> main() async {
   await GetStorage.init('app-setting-configs');
   await GetStorage.init("app-notifications");
 
-  print("OPEN APP ${GetStorage("app-notifications").read("notifications")}");
+  if (kDebugMode) {
+    print("OPEN APP ${GetStorage("app-notifications").read("notifications")}");
+  }
 
   FirebaseMessaging.onMessage.listen((message) {
     handlePushNotification(message);
@@ -90,6 +94,7 @@ class MyApp extends StatelessWidget {
 
 void handlePushNotification(message) async {
   final box = GetStorage("app-notifications");
+  final settingsController = Get.put(SettingsController());
   String title = message.notification!.title as String;
   String body = message.notification!.body as String;
   dynamic data = message.data;
@@ -116,5 +121,7 @@ void handlePushNotification(message) async {
     var jsonArray = jsonEncode(dataList);
     box.write("notifications", jsonArray);
   }
-  LocalNotification.showNotification(message);
+  if (settingsController.isOnNotification) {
+    LocalNotification.showNotification(message);
+  }
 }

@@ -67,7 +67,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'TinTucSuKien',
                           subCategory: 'HDBaoTang',
                         ),
@@ -83,7 +83,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'TinTucSuKien',
                           subCategory: 'HDHeThongCacBT_DTLuuNiemHCM',
                         ),
@@ -98,7 +98,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'TinTucSuKien',
                           subCategory: 'HDNganhDSVH',
                         ),
@@ -113,7 +113,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'TinTucSuKien',
                           subCategory: 'HDBaoTangTrenTG',
                         ),
@@ -196,7 +196,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'NghienCuu',
                           subCategory: 'NghienCuuHCM',
                         ),
@@ -211,7 +211,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'NghienCuu',
                           subCategory: 'ChuyenKeHCM',
                         ),
@@ -226,7 +226,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'NghienCuu',
                           subCategory: 'AnPhamHCM',
                         ),
@@ -241,7 +241,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'NghienCuu',
                           subCategory: 'BoSuuTap',
                         ),
@@ -256,7 +256,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'NghienCuu',
                           subCategory: 'HienVatKeChuyen',
                         ),
@@ -271,7 +271,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'NghienCuu',
                           subCategory: 'HDKhoaHoc',
                         ),
@@ -286,7 +286,7 @@ class CategoriesList extends StatelessWidget {
                     onTap: () async {
                       Navigator.pop(context);
                       await Get.to(
-                        () => NewsScreen(
+                        () => const NewsScreen(
                           category: 'NghienCuu',
                           subCategory: 'CongBoKH',
                         ),
@@ -360,7 +360,7 @@ class CategoriesList extends StatelessWidget {
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
-                      () => NewsScreen(
+                      () => const NewsScreen(
                         category: 'GiaoDuc',
                         subCategory: 'HocTapTheoTamGuongHCM',
                       ),
@@ -375,7 +375,7 @@ class CategoriesList extends StatelessWidget {
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
-                      () => NewsScreen(
+                      () => const NewsScreen(
                         category: 'GiaoDuc',
                         subCategory: 'KeChuyenHCM',
                       ),
@@ -390,7 +390,7 @@ class CategoriesList extends StatelessWidget {
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
-                      () => NewsScreen(
+                      () => const NewsScreen(
                         category: 'GiaoDuc',
                         subCategory: 'NhungTamGuong',
                       ),
@@ -405,7 +405,7 @@ class CategoriesList extends StatelessWidget {
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
-                      () => NewsScreen(
+                      () => const NewsScreen(
                         category: 'GiaoDuc',
                         subCategory: 'PhongKhamPha',
                       ),
@@ -420,7 +420,7 @@ class CategoriesList extends StatelessWidget {
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
-                      () => NewsScreen(
+                      () => const NewsScreen(
                         category: 'GiaoDuc',
                         subCategory: 'BoiDuongNghiepVu',
                       ),
@@ -435,7 +435,7 @@ class CategoriesList extends StatelessWidget {
                   onTap: () async {
                     Navigator.pop(context);
                     await Get.to(
-                      () => NewsScreen(
+                      () => const NewsScreen(
                         category: 'GiaoDuc',
                         subCategory: 'CacHoatDongKhac',
                       ),

@@ -15,6 +15,7 @@ class ReplyCommentRepository extends GetxController {
         .doc(deThi)
         .collection('ReplyComment')
         .add(replyCommentModel.toJson())
+        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stacktrace) {
       () => Get.snackbar(
             'Lỗi',

@@ -19,6 +19,7 @@ class UserRepository extends GetxController {
         )
         .get()
         .catchError(
+      // ignore: body_might_complete_normally_catch_error
       (error) {
         if (kDebugMode) {
           print(error);
@@ -38,6 +39,7 @@ class UserRepository extends GetxController {
         )
         .get()
         .catchError(
+      // ignore: body_might_complete_normally_catch_error
       (error) {
         if (kDebugMode) {
           print(error);
@@ -102,6 +104,7 @@ class UserRepository extends GetxController {
             colorText: Colors.green,
           ),
         )
+        // ignore: body_might_complete_normally_catch_error
         .catchError((error, stacktrace) {
       () => Get.snackbar(
             'Lỗi',

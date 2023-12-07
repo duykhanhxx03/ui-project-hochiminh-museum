@@ -14,12 +14,12 @@ import 'package:ui_project_hochiminh_museum/features/authentication/models/user_
 import 'package:ui_project_hochiminh_museum/features/personalization/controllers/profile_controller.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/update_password.dart';
 import 'package:ui_project_hochiminh_museum/features/personalization/screens/profile/update_profile.dart';
-import 'package:ui_project_hochiminh_museum/navigation_menu.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/colors.dart';
 import 'package:ui_project_hochiminh_museum/utils/constants/sizes.dart';
 
 import 'widgets/profile_menu.dart';
 
+// ignore: must_be_immutable
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key, required this.didPop});
   void Function() didPop;
@@ -35,6 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late String userAvatarURL;
 
   void didPop() {
+    // ignore: invalid_use_of_protected_member
     (context as Element).reassemble();
   }
 
@@ -58,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     final data = snapshot.data as UserModel;
-                    userAvatarURL = data.avatar_imgURL;
+                    userAvatarURL = data.profileImageUrl;
                     return Column(
                       children: [
                         //Profile picture
@@ -110,7 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         email: data.email,
                                         phoneNumber: data.phoneNumber,
                                         password: data.password,
-                                        avatar_imgURL: userAvatarURL,
+                                        profileImageUrl: userAvatarURL,
                                       );
 
                                       await controller.updateUser(userData);

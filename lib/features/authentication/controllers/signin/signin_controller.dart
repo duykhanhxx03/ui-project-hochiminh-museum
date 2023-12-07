@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -75,6 +76,9 @@ class SignInController extends GetxController {
         backgroundColor: Colors.redAccent.withOpacity(0.1),
         colorText: Colors.red,
       );
+      if (kDebugMode) {
+        print(e.toString());
+      }
       GoogleSignIn().signOut();
     }
   }

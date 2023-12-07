@@ -11,14 +11,14 @@ class TUserProfileTitle extends StatefulWidget {
     required this.lastName,
     required this.firstName,
     required this.email,
-    required this.avatar_imgURL,
+    required this.profileImageUrl,
     required this.didPop,
   });
 
   final String lastName;
   final String firstName;
   final String email;
-  final String avatar_imgURL;
+  final String profileImageUrl;
 
   final void Function() didPop;
 
@@ -32,7 +32,7 @@ class _TUserProfileTitleState extends State<TUserProfileTitle> {
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: CachedNetworkImageProvider(
-          widget.avatar_imgURL,
+          widget.profileImageUrl,
         ),
         radius: 35,
       ),

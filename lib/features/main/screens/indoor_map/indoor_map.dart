@@ -99,6 +99,7 @@ class _IndoorMapScreenState extends State<IndoorMapScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final isDark = THelperFunctions.isDarkMode(context);
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
