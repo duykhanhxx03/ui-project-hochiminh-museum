@@ -131,30 +131,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                 fontStyle: FontStyle.italic))
                                       ]),
                                 ),
-                                // Container(
-                                //   margin: const EdgeInsets.only(top: 10),
-                                //   child: Row(
-                                //       mainAxisAlignment:
-                                //           MainAxisAlignment.spaceBetween,
-                                //       children: [
-                                //         Text(
-                                //           DateFormat("dd-MM-yyyy").format(
-                                //               notificationsList[index]
-                                //                   .timestamp!),
-                                //           style: const TextStyle(
-                                //               fontSize: 10,
-                                //               color: Colors.blueAccent),
-                                //         ),
-                                //         Text(
-                                //           DateFormat("HH:mm").format(
-                                //               notificationsList[index]
-                                //                   .timestamp!),
-                                //           style: const TextStyle(
-                                //               fontSize: 10,
-                                //               color: Colors.blueAccent),
-                                //         ),
-                                //       ]),
-                                // ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          notificationsList[index].date!,
+                                          style: const TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.blueAccent),
+                                        ),
+                                        Text(
+                                          notificationsList[index].time!,
+                                          style: const TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.blueAccent),
+                                        ),
+                                      ]),
+                                ),
                               ],
                             ),
                           ),

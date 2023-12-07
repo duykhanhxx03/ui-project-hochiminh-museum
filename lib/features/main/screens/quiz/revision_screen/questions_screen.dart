@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
@@ -27,8 +29,23 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     });
   }
 
+  List shuffle(List array) {
+    var random = Random(); //import 'dart:math';
+
+    // Go through all elementsof list
+    for (var i = array.length - 1; i > 0; i--) {
+      // Pick a random number according to the lenght of list
+      var n = random.nextInt(i + 1);
+      var temp = array[i];
+      array[i] = array[n];
+      array[n] = temp;
+    }
+    return array;
+  }
+
   @override
   Widget build(context) {
+    shuffle(questions);
     final currentQuestion = questions[currentQuestionIndex];
     return Container(
       margin: const EdgeInsets.all(20),

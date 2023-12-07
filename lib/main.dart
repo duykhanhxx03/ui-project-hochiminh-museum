@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:intl/intl.dart';
 import 'package:ui_project_hochiminh_museum/app.dart';
 import 'package:ui_project_hochiminh_museum/dependency_injection.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/local_notificaitons.dart';
@@ -27,13 +27,9 @@ Future<void> main() async {
   await GetStorage.init('app-setting-configs');
   await GetStorage.init("app-notifications");
 
-  // testing();
-  print("OPEN APP ${GetStorage("app-notifications").read("notifications")}");
   FirebaseMessaging.onMessage.listen((message) {
     handlePushNotification(message);
   });
-
-  // GetStorage("app-notifications").remove("notifications");
 
   final initList = {
     'TinTucSuKien': [
@@ -93,7 +89,12 @@ void handlePushNotification(message) async {
   String body = message.notification!.body as String;
   dynamic data = message.data;
   List<NotificationsMessageModel> listNoti = [];
-  var model = NotificationsMessageModel(title: title, body: body, data: data);
+  var model = NotificationsMessageModel(
+      title: title,
+      body: body,
+      data: data,
+      date: DateFormat("dd-MM-yyyy").format(DateTime.now()),
+      time: DateFormat("HH:mm").format(DateTime.now()));
   if (box.read("notifications") != null) {
     var jsonArray = box.read("notifications");
     List dataList = jsonDecode(jsonArray);

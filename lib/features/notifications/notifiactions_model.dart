@@ -2,15 +2,18 @@ class NotificationsMessageModel {
   final String? title;
   final String? body;
   final dynamic data;
-  final DateTime? timestamp;
-  NotificationsMessageModel({this.title, this.body, this.data, this.timestamp});
+  final String? date;
+  final String? time;
+  NotificationsMessageModel(
+      {this.title, this.body, this.data, this.date, this.time});
 
   toJson() {
     return {
       'title': title,
       'body': body,
       'data': data,
-      // 'timestamp': timestamp,
+      'date': date,
+      'time': time
     };
   }
 
@@ -18,7 +21,8 @@ class NotificationsMessageModel {
     return NotificationsMessageModel(
         title: jsonData['title'],
         body: jsonData['body'],
-        // timestamp: jsonData['timestamp'],
-        data: jsonData['data']);
+        data: jsonData['data'],
+        date: jsonData['date'],
+        time: jsonData['time']);
   }
 }
