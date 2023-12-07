@@ -18,7 +18,6 @@ class NavigationMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkMode = THelperFunctions.isDarkMode(context);
-    print('keke');
 
     return Scaffold(
       bottomNavigationBar: Obx(
@@ -33,16 +32,47 @@ class NavigationMenu extends StatelessWidget {
               ? TColors.white.withOpacity(0.1)
               : TColors.black.withOpacity(0.1),
           destinations: const [
-            NavigationDestination(icon: Icon(Iconsax.home), label: "Trang chủ"),
             NavigationDestination(
-                icon: Icon(Iconsax.route_square), label: "Khám phá"),
+              icon: Icon(Iconsax.home),
+              label: "Trang chủ",
+              selectedIcon: Icon(
+                Iconsax.home,
+                color: TColors.primary,
+              ),
+            ),
             NavigationDestination(
-                icon: Icon(Iconsax.teacher), label: "Học tập"),
-            NavigationDestination(icon: Icon(Iconsax.user), label: "Profile"),
+              icon: Icon(Iconsax.route_square),
+              label: "Khám phá",
+              selectedIcon: Icon(
+                Iconsax.route_square,
+                color: TColors.primary,
+              ),
+            ),
+            NavigationDestination(
+              icon: Icon(Iconsax.teacher),
+              label: "Học tập",
+              selectedIcon: Icon(
+                Iconsax.teacher,
+                color: TColors.primary,
+              ),
+            ),
+            NavigationDestination(
+              icon: Icon(Iconsax.user),
+              label: "Profile",
+              selectedIcon: Icon(
+                Iconsax.user,
+                color: TColors.primary,
+              ),
+            ),
           ],
         ),
       ),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
+      body: Obx(
+        () => IndexedStack(
+          index: controller.selectedIndex.value,
+          children: [...controller.screens],
+        ),
+      ),
     );
   }
 }

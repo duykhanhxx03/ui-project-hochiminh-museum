@@ -48,13 +48,6 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print(DateTime.now());
-  }
-
-  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
