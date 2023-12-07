@@ -44,7 +44,6 @@ class ResultScreen extends StatelessWidget {
             Text(
               'Bạn đã làm đúng $numCorrectQuestions trên $numTotalQuestions câu hỏi!',
               style: GoogleFonts.lato(
-                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -63,9 +62,6 @@ class ResultScreen extends StatelessWidget {
               onPressed: () {
                 restart();
               },
-              style: TextButton.styleFrom(
-                foregroundColor: const Color.fromARGB(255, 0, 0, 0),
-              ),
               label: const Text('Restart Quiz'),
               icon: const Icon(Icons.refresh),
             ),

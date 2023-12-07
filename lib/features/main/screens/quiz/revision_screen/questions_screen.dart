@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_project_hochiminh_museum/features/main/models/test_exam_model.dart';
 import 'package:ui_project_hochiminh_museum/features/main/screens/quiz/revision_screen/widgets/answer_buttom.dart';
+import 'package:ui_project_hochiminh_museum/utils/helpers/helper_functions.dart';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen(
@@ -45,6 +46,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   @override
   Widget build(context) {
+    final isDark = THelperFunctions.isDarkMode(context);
     shuffle(questions);
     final currentQuestion = questions[currentQuestionIndex];
     return Container(
@@ -57,7 +59,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             Text(
               currentQuestion.question,
               style: GoogleFonts.lato(
-                color: const Color.fromARGB(255, 0, 0, 0),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),

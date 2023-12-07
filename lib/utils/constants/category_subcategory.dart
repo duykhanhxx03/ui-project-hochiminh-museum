@@ -23,16 +23,9 @@ class TCategorySubCategoryConstanst {
       'Bồi dưỡng nghiệp vụ thuyết minh',
       'Các hoạt động giáo dục khác',
     ],
-    // 'Trưng bày': [
-    //   'Trưng bày online',
-    //   'Trưng bày thường xuyên',
-    //   'Trưng bày chuyên đề',
-    // ],
-    // 'Hỗ trợ tham quan': [
-    //   'Giờ mở cửa',
-    //   'Thông tin vé tham quan',
-    //   'Nội quy tham quan'
-    // ],
+    'Hỗ trợ tham quan': [
+      'Thông tin chung',
+    ],
   };
   static List<String> getAvailableSubCategories(selectedNewsCategory) {
     return newsCategoryWithSubCategories[selectedNewsCategory] ?? [];
@@ -85,6 +78,12 @@ class TCategorySubCategoryConstanst {
             return 'BoiDuongNghiepVu';
           case 'Các hoạt động giáo dục khác':
             return 'CacHoatDongKhac';
+        }
+        break;
+      case 'Hỗ trợ tham quan':
+        switch (subNewsCategory) {
+          case 'Thông tin chung':
+            return 'ThongTinChung';
         }
         break;
     }
@@ -140,6 +139,12 @@ class TCategorySubCategoryConstanst {
             return 'Các hoạt động giáo dục khác';
         }
         break;
+      case 'Hỗ trợ tham quan':
+        switch (subNewsCategory) {
+          case 'ThongTinChung':
+            return 'Thông tin chung';
+        }
+        break;
     }
     return '';
   }
@@ -152,10 +157,8 @@ class TCategorySubCategoryConstanst {
         return 'NghienCuu';
       case 'Giáo dục':
         return 'GiaoDuc';
-      // case 'Trưng bày':
-      //   return 'TrungBay';
-      // case 'Hỗ trợ tham quan':
-      //   return 'HoTroThamQuan';
+      case 'Hỗ trợ tham quan':
+        return 'HoTroThamQuan';
       default:
         return '';
     }
@@ -169,10 +172,8 @@ class TCategorySubCategoryConstanst {
         return 'Nghiên cứu';
       case 'GiaoDuc':
         return 'Giáo dục';
-      // case 'TrungBay':
-      //   return 'Trưng bày';
-      // case 'HoTroThamQuan':
-      //   return 'Hỗ trợ tham quan';
+      case 'HoTroThamQuan':
+        return 'Hỗ trợ tham quan';
       default:
         return '';
     }

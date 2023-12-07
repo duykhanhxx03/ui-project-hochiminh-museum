@@ -451,7 +451,16 @@ class CategoriesList extends StatelessWidget {
           SquaredButton(
             label: 'Hỗ trợ tham quan',
             backgroundColor: const Color.fromARGB(255, 75, 58, 10),
-            onTap: () {},
+            onTap: () async {
+              // Navigator.pop(context);
+              await Get.to(
+                () => const NewsScreen(
+                  category: 'HoTroThamQuan',
+                  subCategory: 'ThongTinChung',
+                ),
+                transition: Transition.cupertino,
+              );
+            },
             icon: Iconsax.book,
           ),
         ],
