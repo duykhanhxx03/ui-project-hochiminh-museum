@@ -22,9 +22,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
     setState(() {
       notificationsList = [];
       var jsonArray = box.read("notifications");
-      List dataList = jsonDecode(jsonArray);
-      for (var data in dataList) {
-        notificationsList.add(NotificationsMessageModel().fromJson(data));
+      if (jsonArray != null) {
+        List dataList = jsonDecode(jsonArray);
+        for (var data in dataList) {
+          notificationsList.add(NotificationsMessageModel().fromJson(data));
+        }
       }
     });
   }
