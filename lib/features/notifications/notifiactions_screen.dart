@@ -1,10 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
 import 'package:ui_project_hochiminh_museum/common/widgets/appbar/appbar.dart';
 import 'package:ui_project_hochiminh_museum/features/notifications/notifiactions_model.dart';
-import 'package:ui_project_hochiminh_museum/features/notifications/notifications_controller.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({
@@ -16,20 +15,18 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  final controller = Get.put(NotificationsController());
+  List<NotificationsMessageModel> notificationsList = [];
+  final box = GetStorage("app-notifications");
 
-  late List<NotificationsMessageModel> listNotifications;
-  reload() {
+  void reload() {
     setState(() {
-      listNotifications = Get.put(NotificationsController()).listNotification;
+      notificationsList = [];
+      var jsonArray = box.read("notifications");
+      List dataList = jsonDecode(jsonArray);
+      for (var data in dataList) {
+        notificationsList.add(NotificationsMessageModel().fromJson(data));
+      }
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    listNotifications = controller.listNotification;
-    Get.put(NotificationsController()).getListNotification();
   }
 
   @override
@@ -55,7 +52,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ),
         showBackArrow: true,
       ),
-      body: listNotifications.isEmpty
+      body: notificationsList.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +84,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 separatorBuilder: (context, index) {
                   return const Divider();
                 },
-                itemCount: listNotifications.length,
+                itemCount: notificationsList.length,
                 itemBuilder: (context, index) {
                   return Container(
                     padding:
@@ -118,7 +115,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                   text: TextSpan(
-                                      text: listNotifications[index].title,
+                                      text: notificationsList[index].title,
                                       style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.black,
@@ -127,37 +124,37 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       children: [
                                         TextSpan(
                                             text:
-                                                "\n${listNotifications[index].body}",
+                                                "\n${notificationsList[index].body}",
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 12,
                                                 fontStyle: FontStyle.italic))
                                       ]),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          DateFormat("dd-MM-yyyy").format(
-                                              listNotifications[index]
-                                                  .timestamp!),
-                                          style: const TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.blueAccent),
-                                        ),
-                                        Text(
-                                          DateFormat("HH:mm").format(
-                                              listNotifications[index]
-                                                  .timestamp!),
-                                          style: const TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.blueAccent),
-                                        ),
-                                      ]),
-                                ),
+                                // Container(
+                                //   margin: const EdgeInsets.only(top: 10),
+                                //   child: Row(
+                                //       mainAxisAlignment:
+                                //           MainAxisAlignment.spaceBetween,
+                                //       children: [
+                                //         Text(
+                                //           DateFormat("dd-MM-yyyy").format(
+                                //               notificationsList[index]
+                                //                   .timestamp!),
+                                //           style: const TextStyle(
+                                //               fontSize: 10,
+                                //               color: Colors.blueAccent),
+                                //         ),
+                                //         Text(
+                                //           DateFormat("HH:mm").format(
+                                //               notificationsList[index]
+                                //                   .timestamp!),
+                                //           style: const TextStyle(
+                                //               fontSize: 10,
+                                //               color: Colors.blueAccent),
+                                //         ),
+                                //       ]),
+                                // ),
                               ],
                             ),
                           ),

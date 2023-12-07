@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get_core/get_core.dart';
+import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:ui_project_hochiminh_museum/app.dart';
@@ -25,13 +26,14 @@ Future<void> main() async {
   //saves app config
   await GetStorage.init('app-setting-configs');
   await GetStorage.init("app-notifications");
-  // final controller = Get.put(NotificationsController()).listNotification;
 
-  testing();
-
+  // testing();
+  print("OPEN APP ${GetStorage("app-notifications").read("notifications")}");
   FirebaseMessaging.onMessage.listen((message) {
     handlePushNotification(message);
   });
+
+  // GetStorage("app-notifications").remove("notifications");
 
   final initList = {
     'TinTucSuKien': [
@@ -87,62 +89,26 @@ class MyApp extends StatelessWidget {
 
 void handlePushNotification(message) async {
   final box = GetStorage("app-notifications");
-
   String title = message.notification!.title as String;
   String body = message.notification!.body as String;
   dynamic data = message.data;
-
-  List<NotificationsMessageModel> listNotifications = [];
-  NotificationsMessageModel model = NotificationsMessageModel(
-      title: title, body: body, data: data, timestamp: DateTime.now());
-
-  listNotifications.insert(0, model);
-  print("object enable encode ${jsonEncode(model)}");
-
-  print("list enable encode ${jsonEncode(listNotifications)}");
-
-  await box.write("notifications", jsonEncode(listNotifications));
-
-  print("insert ${box.read("notifications")}");
-
-  GetStorage("app-notifications").write("notifications", listNotifications);
-
-  print(GetStorage("app-notifications").read("notifications"));
-
-  // final controller = Get.put(NotificationsController());
-  // controller.listNotification = listNotifications;
+  List<NotificationsMessageModel> listNoti = [];
+  var model = NotificationsMessageModel(title: title, body: body, data: data);
+  if (box.read("notifications") != null) {
+    var jsonArray = box.read("notifications");
+    List dataList = jsonDecode(jsonArray);
+    for (var data in dataList) {
+      listNoti.add(NotificationsMessageModel().fromJson(data));
+    }
+    listNoti.insert(0, model);
+    dataList = listNoti.map((e) => e.toJson()).toList();
+    jsonArray = jsonEncode(dataList);
+    box.write("notifications", jsonArray);
+  } else {
+    listNoti.insert(0, model);
+    List dataList = listNoti.map((e) => e.toJson()).toList();
+    var jsonArray = jsonEncode(dataList);
+    box.write("notifications", jsonArray);
+  }
   LocalNotification.showNotification(message);
-}
-
-void testing() {
-  List<NotificationsMessageModel> list = [
-    NotificationsMessageModel(
-        title: "title1", body: "body1", timestamp: DateTime.now()),
-    NotificationsMessageModel(
-        title: "title2", body: "body2", timestamp: DateTime.now()),
-    NotificationsMessageModel(
-        title: "title3", body: "body3", timestamp: DateTime.now())
-  ];
-
-  final box = GetStorage("app-notifications");
-
-//save
-  List notis = list.map((e) => e.toJson()).toList();
-  box.write("notifications", notis);
-  if (kDebugMode) {
-    print("listString1 $notis");
-  }
-
-  List listString = box.read("notifications");
-
-  print("listString2 $listString");
-
-  List list2 = [];
-
-  for (var noti in listString) {
-    list2.add(NotificationsMessageModel().fromJson(noti));
-  }
-  list2.map((e) => print(e));
-
-  //save
 }
